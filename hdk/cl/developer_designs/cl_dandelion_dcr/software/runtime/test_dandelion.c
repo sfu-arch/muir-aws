@@ -35,14 +35,15 @@
 /* /aws-fpga/hdk/cl/examples/common/cl_common_defines.vh */
 /* SV_TEST macro should be set if SW/HW co-simulation should be enabled */
 
-#define HELLO_WORLD_REG_ADDR UINT64_C(0x500)
-#define VLED_REG_ADDR	UINT64_C(0x504)
-
 #define DANDELION_CTRL_REG_ADDR UINT64_C(0x000)
 #define DANDELION_EVENT_REG_ADDR UINT64_C(0x004)
-#define DANDELION_VAL1_REG_ADDR UINT64_C(0x008)
-#define DANDELION_VAL2_REG_ADDR UINT64_C(0x00C)
+#define DANDELION_RET_REG_ADDR UINT64_C(0x008)
+#define DANDELION_VAL1_REG_ADDR UINT64_C(0x00C)
+#define DANDELION_VAL2_REG_ADDR UINT64_C(0x010)
 
+uint32_t test_accel(uint32_t a, uint32_t b){
+    return a * b;
+}
 
 /* use the stdout logger for printing debug information  */
 #ifndef SV_TEST
@@ -240,8 +241,9 @@ int check_afi_ready(int slot_id) {
 int peek_poke_example(uint32_t val1, uint32_t val2, int slot_id, int pf_id, int bar_id) {
     int rc;
 
-    uint32_t expected_val1 = val1;
-    uint32_t expected_val2 = val2;
+    uint32_t control_reg = 0;
+    uint32_t cycle_count = 0;
+    uint32_t return_reg  = 0;
 
     /* pci_bar_handle_t is a handler for an address space exposed by one PCI BAR on one of the PCI PFs of the FPGA */
 
@@ -261,40 +263,54 @@ int peek_poke_example(uint32_t val1, uint32_t val2, int slot_id, int pf_id, int 
     
     /* write a value into the mapped address space */
     // uint32_t expected = byte_swap(value);
+    printf("Initilizing the accelerator:\n");
     printf("Writing 0x%08x to Dandelion val1 register (0x%016lx)\n\n", val1, DANDELION_VAL1_REG_ADDR);
     rc = fpga_pci_poke(pci_bar_handle, DANDELION_VAL1_REG_ADDR, val1);
-
-    printf("Writing 0x%08x to Dandelion val1 register (0x%016lx)\n\n", val2, DANDELION_VAL2_REG_ADDR);
-    rc = fpga_pci_poke(pci_bar_handle, DANDELION_VAL2_REG_ADDR, val2);
-
     fail_on(rc, out, "Unable to write to the fpga !");
+
+    printf("Writing 0x%08x to Dandelion val2 register (0x%016lx)\n\n", val2, DANDELION_VAL2_REG_ADDR);
+    rc = fpga_pci_poke(pci_bar_handle, DANDELION_VAL2_REG_ADDR, val2);
+    fail_on(rc, out, "Unable to write to the fpga !");
+
+    printf("Lunching -- Writing 0x1 to dandelion ctrl register:\n");
+    rc = fpga_pci_poke(pci_bar_handle, DANDELION_CTRL_REG_ADDR, 0x1);
+    fail_on(rc, out, "Unable to write to the fpga !");
+
+
+    do{
+        rc = fpga_pci_peek(pci_bar_handle, DANDELION_CTRL_REG_ADDR, &control_reg);
+        fail_on(rc, out, "Unable to read read from the fpga !");
+    } while(control_reg != 2);
 
     /* read it back and print it out; you should expect the byte order to be
      * reversed (That's what this CL does) */
     rc = fpga_pci_peek(pci_bar_handle, DANDELION_VAL1_REG_ADDR, &val1);
-    rc = fpga_pci_peek(pci_bar_handle, DANDELION_VAL2_REG_ADDR, &val2);
-
     fail_on(rc, out, "Unable to read read from the fpga !");
+    rc = fpga_pci_peek(pci_bar_handle, DANDELION_VAL2_REG_ADDR, &val2);
+    fail_on(rc, out, "Unable to read read from the fpga !");
+
+    rc = fpga_pci_peek(pci_bar_handle, DANDELION_EVENT_REG_ADDR, &cycle_count);
+    fail_on(rc, out, "Unable to read read from the fpga !");
+    rc = fpga_pci_peek(pci_bar_handle, DANDELION_RET_REG_ADDR, &return_reg);
+    fail_on(rc, out, "Unable to read read from the fpga !");
+
     printf("=====  Entering peek_poke_example =====\n");
     printf("val1: 0x%x\n", val1);
     printf("val2: 0x%x\n", val2);
-    if(val1 == expected_val1) {
+    printf("ret: 0x%x\n", return_reg);
+
+
+    printf("cycle count: %d\n", cycle_count);
+
+    uint32_t expected_return = test_accel(val1, val2);
+
+    if(return_reg == test_accel(val1, val2)) {
         printf("TEST PASSED\n");
-        printf("Resulting value matched expected value 0x%x. It worked!\n", expected_val1);
+        printf("Resulting value matched expected value 0x%x. It worked!\n", expected_return);
     }
     else{
         printf("TEST FAILED\n");
-        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected_val1);
-    }
-
-
-    if(val2 == expected_val2) {
-        printf("TEST PASSED\n");
-        printf("Resulting value matched expected value 0x%x. It worked!\n", expected_val2);
-    }
-    else{
-        printf("TEST FAILED\n");
-        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected_val2);
+        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected_return);
     }
 out:
     /* clean up */
