@@ -70,7 +70,7 @@ uint32_t byte_swap(uint32_t value);
 /*
  * An example to attach to an arbitrary slot, pf, and bar with register access.
  */
-int peek_poke_example(int slot_id, int pf_id, int bar_id);
+int peek_poke_example(uint32_t val1, uint32_t val2, int slot_id, int pf_id, int bar_id);
 
 uint32_t byte_swap(uint32_t value) {
     uint32_t swapped_value = 0;
@@ -120,7 +120,7 @@ int main(int argc, char **argv)
                 }
                 sscanf(argv[i], "%d", &slot_id);
             } else if (!value_set) {
-                sscanf(argv[i], "%x", &value);
+                sscanf(argv[i], "%x", &value1);
                 value_set = 1;
             } else {
                 printf("error: Invalid arg: %s", argv[i]);
@@ -261,10 +261,10 @@ int peek_poke_example(uint32_t val1, uint32_t val2, int slot_id, int pf_id, int 
     
     /* write a value into the mapped address space */
     // uint32_t expected = byte_swap(value);
-    printf("Writing 0x%08x to Dandelion val1 register (0x%016lx)\n\n", value, DANDELION_VAL1_REG_ADDR);
+    printf("Writing 0x%08x to Dandelion val1 register (0x%016lx)\n\n", val1, DANDELION_VAL1_REG_ADDR);
     rc = fpga_pci_poke(pci_bar_handle, DANDELION_VAL1_REG_ADDR, val1);
 
-    printf("Writing 0x%08x to Dandelion val1 register (0x%016lx)\n\n", value, DANDELION_VAL2_REG_ADDR);
+    printf("Writing 0x%08x to Dandelion val1 register (0x%016lx)\n\n", val2, DANDELION_VAL2_REG_ADDR);
     rc = fpga_pci_poke(pci_bar_handle, DANDELION_VAL2_REG_ADDR, val2);
 
     fail_on(rc, out, "Unable to write to the fpga !");
@@ -279,22 +279,22 @@ int peek_poke_example(uint32_t val1, uint32_t val2, int slot_id, int pf_id, int 
     printf("val1: 0x%x\n", val1);
     printf("val2: 0x%x\n", val2);
     if(val1 == expected_val1) {
-        printf("TEST PASSED");
-        printf("Resulting value matched expected value 0x%x. It worked!\n", expected);
+        printf("TEST PASSED\n");
+        printf("Resulting value matched expected value 0x%x. It worked!\n", expected_val1);
     }
     else{
-        printf("TEST FAILED");
-        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected);
+        printf("TEST FAILED\n");
+        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected_val1);
     }
 
 
     if(val2 == expected_val2) {
-        printf("TEST PASSED");
-        printf("Resulting value matched expected value 0x%x. It worked!\n", expected);
+        printf("TEST PASSED\n");
+        printf("Resulting value matched expected value 0x%x. It worked!\n", expected_val2);
     }
     else{
-        printf("TEST FAILED");
-        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected);
+        printf("TEST FAILED\n");
+        printf("Resulting value did not match expected value 0x%x. Something didn't work.\n", expected_val2);
     }
 out:
     /* clean up */

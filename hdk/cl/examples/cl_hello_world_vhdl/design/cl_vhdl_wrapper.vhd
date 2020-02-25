@@ -369,6 +369,57 @@ architecture STRUCTURE of cl_vhdl_wrapper is
      );
  end component;
 
+ component DandelionF1Accel
+     port(
+         S_AXI_ACLK      : in    std_logic;
+         S_AXI_ARESETN   : in    std_logic;
+         S_AXI_AWADDR    : in    std_logic_vector(31 downto 0);
+         S_AXI_AWPROT    : in    std_logic_vector(2 downto 0);
+         S_AXI_AWVALID   : in    std_logic;
+         S_AXI_AWREADY   : out   std_logic;
+         S_AXI_WDATA     : in    std_logic_vector(31 downto 0);
+         S_AXI_WSTRB     : in    std_logic_vector(3 downto 0);
+         S_AXI_WVALID    : in    std_logic;
+         S_AXI_WREADY    : out   std_logic;
+         S_AXI_BRESP     : out   std_logic_vector(1 downto 0);
+         S_AXI_BVALID    : out   std_logic;
+         S_AXI_BREADY    : in    std_logic;
+         S_AXI_ARADDR    : in    std_logic_vector(31 downto 0);
+         S_AXI_ARPROT    : in    std_logic_vector(2 downto 0);
+         S_AXI_ARVALID   : in    std_logic;
+         S_AXI_ARREADY   : out   std_logic;
+         S_AXI_RDATA     : out   std_logic_vector(31 downto 0);
+         S_AXI_RRESP     : out   std_logic_vector(1 downto 0);
+         S_AXI_RVALID    : out   std_logic;
+         S_AXI_RREADY    : in    std_logic;
+         vdip            : in    std_logic_vector(15 downto 0);
+         vled            : out   std_logic_vector(15 downto 0)
+
+  ap_clk : in std_logic;
+  ap_rst_n: in std_logic;
+  s_axi_control_AWVALID: in std_logic_vector(31 downto 0);
+  s_axi_control_AWREADY: out std_logic;
+  s_axi_control_AWADDR: in std_logic_vector (31 downto 0);
+  s_axi_control_WVALID: in std_logic;
+  s_axi_control_WREADY: out std_logic;
+
+  input  [31:0] s_axi_control_WDATA,
+  input  [3:0]  s_axi_control_WSTRB,
+  output        s_axi_control_BVALID,
+  input         s_axi_control_BREADY,
+  output [1:0]  s_axi_control_BRESP,
+  input         s_axi_control_ARVALID,
+  output        s_axi_control_ARREADY,
+  input  [31:0] s_axi_control_ARADDR,
+  output        s_axi_control_RVALID,
+  input         s_axi_control_RREADY,
+  output [31:0] s_axi_control_RDATA,
+  output [1:0]  s_axi_control_RRESP
+
+     );
+ end component;
+
+
 
 
 COMPONENT axi_register_slice_light

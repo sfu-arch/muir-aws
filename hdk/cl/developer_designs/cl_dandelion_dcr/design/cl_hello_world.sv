@@ -24,6 +24,9 @@ module cl_hello_world
 `include "cl_id_defines.vh"          // Defines for ID0 and ID1 (PCI ID's)
 `include "cl_hello_world_defines.vh" // CL Defines for cl_hello_world
 
+`include "DandelionF1Accel.v" // CL Defines for dandelion accel
+
+
 logic rst_main_n_sync;
 
 
@@ -201,122 +204,148 @@ always_ff @(negedge rst_main_n or posedge clk_main_a0)
    assign ocl_sh_rdata_q   = rdata;
    assign ocl_sh_rresp_q   = rresp[1:0];
 
+   DandelionF1Accel dandelion_accel(
+     .ap_clk                   (clk_main_a0),
+     .ap_rst_n                 (rst_main_n_sync),
+     .s_axi_control_AWVALID    (awvalid),
+     .s_axi_control_AWREADY    (awready),
+     .s_axi_control_AWADDR     (awaddr),
+     .s_axi_control_WVALID     (wvalid),
+     .s_axi_control_WREADY     (wready),
+     .s_axi_control_WDATA      (wdata),
+     .s_axi_control_WSTRB      (wstrb),
+     .s_axi_control_BVALID     (bvalid),
+     .s_axi_control_BREADY     (bready),
+     .s_axi_control_BRESP      (bresp),
+     .s_axi_control_ARVALID    (arvalid),
+     .s_axi_control_ARREADY    (arready),
+     .s_axi_control_ARADDR     (araddr),
+     .s_axi_control_RVALID     (rvalid),
+     .s_axi_control_RREADY     (rready),
+     .s_axi_control_RDATA      (rdata),
+     .s_axi_control_RRESP      (rresp)
+   );
+
+
+    /*
+    * Commenting hello world example logic
+    */
 // Write Request
-logic        wr_active;
-logic [31:0] wr_addr;
+//logic        wr_active;
+//logic [31:0] wr_addr;
 
-always_ff @(posedge clk_main_a0)
-  if (!rst_main_n_sync) begin
-     wr_active <= 0;
-     wr_addr   <= 0;
-  end
-  else begin
-     wr_active <=  wr_active && bvalid  && bready ? 1'b0     :
-                  ~wr_active && awvalid           ? 1'b1     :
-                                                    wr_active;
-     wr_addr <= awvalid && ~wr_active ? awaddr : wr_addr     ;
-  end
+//always_ff @(posedge clk_main_a0)
+  //if (!rst_main_n_sync) begin
+     //wr_active <= 0;
+     //wr_addr   <= 0;
+  //end
+  //else begin
+     //wr_active <=  wr_active && bvalid  && bready ? 1'b0     :
+                  //~wr_active && awvalid           ? 1'b1     :
+                                                    //wr_active;
+     //wr_addr <= awvalid && ~wr_active ? awaddr : wr_addr     ;
+  //end
 
-assign awready = ~wr_active;
-assign wready  =  wr_active && wvalid;
+//assign awready = ~wr_active;
+//assign wready  =  wr_active && wvalid;
 
-// Write Response
-always_ff @(posedge clk_main_a0)
-  if (!rst_main_n_sync) 
-    bvalid <= 0;
-  else
-    bvalid <=  bvalid &&  bready           ? 1'b0  : 
-                         ~bvalid && wready ? 1'b1  :
-                                             bvalid;
-assign bresp = 0;
+//// Write Response
+//always_ff @(posedge clk_main_a0)
+  //if (!rst_main_n_sync) 
+    //bvalid <= 0;
+  //else
+    //bvalid <=  bvalid &&  bready           ? 1'b0  : 
+                         //~bvalid && wready ? 1'b1  :
+                                             //bvalid;
+//assign bresp = 0;
 
-// Read Request
-always_ff @(posedge clk_main_a0)
-   if (!rst_main_n_sync) begin
-      arvalid_q <= 0;
-      araddr_q  <= 0;
-   end
-   else begin
-      arvalid_q <= arvalid;
-      araddr_q  <= arvalid ? araddr : araddr_q;
-   end
+//// Read Request
+//always_ff @(posedge clk_main_a0)
+   //if (!rst_main_n_sync) begin
+      //arvalid_q <= 0;
+      //araddr_q  <= 0;
+   //end
+   //else begin
+      //arvalid_q <= arvalid;
+      //araddr_q  <= arvalid ? araddr : araddr_q;
+   //end
 
-assign arready = !arvalid_q && !rvalid;
+//assign arready = !arvalid_q && !rvalid;
 
-// Read Response
-always_ff @(posedge clk_main_a0)
-   if (!rst_main_n_sync)
-   begin
-      rvalid <= 0;
-      rdata  <= 0;
-      rresp  <= 0;
-   end
-   else if (rvalid && rready)
-   begin
-      rvalid <= 0;
-      rdata  <= 0;
-      rresp  <= 0;
-   end
-   else if (arvalid_q) 
-   begin
-      rvalid <= 1;
-      rdata  <= (araddr_q == `HELLO_WORLD_REG_ADDR) ? hello_world_q_byte_swapped[31:0]:
-                (araddr_q == `VLED_REG_ADDR       ) ? {16'b0,vled_q[15:0]            }:
-                                                      `UNIMPLEMENTED_REG_VALUE        ;
-      rresp  <= 0;
-   end
+//// Read Response
+//always_ff @(posedge clk_main_a0)
+   //if (!rst_main_n_sync)
+   //begin
+      //rvalid <= 0;
+      //rdata  <= 0;
+      //rresp  <= 0;
+   //end
+   //else if (rvalid && rready)
+   //begin
+      //rvalid <= 0;
+      //rdata  <= 0;
+      //rresp  <= 0;
+   //end
+   //else if (arvalid_q) 
+   //begin
+      //rvalid <= 1;
+      //rdata  <= (araddr_q == `HELLO_WORLD_REG_ADDR) ? hello_world_q_byte_swapped[31:0]:
+                //(araddr_q == `VLED_REG_ADDR       ) ? {16'b0,vled_q[15:0]            }:
+                                                      //`UNIMPLEMENTED_REG_VALUE        ;
+      //rresp  <= 0;
+   //end
 
-//-------------------------------------------------
-// Hello World Register
-//-------------------------------------------------
-// When read it, returns the byte-flipped value.
+////-------------------------------------------------
+//// Hello World Register
+////-------------------------------------------------
+//// When read it, returns the byte-flipped value.
 
-always_ff @(posedge clk_main_a0)
-   if (!rst_main_n_sync) begin                    // Reset
-      hello_world_q[31:0] <= 32'h0000_0000;
-   end
-   else if (wready & (wr_addr == `HELLO_WORLD_REG_ADDR)) begin  
-      hello_world_q[31:0] <= wdata[31:0];
-   end
-   else begin                                // Hold Value
-      hello_world_q[31:0] <= hello_world_q[31:0];
-   end
+//always_ff @(posedge clk_main_a0)
+   //if (!rst_main_n_sync) begin                    // Reset
+      //hello_world_q[31:0] <= 32'h0000_0000;
+   //end
+   //else if (wready & (wr_addr == `HELLO_WORLD_REG_ADDR)) begin  
+      //hello_world_q[31:0] <= wdata[31:0];
+   //end
+   //else begin                                // Hold Value
+      //hello_world_q[31:0] <= hello_world_q[31:0];
+   //end
 
-assign hello_world_q_byte_swapped[31:0] = {hello_world_q[7:0],   hello_world_q[15:8],
-                                           hello_world_q[23:16], hello_world_q[31:24]};
+//assign hello_world_q_byte_swapped[31:0] = {hello_world_q[7:0],   hello_world_q[15:8],
+                                           //hello_world_q[23:16], hello_world_q[31:24]};
 
-//-------------------------------------------------
-// Virtual LED Register
-//-------------------------------------------------
-// Flop/synchronize interface signals
-always_ff @(posedge clk_main_a0)
-   if (!rst_main_n_sync) begin                    // Reset
-      sh_cl_status_vdip_q[15:0]  <= 16'h0000;
-      sh_cl_status_vdip_q2[15:0] <= 16'h0000;
-      cl_sh_status_vled[15:0]    <= 16'h0000;
-   end
-   else begin
-      sh_cl_status_vdip_q[15:0]  <= sh_cl_status_vdip[15:0];
-      sh_cl_status_vdip_q2[15:0] <= sh_cl_status_vdip_q[15:0];
-      cl_sh_status_vled[15:0]    <= pre_cl_sh_status_vled[15:0];
-   end
+////-------------------------------------------------
+//// Virtual LED Register
+////-------------------------------------------------
+//// Flop/synchronize interface signals
+//always_ff @(posedge clk_main_a0)
+   //if (!rst_main_n_sync) begin                    // Reset
+      //sh_cl_status_vdip_q[15:0]  <= 16'h0000;
+      //sh_cl_status_vdip_q2[15:0] <= 16'h0000;
+      //cl_sh_status_vled[15:0]    <= 16'h0000;
+   //end
+   //else begin
+      //sh_cl_status_vdip_q[15:0]  <= sh_cl_status_vdip[15:0];
+      //sh_cl_status_vdip_q2[15:0] <= sh_cl_status_vdip_q[15:0];
+      //cl_sh_status_vled[15:0]    <= pre_cl_sh_status_vled[15:0];
+   //end
 
-// The register contains 16 read-only bits corresponding to 16 LED's.
-// For this example, the virtual LED register shadows the hello_world
-// register.
-// The same LED values can be read from the CL to Shell interface
-// by using the linux FPGA tool: $ fpga-get-virtual-led -S 0
+//// The register contains 16 read-only bits corresponding to 16 LED's.
+//// For this example, the virtual LED register shadows the hello_world
+//// register.
+//// The same LED values can be read from the CL to Shell interface
+//// by using the linux FPGA tool: $ fpga-get-virtual-led -S 0
 
-always_ff @(posedge clk_main_a0)
-   if (!rst_main_n_sync) begin                    // Reset
-      vled_q[15:0] <= 16'h0000;
-   end
-   else begin
-      vled_q[15:0] <= hello_world_q[15:0];
-   end
+//always_ff @(posedge clk_main_a0)
+   //if (!rst_main_n_sync) begin                    // Reset
+      //vled_q[15:0] <= 16'h0000;
+   //end
+   //else begin
+      //vled_q[15:0] <= hello_world_q[15:0];
+   //end
 
-// The Virtual LED outputs will be masked with the Virtual DIP switches.
-assign pre_cl_sh_status_vled[15:0] = vled_q[15:0] & sh_cl_status_vdip_q2[15:0];
+//// The Virtual LED outputs will be masked with the Virtual DIP switches.
+//assign pre_cl_sh_status_vled[15:0] = vled_q[15:0] & sh_cl_status_vdip_q2[15:0];
 
 //-------------------------------------------
 // Tie-Off Unused Global Signals

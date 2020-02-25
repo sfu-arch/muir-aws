@@ -24,9 +24,9 @@ CFLAGS = -DCONFIG_LOGLEVEL=4 -g -Wall $(INCLUDES)
 
 LDLIBS = -lfpga_mgmt -lrt -lpthread
 
-SRC = ${SDK_DIR}/userspace/utils/sh_dpi_tasks.c test_hello_world.c
+SRC = ${SDK_DIR}/userspace/utils/sh_dpi_tasks.c test_dandelion.c
 OBJ = $(SRC:.c=.o)
-BIN = test_hello_world
+BIN = test_dandelion
 
 all: $(BIN) check_env
 
