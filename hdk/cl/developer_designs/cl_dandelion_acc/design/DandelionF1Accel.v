@@ -13348,8 +13348,8 @@ module DandelionF1Accel(
   output        m_axi_gmem_AWVALID,
   input         m_axi_gmem_AWREADY,
   output [63:0] m_axi_gmem_AWADDR,
-  output        m_axi_gmem_AWID,
-  output [4:0]  m_axi_gmem_AWUSER,
+  output [15:0] m_axi_gmem_AWID,
+  output [9:0]  m_axi_gmem_AWUSER,
   output [7:0]  m_axi_gmem_AWLEN,
   output [2:0]  m_axi_gmem_AWSIZE,
   output [1:0]  m_axi_gmem_AWBURST,
@@ -13363,18 +13363,18 @@ module DandelionF1Accel(
   output [63:0] m_axi_gmem_WDATA,
   output [7:0]  m_axi_gmem_WSTRB,
   output        m_axi_gmem_WLAST,
-  output        m_axi_gmem_WID,
-  output [4:0]  m_axi_gmem_WUSER,
+  output [15:0] m_axi_gmem_WID,
+  output [9:0]  m_axi_gmem_WUSER,
   input         m_axi_gmem_BVALID,
   output        m_axi_gmem_BREADY,
   input  [1:0]  m_axi_gmem_BRESP,
-  input         m_axi_gmem_BID,
-  input  [4:0]  m_axi_gmem_BUSER,
+  input  [15:0] m_axi_gmem_BID,
+  input  [9:0]  m_axi_gmem_BUSER,
   output        m_axi_gmem_ARVALID,
   input         m_axi_gmem_ARREADY,
   output [63:0] m_axi_gmem_ARADDR,
-  output        m_axi_gmem_ARID,
-  output [4:0]  m_axi_gmem_ARUSER,
+  output [15:0] m_axi_gmem_ARID,
+  output [9:0]  m_axi_gmem_ARUSER,
   output [7:0]  m_axi_gmem_ARLEN,
   output [2:0]  m_axi_gmem_ARSIZE,
   output [1:0]  m_axi_gmem_ARBURST,
@@ -13388,8 +13388,8 @@ module DandelionF1Accel(
   input  [63:0] m_axi_gmem_RDATA,
   input  [1:0]  m_axi_gmem_RRESP,
   input         m_axi_gmem_RLAST,
-  input         m_axi_gmem_RID,
-  input  [4:0]  m_axi_gmem_RUSER,
+  input  [15:0] m_axi_gmem_RID,
+  input  [9:0]  m_axi_gmem_RUSER,
   input         s_axi_control_AWVALID,
   output        s_axi_control_AWREADY,
   input  [31:0] s_axi_control_AWADDR,
@@ -13472,8 +13472,8 @@ module DandelionF1Accel(
   );
   assign m_axi_gmem_AWVALID = shell_io_mem_aw_valid; // @[XilinxShell.scala 54:22]
   assign m_axi_gmem_AWADDR = shell_io_mem_aw_bits_addr; // @[XilinxShell.scala 56:21]
-  assign m_axi_gmem_AWID = 1'h0; // @[XilinxShell.scala 57:19]
-  assign m_axi_gmem_AWUSER = 5'h0; // @[XilinxShell.scala 58:21]
+  assign m_axi_gmem_AWID = 16'h0; // @[XilinxShell.scala 57:19]
+  assign m_axi_gmem_AWUSER = 10'h0; // @[XilinxShell.scala 58:21]
   assign m_axi_gmem_AWLEN = 8'h3; // @[XilinxShell.scala 59:20]
   assign m_axi_gmem_AWSIZE = 3'h3; // @[XilinxShell.scala 60:21]
   assign m_axi_gmem_AWBURST = 2'h1; // @[XilinxShell.scala 61:22]
@@ -13486,13 +13486,13 @@ module DandelionF1Accel(
   assign m_axi_gmem_WDATA = shell_io_mem_w_bits_data; // @[XilinxShell.scala 70:20]
   assign m_axi_gmem_WSTRB = 8'hff; // @[XilinxShell.scala 71:20]
   assign m_axi_gmem_WLAST = shell_io_mem_w_bits_last; // @[XilinxShell.scala 72:20]
-  assign m_axi_gmem_WID = 1'h0; // @[XilinxShell.scala 73:18]
-  assign m_axi_gmem_WUSER = 5'h0; // @[XilinxShell.scala 74:20]
+  assign m_axi_gmem_WID = 16'h0; // @[XilinxShell.scala 73:18]
+  assign m_axi_gmem_WUSER = 10'h0; // @[XilinxShell.scala 74:20]
   assign m_axi_gmem_BREADY = shell_io_mem_b_valid; // @[XilinxShell.scala 77:21]
   assign m_axi_gmem_ARVALID = shell_io_mem_ar_valid; // @[XilinxShell.scala 82:22]
   assign m_axi_gmem_ARADDR = shell_io_mem_ar_bits_addr; // @[XilinxShell.scala 84:21]
-  assign m_axi_gmem_ARID = 1'h0; // @[XilinxShell.scala 85:19]
-  assign m_axi_gmem_ARUSER = 5'h0; // @[XilinxShell.scala 86:21]
+  assign m_axi_gmem_ARID = 16'h0; // @[XilinxShell.scala 85:19]
+  assign m_axi_gmem_ARUSER = 10'h0; // @[XilinxShell.scala 86:21]
   assign m_axi_gmem_ARLEN = 8'h3; // @[XilinxShell.scala 87:20]
   assign m_axi_gmem_ARSIZE = 3'h3; // @[XilinxShell.scala 88:21]
   assign m_axi_gmem_ARBURST = 2'h1; // @[XilinxShell.scala 89:22]
