@@ -260,22 +260,7 @@ module SimpleCache(
   output        io_cpu_resp_valid,
   output [63:0] io_cpu_resp_bits_data,
   output [7:0]  io_cpu_resp_bits_tag,
-  output        io_cpu_resp_bits_iswrite,
-  input         io_mem_aw_ready,
-  output        io_mem_aw_valid,
-  output [63:0] io_mem_aw_bits_addr,
-  input         io_mem_w_ready,
-  output        io_mem_w_valid,
-  output [63:0] io_mem_w_bits_data,
-  output        io_mem_w_bits_last,
-  output        io_mem_b_ready,
-  input         io_mem_b_valid,
-  input         io_mem_ar_ready,
-  output        io_mem_ar_valid,
-  output [63:0] io_mem_ar_bits_addr,
-  output        io_mem_r_ready,
-  input         io_mem_r_valid,
-  input  [63:0] io_mem_r_bits_data
+  output        io_cpu_resp_bits_iswrite
 );
   reg [50:0] metaMem_tag [0:255]; // @[AXICache.scala 88:20]
   reg [63:0] _RAND_0;
@@ -625,200 +610,87 @@ module SimpleCache(
   reg [31:0] _RAND_40;
   reg  cpu_iswrite; // @[AXICache.scala 95:28]
   reg [31:0] _RAND_41;
-  wire  _T; // @[Decoupled.scala 40:37]
-  reg [1:0] read_count; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_42;
-  wire  _T_1; // @[Counter.scala 37:24]
-  wire [1:0] _T_3; // @[Counter.scala 38:22]
-  wire  read_wrap_out; // @[Counter.scala 72:20]
-  wire  _T_4; // @[Decoupled.scala 40:37]
-  reg [1:0] write_count; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_43;
-  wire  _T_5; // @[Counter.scala 37:24]
-  wire [1:0] _T_7; // @[Counter.scala 38:22]
-  wire  write_wrap_out; // @[Counter.scala 72:20]
   wire  _T_8; // @[AXICache.scala 105:51]
   reg [7:0] set_count; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_44;
+  reg [31:0] _RAND_42;
   wire  _T_9; // @[Counter.scala 37:24]
   wire [7:0] _T_11; // @[Counter.scala 38:22]
   wire  set_wrap; // @[Counter.scala 72:20]
-  wire [7:0] _T_13; // @[AXICache.scala 109:62]
-  wire [63:0] _T_21; // @[AXICache.scala 109:69]
-  wire [63:0] _T_41; // @[AXICache.scala 109:69]
-  wire [127:0] _T_52; // @[Cat.scala 29:58]
-  wire [255:0] dirty_cache_block; // @[Cat.scala 29:58]
-  reg [50:0] block_rmeta_tag; // @[AXICache.scala 110:28]
-  reg [63:0] _RAND_45;
-  reg  flush_mode; // @[AXICache.scala 111:27]
-  reg [31:0] _RAND_46;
   wire  is_idle; // @[AXICache.scala 113:23]
   wire  is_read; // @[AXICache.scala 114:23]
   wire  is_write; // @[AXICache.scala 115:24]
-  wire  _T_55; // @[AXICache.scala 116:24]
-  wire  is_alloc; // @[AXICache.scala 116:37]
-  reg  is_alloc_reg; // @[AXICache.scala 117:29]
-  reg [31:0] _RAND_47;
   wire [7:0] idx_reg; // @[AXICache.scala 130:25]
   wire [255:0] _T_104; // @[AXICache.scala 142:15]
   wire  _T_105; // @[AXICache.scala 142:15]
   reg [50:0] rmeta_tag; // @[AXICache.scala 136:22]
-  reg [63:0] _RAND_48;
+  reg [63:0] _RAND_43;
   wire [50:0] tag_reg; // @[AXICache.scala 129:25]
   wire  _T_106; // @[AXICache.scala 142:38]
   wire  hit; // @[AXICache.scala 142:25]
-  wire  _T_56; // @[AXICache.scala 120:30]
-  wire  _T_57; // @[AXICache.scala 120:22]
-  wire  wen; // @[AXICache.scala 120:64]
+  wire  wen; // @[AXICache.scala 120:22]
   wire  _T_60; // @[AXICache.scala 121:13]
   wire  _T_61; // @[AXICache.scala 121:30]
   wire  _T_62; // @[AXICache.scala 121:18]
   reg  ren_reg; // @[AXICache.scala 122:24]
-  reg [31:0] _RAND_49;
+  reg [31:0] _RAND_44;
   wire [1:0] off_reg; // @[AXICache.scala 131:25]
   wire [63:0] _T_70; // @[AXICache.scala 134:51]
   wire [63:0] _T_86; // @[AXICache.scala 134:51]
   wire [127:0] _T_95; // @[Cat.scala 29:58]
   wire [255:0] cache_block; // @[Cat.scala 29:58]
   reg [255:0] rdata; // @[AXICache.scala 137:22]
-  reg [255:0] _RAND_50;
+  reg [255:0] _RAND_45;
   reg [255:0] rdata_buf; // @[Reg.scala 15:16]
-  reg [255:0] _RAND_51;
+  reg [255:0] _RAND_46;
   wire [255:0] _GEN_3; // @[Reg.scala 16:19]
-  reg [63:0] refill_buf_0; // @[AXICache.scala 139:27]
-  reg [63:0] _RAND_52;
-  reg [63:0] refill_buf_1; // @[AXICache.scala 139:27]
-  reg [63:0] _RAND_53;
-  reg [63:0] refill_buf_2; // @[AXICache.scala 139:27]
-  reg [63:0] _RAND_54;
-  reg [63:0] refill_buf_3; // @[AXICache.scala 139:27]
-  reg [63:0] _RAND_55;
-  wire [255:0] _T_102; // @[AXICache.scala 140:43]
-  wire [255:0] read; // @[AXICache.scala 140:17]
   wire [63:0] _T_108; // @[AXICache.scala 145:62]
   wire [63:0] _T_109; // @[AXICache.scala 145:62]
   wire [63:0] _T_110; // @[AXICache.scala 145:62]
   wire [63:0] _T_111; // @[AXICache.scala 145:62]
   wire [63:0] _GEN_5; // @[AXICache.scala 145:25]
   wire [63:0] _GEN_6; // @[AXICache.scala 145:25]
-  wire  _T_113; // @[AXICache.scala 147:39]
   wire  _T_114; // @[AXICache.scala 147:59]
   wire  _T_115; // @[AXICache.scala 147:47]
-  wire  _T_116; // @[AXICache.scala 147:87]
-  wire  _T_117; // @[AXICache.scala 147:84]
-  wire  _T_118; // @[AXICache.scala 147:67]
   wire  _T_128; // @[Decoupled.scala 40:37]
-  wire  _T_129; // @[AXICache.scala 171:19]
   wire [4:0] _T_130; // @[Cat.scala 29:58]
   wire [38:0] _GEN_273; // @[AXICache.scala 171:40]
   wire [38:0] _T_131; // @[AXICache.scala 171:40]
   wire [39:0] _T_132; // @[AXICache.scala 171:87]
-  wire [39:0] _T_133; // @[AXICache.scala 171:18]
   wire [39:0] wmask; // @[AXICache.scala 171:114]
-  wire [255:0] _T_136; // @[Cat.scala 29:58]
-  wire [255:0] _T_139; // @[Cat.scala 29:58]
-  wire [255:0] wdata; // @[AXICache.scala 172:18]
+  wire [255:0] wdata; // @[Cat.scala 29:58]
   wire [255:0] _T_140; // @[AXICache.scala 178:26]
   wire [255:0] _T_141; // @[AXICache.scala 178:26]
   wire [255:0] _T_148; // @[AXICache.scala 179:26]
-  wire [255:0] _T_149; // @[AXICache.scala 179:26]
-  wire [255:0] _T_150; // @[AXICache.scala 179:26]
-  wire [255:0] _T_151; // @[AXICache.scala 179:26]
   wire [7:0] _T_163; // @[AXICache.scala 188:38]
   wire [7:0] _T_182; // @[AXICache.scala 188:38]
   wire [7:0] _T_201; // @[AXICache.scala 188:38]
   wire [7:0] _T_220; // @[AXICache.scala 188:38]
-  wire [58:0] _T_231; // @[Cat.scala 29:58]
-  wire [63:0] _GEN_274; // @[AXICache.scala 201:48]
-  wire [65:0] _T_232; // @[AXICache.scala 201:48]
   wire [255:0] _T_235; // @[AXICache.scala 213:29]
   wire  _T_236; // @[AXICache.scala 213:29]
   wire [255:0] _T_237; // @[AXICache.scala 213:49]
   wire  _T_238; // @[AXICache.scala 213:49]
   wire  is_block_dirty; // @[AXICache.scala 213:41]
-  wire [58:0] _T_241; // @[Cat.scala 29:58]
-  wire [63:0] _GEN_275; // @[AXICache.scala 214:58]
-  wire [65:0] block_addr; // @[AXICache.scala 214:58]
-  wire [58:0] _T_242; // @[Cat.scala 29:58]
-  wire [63:0] _GEN_276; // @[AXICache.scala 218:78]
-  wire [65:0] _T_243; // @[AXICache.scala 218:78]
-  wire [65:0] _T_244; // @[AXICache.scala 218:29]
-  wire [63:0] _T_245; // @[AXICache.scala 226:57]
-  wire [63:0] _T_246; // @[AXICache.scala 226:57]
-  wire [63:0] _T_247; // @[AXICache.scala 226:57]
-  wire [63:0] _T_248; // @[AXICache.scala 226:57]
-  wire [63:0] _GEN_165; // @[AXICache.scala 225:8]
-  wire [63:0] _GEN_166; // @[AXICache.scala 225:8]
-  wire [63:0] _GEN_167; // @[AXICache.scala 225:8]
-  wire [63:0] _GEN_169; // @[AXICache.scala 225:8]
-  wire [63:0] _GEN_170; // @[AXICache.scala 225:8]
-  wire [63:0] _GEN_171; // @[AXICache.scala 225:8]
   reg [15:0] counterValue; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_56;
+  reg [31:0] _RAND_47;
   wire [15:0] _T_258; // @[Counter.scala 38:22]
-  wire [255:0] _T_261; // @[AXICache.scala 244:41]
-  wire  _T_262; // @[AXICache.scala 244:41]
-  wire  is_dirty; // @[AXICache.scala 244:33]
   wire  _T_263; // @[Conditional.scala 37:30]
   wire  _T_264; // @[AXICache.scala 252:19]
   wire  _T_265; // @[AXICache.scala 252:19]
   wire  _T_268; // @[Conditional.scala 37:30]
-  wire  _T_271; // @[AXICache.scala 278:28]
-  wire  _T_272; // @[Decoupled.scala 40:37]
-  wire  _T_273; // @[Decoupled.scala 40:37]
-  wire  _GEN_179; // @[AXICache.scala 263:17]
-  wire  _GEN_180; // @[AXICache.scala 263:17]
   wire  _T_274; // @[Conditional.scala 37:30]
   wire  _GEN_184; // @[AXICache.scala 287:49]
-  wire  _GEN_185; // @[AXICache.scala 287:49]
-  wire  _GEN_186; // @[AXICache.scala 287:49]
   wire  _T_284; // @[Conditional.scala 37:30]
   wire  _T_285; // @[Conditional.scala 37:30]
-  wire  _T_286; // @[Decoupled.scala 40:37]
   wire  _T_287; // @[Conditional.scala 37:30]
   wire  _T_289; // @[Conditional.scala 37:30]
-  wire  _GEN_196; // @[Conditional.scala 39:67]
-  wire  _GEN_199; // @[Conditional.scala 39:67]
-  wire  _GEN_200; // @[Conditional.scala 39:67]
   wire  _GEN_202; // @[Conditional.scala 39:67]
-  wire  _GEN_203; // @[Conditional.scala 39:67]
-  wire  _GEN_204; // @[Conditional.scala 39:67]
-  wire  _GEN_205; // @[Conditional.scala 39:67]
-  wire  _GEN_206; // @[Conditional.scala 39:67]
-  wire  _GEN_208; // @[Conditional.scala 39:67]
-  wire  _GEN_209; // @[Conditional.scala 39:67]
   wire  _GEN_210; // @[Conditional.scala 39:67]
-  wire  _GEN_211; // @[Conditional.scala 39:67]
-  wire  _GEN_212; // @[Conditional.scala 39:67]
-  wire  _GEN_214; // @[Conditional.scala 40:58]
-  wire  _GEN_215; // @[Conditional.scala 40:58]
-  wire  _GEN_217; // @[Conditional.scala 40:58]
-  wire  _GEN_218; // @[Conditional.scala 40:58]
   wire  _T_297; // @[Conditional.scala 37:30]
-  wire  _GEN_220; // @[AXICache.scala 342:26]
   wire  _T_298; // @[Conditional.scala 37:30]
   wire  _GEN_231; // @[AXICache.scala 348:22]
   wire  _T_300; // @[Conditional.scala 37:30]
-  wire  _T_301; // @[Conditional.scala 37:30]
-  wire  _T_303; // @[Conditional.scala 37:30]
-  wire  _T_304; // @[Conditional.scala 37:30]
-  wire  _GEN_236; // @[Conditional.scala 39:67]
-  wire  _GEN_238; // @[Conditional.scala 39:67]
-  wire  _GEN_240; // @[Conditional.scala 39:67]
-  wire  _GEN_241; // @[Conditional.scala 39:67]
-  wire  _GEN_242; // @[Conditional.scala 39:67]
-  wire  _GEN_244; // @[Conditional.scala 39:67]
-  wire  _GEN_245; // @[Conditional.scala 39:67]
-  wire  _GEN_247; // @[Conditional.scala 39:67]
-  wire  _GEN_248; // @[Conditional.scala 39:67]
-  wire  _GEN_249; // @[Conditional.scala 39:67]
-  wire  _GEN_250; // @[Conditional.scala 39:67]
   wire  _GEN_251; // @[Conditional.scala 39:67]
   wire  _GEN_256; // @[Conditional.scala 39:67]
-  wire  _GEN_258; // @[Conditional.scala 39:67]
-  wire  _GEN_259; // @[Conditional.scala 39:67]
-  wire  _GEN_260; // @[Conditional.scala 39:67]
-  wire  _GEN_261; // @[Conditional.scala 39:67]
   wire  _GEN_277; // @[AXICache.scala 252:19]
   wire  _GEN_278; // @[AXICache.scala 252:19]
   wire  _GEN_280; // @[AXICache.scala 257:19]
@@ -843,8 +715,6 @@ module SimpleCache(
   wire  _GEN_307; // @[AXICache.scala 326:15]
   wire  _GEN_308; // @[AXICache.scala 326:15]
   wire  _GEN_309; // @[AXICache.scala 326:15]
-  wire  _GEN_322; // @[AXICache.scala 332:19]
-  wire  _GEN_323; // @[AXICache.scala 332:19]
   assign metaMem_tag__T_97_addr = io_cpu_req_bits_addr[12:5];
   assign metaMem_tag__T_97_data = metaMem_tag[metaMem_tag__T_97_addr]; // @[AXICache.scala 88:20]
   assign metaMem_tag__T_299_addr = set_count;
@@ -852,7 +722,7 @@ module SimpleCache(
   assign metaMem_tag__T_153_data = addr_reg[63:13];
   assign metaMem_tag__T_153_addr = addr_reg[12:5];
   assign metaMem_tag__T_153_mask = 1'h1;
-  assign metaMem_tag__T_153_en = wen & is_alloc;
+  assign metaMem_tag__T_153_en = 1'h0;
   assign dataMem_0_0__T_14_addr = set_count - 8'h1;
   assign dataMem_0_0__T_14_data = dataMem_0_0[dataMem_0_0__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_0__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -860,7 +730,7 @@ module SimpleCache(
   assign dataMem_0_0__T_172_data = wdata[7:0];
   assign dataMem_0_0__T_172_addr = addr_reg[12:5];
   assign dataMem_0_0__T_172_mask = _T_163[0];
-  assign dataMem_0_0__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_0__T_172_en = is_write & hit;
   assign dataMem_0_1__T_14_addr = set_count - 8'h1;
   assign dataMem_0_1__T_14_data = dataMem_0_1[dataMem_0_1__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_1__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -868,7 +738,7 @@ module SimpleCache(
   assign dataMem_0_1__T_172_data = wdata[15:8];
   assign dataMem_0_1__T_172_addr = addr_reg[12:5];
   assign dataMem_0_1__T_172_mask = _T_163[1];
-  assign dataMem_0_1__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_1__T_172_en = is_write & hit;
   assign dataMem_0_2__T_14_addr = set_count - 8'h1;
   assign dataMem_0_2__T_14_data = dataMem_0_2[dataMem_0_2__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_2__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -876,7 +746,7 @@ module SimpleCache(
   assign dataMem_0_2__T_172_data = wdata[23:16];
   assign dataMem_0_2__T_172_addr = addr_reg[12:5];
   assign dataMem_0_2__T_172_mask = _T_163[2];
-  assign dataMem_0_2__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_2__T_172_en = is_write & hit;
   assign dataMem_0_3__T_14_addr = set_count - 8'h1;
   assign dataMem_0_3__T_14_data = dataMem_0_3[dataMem_0_3__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_3__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -884,7 +754,7 @@ module SimpleCache(
   assign dataMem_0_3__T_172_data = wdata[31:24];
   assign dataMem_0_3__T_172_addr = addr_reg[12:5];
   assign dataMem_0_3__T_172_mask = _T_163[3];
-  assign dataMem_0_3__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_3__T_172_en = is_write & hit;
   assign dataMem_0_4__T_14_addr = set_count - 8'h1;
   assign dataMem_0_4__T_14_data = dataMem_0_4[dataMem_0_4__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_4__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -892,7 +762,7 @@ module SimpleCache(
   assign dataMem_0_4__T_172_data = wdata[39:32];
   assign dataMem_0_4__T_172_addr = addr_reg[12:5];
   assign dataMem_0_4__T_172_mask = _T_163[4];
-  assign dataMem_0_4__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_4__T_172_en = is_write & hit;
   assign dataMem_0_5__T_14_addr = set_count - 8'h1;
   assign dataMem_0_5__T_14_data = dataMem_0_5[dataMem_0_5__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_5__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -900,7 +770,7 @@ module SimpleCache(
   assign dataMem_0_5__T_172_data = wdata[47:40];
   assign dataMem_0_5__T_172_addr = addr_reg[12:5];
   assign dataMem_0_5__T_172_mask = _T_163[5];
-  assign dataMem_0_5__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_5__T_172_en = is_write & hit;
   assign dataMem_0_6__T_14_addr = set_count - 8'h1;
   assign dataMem_0_6__T_14_data = dataMem_0_6[dataMem_0_6__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_6__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -908,7 +778,7 @@ module SimpleCache(
   assign dataMem_0_6__T_172_data = wdata[55:48];
   assign dataMem_0_6__T_172_addr = addr_reg[12:5];
   assign dataMem_0_6__T_172_mask = _T_163[6];
-  assign dataMem_0_6__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_6__T_172_en = is_write & hit;
   assign dataMem_0_7__T_14_addr = set_count - 8'h1;
   assign dataMem_0_7__T_14_data = dataMem_0_7[dataMem_0_7__T_14_addr]; // @[AXICache.scala 89:37]
   assign dataMem_0_7__T_63_addr = io_cpu_req_bits_addr[12:5];
@@ -916,7 +786,7 @@ module SimpleCache(
   assign dataMem_0_7__T_172_data = wdata[63:56];
   assign dataMem_0_7__T_172_addr = addr_reg[12:5];
   assign dataMem_0_7__T_172_mask = _T_163[7];
-  assign dataMem_0_7__T_172_en = _T_57 | is_alloc;
+  assign dataMem_0_7__T_172_en = is_write & hit;
   assign dataMem_1_0__T_24_addr = set_count - 8'h1;
   assign dataMem_1_0__T_24_data = dataMem_1_0[dataMem_1_0__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_0__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -924,7 +794,7 @@ module SimpleCache(
   assign dataMem_1_0__T_191_data = wdata[71:64];
   assign dataMem_1_0__T_191_addr = addr_reg[12:5];
   assign dataMem_1_0__T_191_mask = _T_182[0];
-  assign dataMem_1_0__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_0__T_191_en = is_write & hit;
   assign dataMem_1_1__T_24_addr = set_count - 8'h1;
   assign dataMem_1_1__T_24_data = dataMem_1_1[dataMem_1_1__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_1__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -932,7 +802,7 @@ module SimpleCache(
   assign dataMem_1_1__T_191_data = wdata[79:72];
   assign dataMem_1_1__T_191_addr = addr_reg[12:5];
   assign dataMem_1_1__T_191_mask = _T_182[1];
-  assign dataMem_1_1__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_1__T_191_en = is_write & hit;
   assign dataMem_1_2__T_24_addr = set_count - 8'h1;
   assign dataMem_1_2__T_24_data = dataMem_1_2[dataMem_1_2__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_2__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -940,7 +810,7 @@ module SimpleCache(
   assign dataMem_1_2__T_191_data = wdata[87:80];
   assign dataMem_1_2__T_191_addr = addr_reg[12:5];
   assign dataMem_1_2__T_191_mask = _T_182[2];
-  assign dataMem_1_2__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_2__T_191_en = is_write & hit;
   assign dataMem_1_3__T_24_addr = set_count - 8'h1;
   assign dataMem_1_3__T_24_data = dataMem_1_3[dataMem_1_3__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_3__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -948,7 +818,7 @@ module SimpleCache(
   assign dataMem_1_3__T_191_data = wdata[95:88];
   assign dataMem_1_3__T_191_addr = addr_reg[12:5];
   assign dataMem_1_3__T_191_mask = _T_182[3];
-  assign dataMem_1_3__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_3__T_191_en = is_write & hit;
   assign dataMem_1_4__T_24_addr = set_count - 8'h1;
   assign dataMem_1_4__T_24_data = dataMem_1_4[dataMem_1_4__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_4__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -956,7 +826,7 @@ module SimpleCache(
   assign dataMem_1_4__T_191_data = wdata[103:96];
   assign dataMem_1_4__T_191_addr = addr_reg[12:5];
   assign dataMem_1_4__T_191_mask = _T_182[4];
-  assign dataMem_1_4__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_4__T_191_en = is_write & hit;
   assign dataMem_1_5__T_24_addr = set_count - 8'h1;
   assign dataMem_1_5__T_24_data = dataMem_1_5[dataMem_1_5__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_5__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -964,7 +834,7 @@ module SimpleCache(
   assign dataMem_1_5__T_191_data = wdata[111:104];
   assign dataMem_1_5__T_191_addr = addr_reg[12:5];
   assign dataMem_1_5__T_191_mask = _T_182[5];
-  assign dataMem_1_5__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_5__T_191_en = is_write & hit;
   assign dataMem_1_6__T_24_addr = set_count - 8'h1;
   assign dataMem_1_6__T_24_data = dataMem_1_6[dataMem_1_6__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_6__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -972,7 +842,7 @@ module SimpleCache(
   assign dataMem_1_6__T_191_data = wdata[119:112];
   assign dataMem_1_6__T_191_addr = addr_reg[12:5];
   assign dataMem_1_6__T_191_mask = _T_182[6];
-  assign dataMem_1_6__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_6__T_191_en = is_write & hit;
   assign dataMem_1_7__T_24_addr = set_count - 8'h1;
   assign dataMem_1_7__T_24_data = dataMem_1_7[dataMem_1_7__T_24_addr]; // @[AXICache.scala 89:37]
   assign dataMem_1_7__T_71_addr = io_cpu_req_bits_addr[12:5];
@@ -980,7 +850,7 @@ module SimpleCache(
   assign dataMem_1_7__T_191_data = wdata[127:120];
   assign dataMem_1_7__T_191_addr = addr_reg[12:5];
   assign dataMem_1_7__T_191_mask = _T_182[7];
-  assign dataMem_1_7__T_191_en = _T_57 | is_alloc;
+  assign dataMem_1_7__T_191_en = is_write & hit;
   assign dataMem_2_0__T_34_addr = set_count - 8'h1;
   assign dataMem_2_0__T_34_data = dataMem_2_0[dataMem_2_0__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_0__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -988,7 +858,7 @@ module SimpleCache(
   assign dataMem_2_0__T_210_data = wdata[135:128];
   assign dataMem_2_0__T_210_addr = addr_reg[12:5];
   assign dataMem_2_0__T_210_mask = _T_201[0];
-  assign dataMem_2_0__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_0__T_210_en = is_write & hit;
   assign dataMem_2_1__T_34_addr = set_count - 8'h1;
   assign dataMem_2_1__T_34_data = dataMem_2_1[dataMem_2_1__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_1__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -996,7 +866,7 @@ module SimpleCache(
   assign dataMem_2_1__T_210_data = wdata[143:136];
   assign dataMem_2_1__T_210_addr = addr_reg[12:5];
   assign dataMem_2_1__T_210_mask = _T_201[1];
-  assign dataMem_2_1__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_1__T_210_en = is_write & hit;
   assign dataMem_2_2__T_34_addr = set_count - 8'h1;
   assign dataMem_2_2__T_34_data = dataMem_2_2[dataMem_2_2__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_2__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -1004,7 +874,7 @@ module SimpleCache(
   assign dataMem_2_2__T_210_data = wdata[151:144];
   assign dataMem_2_2__T_210_addr = addr_reg[12:5];
   assign dataMem_2_2__T_210_mask = _T_201[2];
-  assign dataMem_2_2__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_2__T_210_en = is_write & hit;
   assign dataMem_2_3__T_34_addr = set_count - 8'h1;
   assign dataMem_2_3__T_34_data = dataMem_2_3[dataMem_2_3__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_3__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -1012,7 +882,7 @@ module SimpleCache(
   assign dataMem_2_3__T_210_data = wdata[159:152];
   assign dataMem_2_3__T_210_addr = addr_reg[12:5];
   assign dataMem_2_3__T_210_mask = _T_201[3];
-  assign dataMem_2_3__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_3__T_210_en = is_write & hit;
   assign dataMem_2_4__T_34_addr = set_count - 8'h1;
   assign dataMem_2_4__T_34_data = dataMem_2_4[dataMem_2_4__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_4__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -1020,7 +890,7 @@ module SimpleCache(
   assign dataMem_2_4__T_210_data = wdata[167:160];
   assign dataMem_2_4__T_210_addr = addr_reg[12:5];
   assign dataMem_2_4__T_210_mask = _T_201[4];
-  assign dataMem_2_4__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_4__T_210_en = is_write & hit;
   assign dataMem_2_5__T_34_addr = set_count - 8'h1;
   assign dataMem_2_5__T_34_data = dataMem_2_5[dataMem_2_5__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_5__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -1028,7 +898,7 @@ module SimpleCache(
   assign dataMem_2_5__T_210_data = wdata[175:168];
   assign dataMem_2_5__T_210_addr = addr_reg[12:5];
   assign dataMem_2_5__T_210_mask = _T_201[5];
-  assign dataMem_2_5__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_5__T_210_en = is_write & hit;
   assign dataMem_2_6__T_34_addr = set_count - 8'h1;
   assign dataMem_2_6__T_34_data = dataMem_2_6[dataMem_2_6__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_6__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -1036,7 +906,7 @@ module SimpleCache(
   assign dataMem_2_6__T_210_data = wdata[183:176];
   assign dataMem_2_6__T_210_addr = addr_reg[12:5];
   assign dataMem_2_6__T_210_mask = _T_201[6];
-  assign dataMem_2_6__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_6__T_210_en = is_write & hit;
   assign dataMem_2_7__T_34_addr = set_count - 8'h1;
   assign dataMem_2_7__T_34_data = dataMem_2_7[dataMem_2_7__T_34_addr]; // @[AXICache.scala 89:37]
   assign dataMem_2_7__T_79_addr = io_cpu_req_bits_addr[12:5];
@@ -1044,7 +914,7 @@ module SimpleCache(
   assign dataMem_2_7__T_210_data = wdata[191:184];
   assign dataMem_2_7__T_210_addr = addr_reg[12:5];
   assign dataMem_2_7__T_210_mask = _T_201[7];
-  assign dataMem_2_7__T_210_en = _T_57 | is_alloc;
+  assign dataMem_2_7__T_210_en = is_write & hit;
   assign dataMem_3_0__T_44_addr = set_count - 8'h1;
   assign dataMem_3_0__T_44_data = dataMem_3_0[dataMem_3_0__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_0__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1052,7 +922,7 @@ module SimpleCache(
   assign dataMem_3_0__T_229_data = wdata[199:192];
   assign dataMem_3_0__T_229_addr = addr_reg[12:5];
   assign dataMem_3_0__T_229_mask = _T_220[0];
-  assign dataMem_3_0__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_0__T_229_en = is_write & hit;
   assign dataMem_3_1__T_44_addr = set_count - 8'h1;
   assign dataMem_3_1__T_44_data = dataMem_3_1[dataMem_3_1__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_1__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1060,7 +930,7 @@ module SimpleCache(
   assign dataMem_3_1__T_229_data = wdata[207:200];
   assign dataMem_3_1__T_229_addr = addr_reg[12:5];
   assign dataMem_3_1__T_229_mask = _T_220[1];
-  assign dataMem_3_1__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_1__T_229_en = is_write & hit;
   assign dataMem_3_2__T_44_addr = set_count - 8'h1;
   assign dataMem_3_2__T_44_data = dataMem_3_2[dataMem_3_2__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_2__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1068,7 +938,7 @@ module SimpleCache(
   assign dataMem_3_2__T_229_data = wdata[215:208];
   assign dataMem_3_2__T_229_addr = addr_reg[12:5];
   assign dataMem_3_2__T_229_mask = _T_220[2];
-  assign dataMem_3_2__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_2__T_229_en = is_write & hit;
   assign dataMem_3_3__T_44_addr = set_count - 8'h1;
   assign dataMem_3_3__T_44_data = dataMem_3_3[dataMem_3_3__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_3__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1076,7 +946,7 @@ module SimpleCache(
   assign dataMem_3_3__T_229_data = wdata[223:216];
   assign dataMem_3_3__T_229_addr = addr_reg[12:5];
   assign dataMem_3_3__T_229_mask = _T_220[3];
-  assign dataMem_3_3__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_3__T_229_en = is_write & hit;
   assign dataMem_3_4__T_44_addr = set_count - 8'h1;
   assign dataMem_3_4__T_44_data = dataMem_3_4[dataMem_3_4__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_4__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1084,7 +954,7 @@ module SimpleCache(
   assign dataMem_3_4__T_229_data = wdata[231:224];
   assign dataMem_3_4__T_229_addr = addr_reg[12:5];
   assign dataMem_3_4__T_229_mask = _T_220[4];
-  assign dataMem_3_4__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_4__T_229_en = is_write & hit;
   assign dataMem_3_5__T_44_addr = set_count - 8'h1;
   assign dataMem_3_5__T_44_data = dataMem_3_5[dataMem_3_5__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_5__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1092,7 +962,7 @@ module SimpleCache(
   assign dataMem_3_5__T_229_data = wdata[239:232];
   assign dataMem_3_5__T_229_addr = addr_reg[12:5];
   assign dataMem_3_5__T_229_mask = _T_220[5];
-  assign dataMem_3_5__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_5__T_229_en = is_write & hit;
   assign dataMem_3_6__T_44_addr = set_count - 8'h1;
   assign dataMem_3_6__T_44_data = dataMem_3_6[dataMem_3_6__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_6__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1100,7 +970,7 @@ module SimpleCache(
   assign dataMem_3_6__T_229_data = wdata[247:240];
   assign dataMem_3_6__T_229_addr = addr_reg[12:5];
   assign dataMem_3_6__T_229_mask = _T_220[6];
-  assign dataMem_3_6__T_229_en = _T_57 | is_alloc;
+  assign dataMem_3_6__T_229_en = is_write & hit;
   assign dataMem_3_7__T_44_addr = set_count - 8'h1;
   assign dataMem_3_7__T_44_data = dataMem_3_7[dataMem_3_7__T_44_addr]; // @[AXICache.scala 89:37]
   assign dataMem_3_7__T_87_addr = io_cpu_req_bits_addr[12:5];
@@ -1108,38 +978,21 @@ module SimpleCache(
   assign dataMem_3_7__T_229_data = wdata[255:248];
   assign dataMem_3_7__T_229_addr = addr_reg[12:5];
   assign dataMem_3_7__T_229_mask = _T_220[7];
-  assign dataMem_3_7__T_229_en = _T_57 | is_alloc;
-  assign _T = io_mem_r_ready & io_mem_r_valid; // @[Decoupled.scala 40:37]
-  assign _T_1 = read_count == 2'h3; // @[Counter.scala 37:24]
-  assign _T_3 = read_count + 2'h1; // @[Counter.scala 38:22]
-  assign read_wrap_out = _T & _T_1; // @[Counter.scala 72:20]
-  assign _T_4 = io_mem_w_ready & io_mem_w_valid; // @[Decoupled.scala 40:37]
-  assign _T_5 = write_count == 2'h3; // @[Counter.scala 37:24]
-  assign _T_7 = write_count + 2'h1; // @[Counter.scala 38:22]
-  assign write_wrap_out = _T_4 & _T_5; // @[Counter.scala 72:20]
+  assign dataMem_3_7__T_229_en = is_write & hit;
   assign _T_8 = flush_state == 3'h1; // @[AXICache.scala 105:51]
   assign _T_9 = set_count == 8'hff; // @[Counter.scala 37:24]
   assign _T_11 = set_count + 8'h1; // @[Counter.scala 38:22]
   assign set_wrap = _T_8 & _T_9; // @[Counter.scala 72:20]
-  assign _T_13 = set_count - 8'h1; // @[AXICache.scala 109:62]
-  assign _T_21 = {dataMem_0_7__T_14_data,dataMem_0_6__T_14_data,dataMem_0_5__T_14_data,dataMem_0_4__T_14_data,dataMem_0_3__T_14_data,dataMem_0_2__T_14_data,dataMem_0_1__T_14_data,dataMem_0_0__T_14_data}; // @[AXICache.scala 109:69]
-  assign _T_41 = {dataMem_2_7__T_34_data,dataMem_2_6__T_34_data,dataMem_2_5__T_34_data,dataMem_2_4__T_34_data,dataMem_2_3__T_34_data,dataMem_2_2__T_34_data,dataMem_2_1__T_34_data,dataMem_2_0__T_34_data}; // @[AXICache.scala 109:69]
-  assign _T_52 = {dataMem_1_7__T_24_data,dataMem_1_6__T_24_data,dataMem_1_5__T_24_data,dataMem_1_4__T_24_data,dataMem_1_3__T_24_data,dataMem_1_2__T_24_data,dataMem_1_1__T_24_data,dataMem_1_0__T_24_data,_T_21}; // @[Cat.scala 29:58]
-  assign dirty_cache_block = {dataMem_3_7__T_44_data,dataMem_3_6__T_44_data,dataMem_3_5__T_44_data,dataMem_3_4__T_44_data,dataMem_3_3__T_44_data,dataMem_3_2__T_44_data,dataMem_3_1__T_44_data,dataMem_3_0__T_44_data,_T_41,_T_52}; // @[Cat.scala 29:58]
   assign is_idle = state == 3'h0; // @[AXICache.scala 113:23]
   assign is_read = state == 3'h1; // @[AXICache.scala 114:23]
   assign is_write = state == 3'h2; // @[AXICache.scala 115:24]
-  assign _T_55 = state == 3'h6; // @[AXICache.scala 116:24]
-  assign is_alloc = _T_55 & read_wrap_out; // @[AXICache.scala 116:37]
   assign idx_reg = addr_reg[12:5]; // @[AXICache.scala 130:25]
   assign _T_104 = valid >> idx_reg; // @[AXICache.scala 142:15]
   assign _T_105 = _T_104[0]; // @[AXICache.scala 142:15]
   assign tag_reg = addr_reg[63:13]; // @[AXICache.scala 129:25]
   assign _T_106 = rmeta_tag == tag_reg; // @[AXICache.scala 142:38]
   assign hit = _T_105 & _T_106; // @[AXICache.scala 142:25]
-  assign _T_56 = hit | is_alloc_reg; // @[AXICache.scala 120:30]
-  assign _T_57 = is_write & _T_56; // @[AXICache.scala 120:22]
-  assign wen = _T_57 | is_alloc; // @[AXICache.scala 120:64]
+  assign wen = is_write & hit; // @[AXICache.scala 120:22]
   assign _T_60 = wen == 1'h0; // @[AXICache.scala 121:13]
   assign _T_61 = is_idle | is_read; // @[AXICache.scala 121:30]
   assign _T_62 = _T_60 & _T_61; // @[AXICache.scala 121:18]
@@ -1149,145 +1002,58 @@ module SimpleCache(
   assign _T_95 = {dataMem_1_7__T_71_data,dataMem_1_6__T_71_data,dataMem_1_5__T_71_data,dataMem_1_4__T_71_data,dataMem_1_3__T_71_data,dataMem_1_2__T_71_data,dataMem_1_1__T_71_data,dataMem_1_0__T_71_data,_T_70}; // @[Cat.scala 29:58]
   assign cache_block = {dataMem_3_7__T_87_data,dataMem_3_6__T_87_data,dataMem_3_5__T_87_data,dataMem_3_4__T_87_data,dataMem_3_3__T_87_data,dataMem_3_2__T_87_data,dataMem_3_1__T_87_data,dataMem_3_0__T_87_data,_T_86,_T_95}; // @[Cat.scala 29:58]
   assign _GEN_3 = ren_reg ? rdata : rdata_buf; // @[Reg.scala 16:19]
-  assign _T_102 = {refill_buf_3,refill_buf_2,refill_buf_1,refill_buf_0}; // @[AXICache.scala 140:43]
-  assign read = is_alloc_reg ? _T_102 : _GEN_3; // @[AXICache.scala 140:17]
-  assign _T_108 = read[63:0]; // @[AXICache.scala 145:62]
-  assign _T_109 = read[127:64]; // @[AXICache.scala 145:62]
-  assign _T_110 = read[191:128]; // @[AXICache.scala 145:62]
-  assign _T_111 = read[255:192]; // @[AXICache.scala 145:62]
+  assign _T_108 = _GEN_3[63:0]; // @[AXICache.scala 145:62]
+  assign _T_109 = _GEN_3[127:64]; // @[AXICache.scala 145:62]
+  assign _T_110 = _GEN_3[191:128]; // @[AXICache.scala 145:62]
+  assign _T_111 = _GEN_3[255:192]; // @[AXICache.scala 145:62]
   assign _GEN_5 = 2'h1 == off_reg ? _T_109 : _T_108; // @[AXICache.scala 145:25]
   assign _GEN_6 = 2'h2 == off_reg ? _T_110 : _GEN_5; // @[AXICache.scala 145:25]
-  assign _T_113 = is_write & hit; // @[AXICache.scala 147:39]
   assign _T_114 = is_read & hit; // @[AXICache.scala 147:59]
-  assign _T_115 = _T_113 | _T_114; // @[AXICache.scala 147:47]
-  assign _T_116 = cpu_iswrite == 1'h0; // @[AXICache.scala 147:87]
-  assign _T_117 = is_alloc_reg & _T_116; // @[AXICache.scala 147:84]
-  assign _T_118 = _T_115 | _T_117; // @[AXICache.scala 147:67]
+  assign _T_115 = wen | _T_114; // @[AXICache.scala 147:47]
   assign _T_128 = io_cpu_req_ready & io_cpu_req_valid; // @[Decoupled.scala 40:37]
-  assign _T_129 = is_alloc == 1'h0; // @[AXICache.scala 171:19]
   assign _T_130 = {off_reg,3'h0}; // @[Cat.scala 29:58]
   assign _GEN_273 = {{31'd0}, cpu_mask}; // @[AXICache.scala 171:40]
   assign _T_131 = _GEN_273 << _T_130; // @[AXICache.scala 171:40]
   assign _T_132 = {1'b0,$signed(_T_131)}; // @[AXICache.scala 171:87]
-  assign _T_133 = _T_129 ? $signed(_T_132) : $signed(-40'sh1); // @[AXICache.scala 171:18]
-  assign wmask = $unsigned(_T_133); // @[AXICache.scala 171:114]
-  assign _T_136 = {cpu_data,cpu_data,cpu_data,cpu_data}; // @[Cat.scala 29:58]
-  assign _T_139 = {io_mem_r_bits_data,refill_buf_2,refill_buf_1,refill_buf_0}; // @[Cat.scala 29:58]
-  assign wdata = _T_129 ? _T_136 : _T_139; // @[AXICache.scala 172:18]
+  assign wmask = $unsigned(_T_132); // @[AXICache.scala 171:114]
+  assign wdata = {cpu_data,cpu_data,cpu_data,cpu_data}; // @[Cat.scala 29:58]
   assign _T_140 = 256'h1 << idx_reg; // @[AXICache.scala 178:26]
   assign _T_141 = valid | _T_140; // @[AXICache.scala 178:26]
   assign _T_148 = dirty | _T_140; // @[AXICache.scala 179:26]
-  assign _T_149 = ~ dirty; // @[AXICache.scala 179:26]
-  assign _T_150 = _T_149 | _T_140; // @[AXICache.scala 179:26]
-  assign _T_151 = ~ _T_150; // @[AXICache.scala 179:26]
   assign _T_163 = wmask[7:0]; // @[AXICache.scala 188:38]
   assign _T_182 = wmask[15:8]; // @[AXICache.scala 188:38]
   assign _T_201 = wmask[23:16]; // @[AXICache.scala 188:38]
   assign _T_220 = wmask[31:24]; // @[AXICache.scala 188:38]
-  assign _T_231 = {tag_reg,idx_reg}; // @[Cat.scala 29:58]
-  assign _GEN_274 = {_T_231, 5'h0}; // @[AXICache.scala 201:48]
-  assign _T_232 = {{2'd0}, _GEN_274}; // @[AXICache.scala 201:48]
   assign _T_235 = valid >> set_count; // @[AXICache.scala 213:29]
   assign _T_236 = _T_235[0]; // @[AXICache.scala 213:29]
   assign _T_237 = dirty >> set_count; // @[AXICache.scala 213:49]
   assign _T_238 = _T_237[0]; // @[AXICache.scala 213:49]
   assign is_block_dirty = _T_236 & _T_238; // @[AXICache.scala 213:41]
-  assign _T_241 = {block_rmeta_tag,_T_13}; // @[Cat.scala 29:58]
-  assign _GEN_275 = {_T_241, 5'h0}; // @[AXICache.scala 214:58]
-  assign block_addr = {{2'd0}, _GEN_275}; // @[AXICache.scala 214:58]
-  assign _T_242 = {rmeta_tag,idx_reg}; // @[Cat.scala 29:58]
-  assign _GEN_276 = {_T_242, 5'h0}; // @[AXICache.scala 218:78]
-  assign _T_243 = {{2'd0}, _GEN_276}; // @[AXICache.scala 218:78]
-  assign _T_244 = flush_mode ? block_addr : _T_243; // @[AXICache.scala 218:29]
-  assign _T_245 = dirty_cache_block[63:0]; // @[AXICache.scala 226:57]
-  assign _T_246 = dirty_cache_block[127:64]; // @[AXICache.scala 226:57]
-  assign _T_247 = dirty_cache_block[191:128]; // @[AXICache.scala 226:57]
-  assign _T_248 = dirty_cache_block[255:192]; // @[AXICache.scala 226:57]
-  assign _GEN_165 = 2'h1 == write_count ? _T_246 : _T_245; // @[AXICache.scala 225:8]
-  assign _GEN_166 = 2'h2 == write_count ? _T_247 : _GEN_165; // @[AXICache.scala 225:8]
-  assign _GEN_167 = 2'h3 == write_count ? _T_248 : _GEN_166; // @[AXICache.scala 225:8]
-  assign _GEN_169 = 2'h1 == write_count ? _T_109 : _T_108; // @[AXICache.scala 225:8]
-  assign _GEN_170 = 2'h2 == write_count ? _T_110 : _GEN_169; // @[AXICache.scala 225:8]
-  assign _GEN_171 = 2'h3 == write_count ? _T_111 : _GEN_170; // @[AXICache.scala 225:8]
   assign _T_258 = counterValue + 16'h1; // @[Counter.scala 38:22]
-  assign _T_261 = dirty >> idx_reg; // @[AXICache.scala 244:41]
-  assign _T_262 = _T_261[0]; // @[AXICache.scala 244:41]
-  assign is_dirty = _T_105 & _T_262; // @[AXICache.scala 244:33]
   assign _T_263 = 3'h0 == state; // @[Conditional.scala 37:30]
   assign _T_264 = $unsigned(reset); // @[AXICache.scala 252:19]
   assign _T_265 = _T_264 == 1'h0; // @[AXICache.scala 252:19]
   assign _T_268 = 3'h1 == state; // @[Conditional.scala 37:30]
-  assign _T_271 = is_dirty == 1'h0; // @[AXICache.scala 278:28]
-  assign _T_272 = io_mem_aw_ready & io_mem_aw_valid; // @[Decoupled.scala 40:37]
-  assign _T_273 = io_mem_ar_ready & io_mem_ar_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_179 = hit ? 1'h0 : is_dirty; // @[AXICache.scala 263:17]
-  assign _GEN_180 = hit ? 1'h0 : _T_271; // @[AXICache.scala 263:17]
   assign _T_274 = 3'h2 == state; // @[Conditional.scala 37:30]
-  assign _GEN_184 = _T_56 | _T_118; // @[AXICache.scala 287:49]
-  assign _GEN_185 = _T_56 ? 1'h0 : is_dirty; // @[AXICache.scala 287:49]
-  assign _GEN_186 = _T_56 ? 1'h0 : _T_271; // @[AXICache.scala 287:49]
+  assign _GEN_184 = hit | _T_115; // @[AXICache.scala 287:49]
   assign _T_284 = 3'h3 == state; // @[Conditional.scala 37:30]
   assign _T_285 = 3'h4 == state; // @[Conditional.scala 37:30]
-  assign _T_286 = io_mem_b_ready & io_mem_b_valid; // @[Decoupled.scala 40:37]
   assign _T_287 = 3'h5 == state; // @[Conditional.scala 37:30]
   assign _T_289 = 3'h6 == state; // @[Conditional.scala 37:30]
-  assign _GEN_196 = _T_285 ? 1'h0 : _T_287; // @[Conditional.scala 39:67]
-  assign _GEN_199 = _T_284 ? 1'h0 : _T_285; // @[Conditional.scala 39:67]
-  assign _GEN_200 = _T_284 ? 1'h0 : _GEN_196; // @[Conditional.scala 39:67]
-  assign _GEN_202 = _T_274 ? _GEN_184 : _T_118; // @[Conditional.scala 39:67]
-  assign _GEN_203 = _T_274 & _GEN_185; // @[Conditional.scala 39:67]
-  assign _GEN_204 = _T_274 ? _GEN_186 : _GEN_200; // @[Conditional.scala 39:67]
-  assign _GEN_205 = _T_274 ? 1'h0 : _T_284; // @[Conditional.scala 39:67]
-  assign _GEN_206 = _T_274 ? 1'h0 : _GEN_199; // @[Conditional.scala 39:67]
-  assign _GEN_208 = _T_268 ? _GEN_179 : _GEN_203; // @[Conditional.scala 39:67]
-  assign _GEN_209 = _T_268 ? _GEN_180 : _GEN_204; // @[Conditional.scala 39:67]
-  assign _GEN_210 = _T_268 ? _T_118 : _GEN_202; // @[Conditional.scala 39:67]
-  assign _GEN_211 = _T_268 ? 1'h0 : _GEN_205; // @[Conditional.scala 39:67]
-  assign _GEN_212 = _T_268 ? 1'h0 : _GEN_206; // @[Conditional.scala 39:67]
-  assign _GEN_214 = _T_263 ? 1'h0 : _GEN_208; // @[Conditional.scala 40:58]
-  assign _GEN_215 = _T_263 ? 1'h0 : _GEN_209; // @[Conditional.scala 40:58]
-  assign _GEN_217 = _T_263 ? 1'h0 : _GEN_211; // @[Conditional.scala 40:58]
-  assign _GEN_218 = _T_263 ? 1'h0 : _GEN_212; // @[Conditional.scala 40:58]
+  assign _GEN_202 = _T_274 ? _GEN_184 : _T_115; // @[Conditional.scala 39:67]
+  assign _GEN_210 = _T_268 ? _T_115 : _GEN_202; // @[Conditional.scala 39:67]
   assign _T_297 = 3'h0 == flush_state; // @[Conditional.scala 37:30]
-  assign _GEN_220 = io_cpu_flush | flush_mode; // @[AXICache.scala 342:26]
   assign _T_298 = 3'h1 == flush_state; // @[Conditional.scala 37:30]
   assign _GEN_231 = set_wrap ? 1'h0 : is_block_dirty; // @[AXICache.scala 348:22]
   assign _T_300 = 3'h2 == flush_state; // @[Conditional.scala 37:30]
-  assign _T_301 = 3'h3 == flush_state; // @[Conditional.scala 37:30]
-  assign _T_303 = 3'h4 == flush_state; // @[Conditional.scala 37:30]
-  assign _T_304 = 3'h5 == flush_state; // @[Conditional.scala 37:30]
-  assign _GEN_236 = _T_304 | _GEN_218; // @[Conditional.scala 39:67]
-  assign _GEN_238 = _T_303 | _GEN_217; // @[Conditional.scala 39:67]
-  assign _GEN_240 = _T_303 ? _GEN_218 : _GEN_236; // @[Conditional.scala 39:67]
-  assign _GEN_241 = _T_301 | _GEN_214; // @[Conditional.scala 39:67]
-  assign _GEN_242 = _T_301 ? 1'h0 : _GEN_215; // @[Conditional.scala 39:67]
-  assign _GEN_244 = _T_301 ? _GEN_217 : _GEN_238; // @[Conditional.scala 39:67]
-  assign _GEN_245 = _T_301 ? _GEN_218 : _GEN_240; // @[Conditional.scala 39:67]
-  assign _GEN_247 = _T_300 ? _GEN_214 : _GEN_241; // @[Conditional.scala 39:67]
-  assign _GEN_248 = _T_300 ? _GEN_215 : _GEN_242; // @[Conditional.scala 39:67]
-  assign _GEN_249 = _T_300 ? _GEN_217 : _GEN_244; // @[Conditional.scala 39:67]
-  assign _GEN_250 = _T_300 ? _GEN_218 : _GEN_245; // @[Conditional.scala 39:67]
   assign _GEN_251 = _T_298 & set_wrap; // @[Conditional.scala 39:67]
   assign _GEN_256 = _T_298 & _GEN_231; // @[Conditional.scala 39:67]
-  assign _GEN_258 = _T_298 ? _GEN_214 : _GEN_247; // @[Conditional.scala 39:67]
-  assign _GEN_259 = _T_298 ? _GEN_215 : _GEN_248; // @[Conditional.scala 39:67]
-  assign _GEN_260 = _T_298 ? _GEN_217 : _GEN_249; // @[Conditional.scala 39:67]
-  assign _GEN_261 = _T_298 ? _GEN_218 : _GEN_250; // @[Conditional.scala 39:67]
   assign io_cpu_flush_done = _T_297 ? 1'h0 : _GEN_251; // @[AXICache.scala 233:21 AXICache.scala 349:27]
   assign io_cpu_req_ready = is_idle | _T_114; // @[AXICache.scala 155:20]
-  assign io_cpu_resp_valid = _T_263 ? _T_118 : _GEN_210; // @[AXICache.scala 154:21 AXICache.scala 289:27]
+  assign io_cpu_resp_valid = _T_263 ? _T_115 : _GEN_210; // @[AXICache.scala 154:21 AXICache.scala 289:27]
   assign io_cpu_resp_bits_data = 2'h3 == off_reg ? _T_111 : _GEN_6; // @[AXICache.scala 145:25]
   assign io_cpu_resp_bits_tag = cpu_tag; // @[AXICache.scala 146:24]
   assign io_cpu_resp_bits_iswrite = cpu_iswrite; // @[AXICache.scala 148:28]
-  assign io_mem_aw_valid = _T_297 ? _GEN_214 : _GEN_258; // @[AXICache.scala 220:19 AXICache.scala 277:25 AXICache.scala 297:25 AXICache.scala 369:23]
-  assign io_mem_aw_bits_addr = _T_244[63:0]; // @[AXICache.scala 218:23]
-  assign io_mem_w_valid = _T_297 ? _GEN_217 : _GEN_260; // @[AXICache.scala 230:18 AXICache.scala 307:22 AXICache.scala 380:22]
-  assign io_mem_w_bits_data = flush_mode ? _GEN_167 : _GEN_171; // @[AXICache.scala 224:22]
-  assign io_mem_w_bits_last = _T_4 & _T_5; // @[AXICache.scala 229:22]
-  assign io_mem_b_ready = _T_297 ? _GEN_218 : _GEN_261; // @[AXICache.scala 231:18 AXICache.scala 313:22 AXICache.scala 386:22]
-  assign io_mem_ar_valid = _T_297 ? _GEN_215 : _GEN_259; // @[AXICache.scala 203:19 AXICache.scala 278:25 AXICache.scala 298:25 AXICache.scala 319:23 AXICache.scala 370:23]
-  assign io_mem_ar_bits_addr = _T_232[63:0]; // @[AXICache.scala 201:23]
-  assign io_mem_r_ready = state == 3'h6; // @[AXICache.scala 206:18]
   assign _GEN_277 = _T_263 & io_cpu_req_valid; // @[AXICache.scala 252:19]
   assign _GEN_278 = _GEN_277 & io_cpu_req_bits_iswrite; // @[AXICache.scala 252:19]
   assign _GEN_280 = io_cpu_req_bits_iswrite == 1'h0; // @[AXICache.scala 257:19]
@@ -1300,8 +1066,8 @@ module SimpleCache(
   assign _GEN_288 = _T_268 == 1'h0; // @[AXICache.scala 291:17]
   assign _GEN_289 = _GEN_282 & _GEN_288; // @[AXICache.scala 291:17]
   assign _GEN_290 = _GEN_289 & _T_274; // @[AXICache.scala 291:17]
-  assign _GEN_291 = _GEN_290 & _T_56; // @[AXICache.scala 291:17]
-  assign _GEN_296 = _T_56 == 1'h0; // @[AXICache.scala 295:17]
+  assign _GEN_291 = _GEN_290 & hit; // @[AXICache.scala 291:17]
+  assign _GEN_296 = hit == 1'h0; // @[AXICache.scala 295:17]
   assign _GEN_297 = _GEN_290 & _GEN_296; // @[AXICache.scala 295:17]
   assign _GEN_301 = _T_274 == 1'h0; // @[AXICache.scala 326:15]
   assign _GEN_302 = _GEN_289 & _GEN_301; // @[AXICache.scala 326:15]
@@ -1312,8 +1078,6 @@ module SimpleCache(
   assign _GEN_307 = _T_287 == 1'h0; // @[AXICache.scala 326:15]
   assign _GEN_308 = _GEN_306 & _GEN_307; // @[AXICache.scala 326:15]
   assign _GEN_309 = _GEN_308 & _T_289; // @[AXICache.scala 326:15]
-  assign _GEN_322 = _GEN_309 & read_wrap_out; // @[AXICache.scala 332:19]
-  assign _GEN_323 = _GEN_322 & _T_116; // @[AXICache.scala 332:19]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -1548,63 +1312,27 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_42 = {1{`RANDOM}};
-  read_count = _RAND_42[1:0];
+  set_count = _RAND_42[7:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
-  _RAND_43 = {1{`RANDOM}};
-  write_count = _RAND_43[1:0];
+  _RAND_43 = {2{`RANDOM}};
+  rmeta_tag = _RAND_43[50:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_44 = {1{`RANDOM}};
-  set_count = _RAND_44[7:0];
+  ren_reg = _RAND_44[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
-  _RAND_45 = {2{`RANDOM}};
-  block_rmeta_tag = _RAND_45[50:0];
+  _RAND_45 = {8{`RANDOM}};
+  rdata = _RAND_45[255:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
-  _RAND_46 = {1{`RANDOM}};
-  flush_mode = _RAND_46[0:0];
+  _RAND_46 = {8{`RANDOM}};
+  rdata_buf = _RAND_46[255:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_47 = {1{`RANDOM}};
-  is_alloc_reg = _RAND_47[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_48 = {2{`RANDOM}};
-  rmeta_tag = _RAND_48[50:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_49 = {1{`RANDOM}};
-  ren_reg = _RAND_49[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_50 = {8{`RANDOM}};
-  rdata = _RAND_50[255:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_51 = {8{`RANDOM}};
-  rdata_buf = _RAND_51[255:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_52 = {2{`RANDOM}};
-  refill_buf_0 = _RAND_52[63:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_53 = {2{`RANDOM}};
-  refill_buf_1 = _RAND_53[63:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_54 = {2{`RANDOM}};
-  refill_buf_2 = _RAND_54[63:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_55 = {2{`RANDOM}};
-  refill_buf_3 = _RAND_55[63:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_56 = {1{`RANDOM}};
-  counterValue = _RAND_56[15:0];
+  counterValue = _RAND_47[15:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1730,38 +1458,10 @@ end // initial
         end else begin
           state <= 3'h0;
         end
-      end else if (_T_272) begin
-        state <= 3'h3;
-      end else if (_T_273) begin
-        state <= 3'h6;
       end
     end else if (_T_274) begin
-      if (_T_56) begin
+      if (hit) begin
         state <= 3'h0;
-      end else if (_T_272) begin
-        state <= 3'h3;
-      end else if (_T_273) begin
-        state <= 3'h6;
-      end
-    end else if (_T_284) begin
-      if (write_wrap_out) begin
-        state <= 3'h4;
-      end
-    end else if (_T_285) begin
-      if (_T_286) begin
-        state <= 3'h5;
-      end
-    end else if (_T_287) begin
-      if (_T_273) begin
-        state <= 3'h6;
-      end
-    end else if (_T_289) begin
-      if (read_wrap_out) begin
-        if (cpu_iswrite) begin
-          state <= 3'h2;
-        end else begin
-          state <= 3'h0;
-        end
       end
     end
     if (reset) begin
@@ -1778,18 +1478,6 @@ end // initial
       end
     end else if (_T_300) begin
       flush_state <= 3'h3;
-    end else if (_T_301) begin
-      if (_T_272) begin
-        flush_state <= 3'h4;
-      end
-    end else if (_T_303) begin
-      if (write_wrap_out) begin
-        flush_state <= 3'h5;
-      end
-    end else if (_T_304) begin
-      if (_T_286) begin
-        flush_state <= 3'h1;
-      end
     end
     if (reset) begin
       valid <= 256'h0;
@@ -1799,11 +1487,7 @@ end // initial
     if (reset) begin
       dirty <= 256'h0;
     end else if (wen) begin
-      if (_T_129) begin
-        dirty <= _T_148;
-      end else begin
-        dirty <= _T_151;
-      end
+      dirty <= _T_148;
     end
     if (reset) begin
       addr_reg <= 64'h0;
@@ -1831,41 +1515,10 @@ end // initial
       cpu_iswrite <= io_cpu_req_bits_iswrite;
     end
     if (reset) begin
-      read_count <= 2'h0;
-    end else if (_T) begin
-      read_count <= _T_3;
-    end
-    if (reset) begin
-      write_count <= 2'h0;
-    end else if (_T_4) begin
-      write_count <= _T_7;
-    end
-    if (reset) begin
       set_count <= 8'h0;
     end else if (_T_8) begin
       set_count <= _T_11;
     end
-    if (reset) begin
-      block_rmeta_tag <= 51'h0;
-    end else if (!(_T_297)) begin
-      if (_T_298) begin
-        if (!(set_wrap)) begin
-          if (is_block_dirty) begin
-            block_rmeta_tag <= metaMem_tag__T_299_data;
-          end
-        end
-      end
-    end
-    if (reset) begin
-      flush_mode <= 1'h0;
-    end else if (_T_297) begin
-      flush_mode <= _GEN_220;
-    end else if (_T_298) begin
-      if (set_wrap) begin
-        flush_mode <= 1'h0;
-      end
-    end
-    is_alloc_reg <= _T_55 & read_wrap_out;
     if (reset) begin
       rmeta_tag <= 51'h0;
     end else begin
@@ -1879,34 +1532,6 @@ end // initial
     end
     if (ren_reg) begin
       rdata_buf <= rdata;
-    end
-    if (reset) begin
-      refill_buf_0 <= 64'h0;
-    end else if (_T) begin
-      if (2'h0 == read_count) begin
-        refill_buf_0 <= io_mem_r_bits_data;
-      end
-    end
-    if (reset) begin
-      refill_buf_1 <= 64'h0;
-    end else if (_T) begin
-      if (2'h1 == read_count) begin
-        refill_buf_1 <= io_mem_r_bits_data;
-      end
-    end
-    if (reset) begin
-      refill_buf_2 <= 64'h0;
-    end else if (_T) begin
-      if (2'h2 == read_count) begin
-        refill_buf_2 <= io_mem_r_bits_data;
-      end
-    end
-    if (reset) begin
-      refill_buf_3 <= 64'h0;
-    end else if (_T) begin
-      if (2'h3 == read_count) begin
-        refill_buf_3 <= io_mem_r_bits_data;
-      end
     end
     if (reset) begin
       counterValue <= 16'h0;
@@ -1974,17 +1599,6 @@ end // initial
     `endif
         if (_GEN_309 & _T_265) begin
           $fwrite(32'h80000002,"state: Refill\n"); // @[AXICache.scala 326:15]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_323 & _T_265) begin
-          $fwrite(32'h80000002,"\nLOAD END: %d\n",counterValue); // @[AXICache.scala 332:19]
         end
     `ifdef PRINTF_COND
       end
@@ -12964,21 +12578,7 @@ module DandelionCacheShell(
   input  [31:0] io_host_ar_bits_addr,
   input         io_host_r_ready,
   output        io_host_r_valid,
-  output [31:0] io_host_r_bits_data,
-  input         io_mem_aw_ready,
-  output        io_mem_aw_valid,
-  output [63:0] io_mem_aw_bits_addr,
-  input         io_mem_w_ready,
-  output        io_mem_w_valid,
-  output [63:0] io_mem_w_bits_data,
-  output        io_mem_w_bits_last,
-  input         io_mem_b_valid,
-  input         io_mem_ar_ready,
-  output        io_mem_ar_valid,
-  output [63:0] io_mem_ar_bits_addr,
-  output        io_mem_r_ready,
-  input         io_mem_r_valid,
-  input  [63:0] io_mem_r_bits_data
+  output [31:0] io_host_r_bits_data
 );
   wire  vcr_clock; // @[DandelionShell.scala 164:19]
   wire  vcr_reset; // @[DandelionShell.scala 164:19]
@@ -13018,21 +12618,6 @@ module DandelionCacheShell(
   wire [63:0] cache_io_cpu_resp_bits_data; // @[DandelionShell.scala 165:21]
   wire [7:0] cache_io_cpu_resp_bits_tag; // @[DandelionShell.scala 165:21]
   wire  cache_io_cpu_resp_bits_iswrite; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_aw_ready; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_aw_valid; // @[DandelionShell.scala 165:21]
-  wire [63:0] cache_io_mem_aw_bits_addr; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_w_ready; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_w_valid; // @[DandelionShell.scala 165:21]
-  wire [63:0] cache_io_mem_w_bits_data; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_w_bits_last; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_b_ready; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_b_valid; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_ar_ready; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_ar_valid; // @[DandelionShell.scala 165:21]
-  wire [63:0] cache_io_mem_ar_bits_addr; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_r_ready; // @[DandelionShell.scala 165:21]
-  wire  cache_io_mem_r_valid; // @[DandelionShell.scala 165:21]
-  wire [63:0] cache_io_mem_r_bits_data; // @[DandelionShell.scala 165:21]
   wire  accel_clock; // @[DandelionShell.scala 167:21]
   wire  accel_reset; // @[DandelionShell.scala 167:21]
   wire  accel_io_in_ready; // @[DandelionShell.scala 167:21]
@@ -13112,22 +12697,7 @@ module DandelionCacheShell(
     .io_cpu_resp_valid(cache_io_cpu_resp_valid),
     .io_cpu_resp_bits_data(cache_io_cpu_resp_bits_data),
     .io_cpu_resp_bits_tag(cache_io_cpu_resp_bits_tag),
-    .io_cpu_resp_bits_iswrite(cache_io_cpu_resp_bits_iswrite),
-    .io_mem_aw_ready(cache_io_mem_aw_ready),
-    .io_mem_aw_valid(cache_io_mem_aw_valid),
-    .io_mem_aw_bits_addr(cache_io_mem_aw_bits_addr),
-    .io_mem_w_ready(cache_io_mem_w_ready),
-    .io_mem_w_valid(cache_io_mem_w_valid),
-    .io_mem_w_bits_data(cache_io_mem_w_bits_data),
-    .io_mem_w_bits_last(cache_io_mem_w_bits_last),
-    .io_mem_b_ready(cache_io_mem_b_ready),
-    .io_mem_b_valid(cache_io_mem_b_valid),
-    .io_mem_ar_ready(cache_io_mem_ar_ready),
-    .io_mem_ar_valid(cache_io_mem_ar_valid),
-    .io_mem_ar_bits_addr(cache_io_mem_ar_bits_addr),
-    .io_mem_r_ready(cache_io_mem_r_ready),
-    .io_mem_r_valid(cache_io_mem_r_valid),
-    .io_mem_r_bits_data(cache_io_mem_r_bits_data)
+    .io_cpu_resp_bits_iswrite(cache_io_cpu_resp_bits_iswrite)
   );
   test05DF accel ( // @[DandelionShell.scala 167:21]
     .clock(accel_clock),
@@ -13169,14 +12739,6 @@ module DandelionCacheShell(
   assign io_host_ar_ready = vcr_io_host_ar_ready; // @[DandelionShell.scala 261:11]
   assign io_host_r_valid = vcr_io_host_r_valid; // @[DandelionShell.scala 261:11]
   assign io_host_r_bits_data = vcr_io_host_r_bits_data; // @[DandelionShell.scala 261:11]
-  assign io_mem_aw_valid = cache_io_mem_aw_valid; // @[DandelionShell.scala 260:10]
-  assign io_mem_aw_bits_addr = cache_io_mem_aw_bits_addr; // @[DandelionShell.scala 260:10]
-  assign io_mem_w_valid = cache_io_mem_w_valid; // @[DandelionShell.scala 260:10]
-  assign io_mem_w_bits_data = cache_io_mem_w_bits_data; // @[DandelionShell.scala 260:10]
-  assign io_mem_w_bits_last = cache_io_mem_w_bits_last; // @[DandelionShell.scala 260:10]
-  assign io_mem_ar_valid = cache_io_mem_ar_valid; // @[DandelionShell.scala 260:10]
-  assign io_mem_ar_bits_addr = cache_io_mem_ar_bits_addr; // @[DandelionShell.scala 260:10]
-  assign io_mem_r_ready = cache_io_mem_r_ready; // @[DandelionShell.scala 260:10]
   assign vcr_clock = clock;
   assign vcr_reset = reset;
   assign vcr_io_host_aw_valid = io_host_aw_valid; // @[DandelionShell.scala 261:11]
@@ -13201,12 +12763,6 @@ module DandelionCacheShell(
   assign cache_io_cpu_req_bits_mask = accel_io_MemReq_bits_mask; // @[DandelionShell.scala 169:20]
   assign cache_io_cpu_req_bits_tag = accel_io_MemReq_bits_tag; // @[DandelionShell.scala 169:20]
   assign cache_io_cpu_req_bits_iswrite = accel_io_MemReq_bits_iswrite; // @[DandelionShell.scala 169:20]
-  assign cache_io_mem_aw_ready = io_mem_aw_ready; // @[DandelionShell.scala 260:10]
-  assign cache_io_mem_w_ready = io_mem_w_ready; // @[DandelionShell.scala 260:10]
-  assign cache_io_mem_b_valid = io_mem_b_valid; // @[DandelionShell.scala 260:10]
-  assign cache_io_mem_ar_ready = io_mem_ar_ready; // @[DandelionShell.scala 260:10]
-  assign cache_io_mem_r_valid = io_mem_r_valid; // @[DandelionShell.scala 260:10]
-  assign cache_io_mem_r_bits_data = io_mem_r_bits_data; // @[DandelionShell.scala 260:10]
   assign accel_clock = clock;
   assign accel_reset = reset;
   assign accel_io_in_valid = _T_7 & _GEN_4; // @[DandelionShell.scala 221:21 DandelionShell.scala 235:27]
@@ -13345,51 +12901,6 @@ endmodule
 module DandelionF1Accel(
   input         ap_clk,
   input         ap_rst_n,
-  output        m_axi_gmem_AWVALID,
-  input         m_axi_gmem_AWREADY,
-  output [63:0] m_axi_gmem_AWADDR,
-  output [15:0] m_axi_gmem_AWID,
-  output [9:0]  m_axi_gmem_AWUSER,
-  output [7:0]  m_axi_gmem_AWLEN,
-  output [2:0]  m_axi_gmem_AWSIZE,
-  output [1:0]  m_axi_gmem_AWBURST,
-  output [1:0]  m_axi_gmem_AWLOCK,
-  output [3:0]  m_axi_gmem_AWCACHE,
-  output [2:0]  m_axi_gmem_AWPROT,
-  output [3:0]  m_axi_gmem_AWQOS,
-  output [3:0]  m_axi_gmem_AWREGION,
-  output        m_axi_gmem_WVALID,
-  input         m_axi_gmem_WREADY,
-  output [63:0] m_axi_gmem_WDATA,
-  output [7:0]  m_axi_gmem_WSTRB,
-  output        m_axi_gmem_WLAST,
-  output [15:0] m_axi_gmem_WID,
-  output [9:0]  m_axi_gmem_WUSER,
-  input         m_axi_gmem_BVALID,
-  output        m_axi_gmem_BREADY,
-  input  [1:0]  m_axi_gmem_BRESP,
-  input  [15:0] m_axi_gmem_BID,
-  input  [9:0]  m_axi_gmem_BUSER,
-  output        m_axi_gmem_ARVALID,
-  input         m_axi_gmem_ARREADY,
-  output [63:0] m_axi_gmem_ARADDR,
-  output [15:0] m_axi_gmem_ARID,
-  output [9:0]  m_axi_gmem_ARUSER,
-  output [7:0]  m_axi_gmem_ARLEN,
-  output [2:0]  m_axi_gmem_ARSIZE,
-  output [1:0]  m_axi_gmem_ARBURST,
-  output [1:0]  m_axi_gmem_ARLOCK,
-  output [3:0]  m_axi_gmem_ARCACHE,
-  output [2:0]  m_axi_gmem_ARPROT,
-  output [3:0]  m_axi_gmem_ARQOS,
-  output [3:0]  m_axi_gmem_ARREGION,
-  input         m_axi_gmem_RVALID,
-  output        m_axi_gmem_RREADY,
-  input  [63:0] m_axi_gmem_RDATA,
-  input  [1:0]  m_axi_gmem_RRESP,
-  input         m_axi_gmem_RLAST,
-  input  [15:0] m_axi_gmem_RID,
-  input  [9:0]  m_axi_gmem_RUSER,
   input         s_axi_control_AWVALID,
   output        s_axi_control_AWREADY,
   input  [31:0] s_axi_control_AWADDR,
@@ -13424,20 +12935,6 @@ module DandelionF1Accel(
   wire  shell_io_host_r_ready; // @[XilinxShell.scala 50:11]
   wire  shell_io_host_r_valid; // @[XilinxShell.scala 50:11]
   wire [31:0] shell_io_host_r_bits_data; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_aw_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_aw_valid; // @[XilinxShell.scala 50:11]
-  wire [63:0] shell_io_mem_aw_bits_addr; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_w_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_w_valid; // @[XilinxShell.scala 50:11]
-  wire [63:0] shell_io_mem_w_bits_data; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_w_bits_last; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_b_valid; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_ar_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_ar_valid; // @[XilinxShell.scala 50:11]
-  wire [63:0] shell_io_mem_ar_bits_addr; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_r_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_mem_r_valid; // @[XilinxShell.scala 50:11]
-  wire [63:0] shell_io_mem_r_bits_data; // @[XilinxShell.scala 50:11]
   DandelionCacheShell shell ( // @[XilinxShell.scala 50:11]
     .clock(shell_clock),
     .reset(shell_reset),
@@ -13454,76 +12951,24 @@ module DandelionF1Accel(
     .io_host_ar_bits_addr(shell_io_host_ar_bits_addr),
     .io_host_r_ready(shell_io_host_r_ready),
     .io_host_r_valid(shell_io_host_r_valid),
-    .io_host_r_bits_data(shell_io_host_r_bits_data),
-    .io_mem_aw_ready(shell_io_mem_aw_ready),
-    .io_mem_aw_valid(shell_io_mem_aw_valid),
-    .io_mem_aw_bits_addr(shell_io_mem_aw_bits_addr),
-    .io_mem_w_ready(shell_io_mem_w_ready),
-    .io_mem_w_valid(shell_io_mem_w_valid),
-    .io_mem_w_bits_data(shell_io_mem_w_bits_data),
-    .io_mem_w_bits_last(shell_io_mem_w_bits_last),
-    .io_mem_b_valid(shell_io_mem_b_valid),
-    .io_mem_ar_ready(shell_io_mem_ar_ready),
-    .io_mem_ar_valid(shell_io_mem_ar_valid),
-    .io_mem_ar_bits_addr(shell_io_mem_ar_bits_addr),
-    .io_mem_r_ready(shell_io_mem_r_ready),
-    .io_mem_r_valid(shell_io_mem_r_valid),
-    .io_mem_r_bits_data(shell_io_mem_r_bits_data)
+    .io_host_r_bits_data(shell_io_host_r_bits_data)
   );
-  assign m_axi_gmem_AWVALID = shell_io_mem_aw_valid; // @[XilinxShell.scala 54:22]
-  assign m_axi_gmem_AWADDR = shell_io_mem_aw_bits_addr; // @[XilinxShell.scala 56:21]
-  assign m_axi_gmem_AWID = 16'h0; // @[XilinxShell.scala 57:19]
-  assign m_axi_gmem_AWUSER = 10'h0; // @[XilinxShell.scala 58:21]
-  assign m_axi_gmem_AWLEN = 8'h3; // @[XilinxShell.scala 59:20]
-  assign m_axi_gmem_AWSIZE = 3'h3; // @[XilinxShell.scala 60:21]
-  assign m_axi_gmem_AWBURST = 2'h1; // @[XilinxShell.scala 61:22]
-  assign m_axi_gmem_AWLOCK = 2'h0; // @[XilinxShell.scala 62:21]
-  assign m_axi_gmem_AWCACHE = 4'h3; // @[XilinxShell.scala 63:22]
-  assign m_axi_gmem_AWPROT = 3'h0; // @[XilinxShell.scala 64:21]
-  assign m_axi_gmem_AWQOS = 4'h0; // @[XilinxShell.scala 65:20]
-  assign m_axi_gmem_AWREGION = 4'h0; // @[XilinxShell.scala 66:23]
-  assign m_axi_gmem_WVALID = shell_io_mem_w_valid; // @[XilinxShell.scala 68:21]
-  assign m_axi_gmem_WDATA = shell_io_mem_w_bits_data; // @[XilinxShell.scala 70:20]
-  assign m_axi_gmem_WSTRB = 8'hff; // @[XilinxShell.scala 71:20]
-  assign m_axi_gmem_WLAST = shell_io_mem_w_bits_last; // @[XilinxShell.scala 72:20]
-  assign m_axi_gmem_WID = 16'h0; // @[XilinxShell.scala 73:18]
-  assign m_axi_gmem_WUSER = 10'h0; // @[XilinxShell.scala 74:20]
-  assign m_axi_gmem_BREADY = shell_io_mem_b_valid; // @[XilinxShell.scala 77:21]
-  assign m_axi_gmem_ARVALID = shell_io_mem_ar_valid; // @[XilinxShell.scala 82:22]
-  assign m_axi_gmem_ARADDR = shell_io_mem_ar_bits_addr; // @[XilinxShell.scala 84:21]
-  assign m_axi_gmem_ARID = 16'h0; // @[XilinxShell.scala 85:19]
-  assign m_axi_gmem_ARUSER = 10'h0; // @[XilinxShell.scala 86:21]
-  assign m_axi_gmem_ARLEN = 8'h3; // @[XilinxShell.scala 87:20]
-  assign m_axi_gmem_ARSIZE = 3'h3; // @[XilinxShell.scala 88:21]
-  assign m_axi_gmem_ARBURST = 2'h1; // @[XilinxShell.scala 89:22]
-  assign m_axi_gmem_ARLOCK = 2'h0; // @[XilinxShell.scala 90:21]
-  assign m_axi_gmem_ARCACHE = 4'h3; // @[XilinxShell.scala 91:22]
-  assign m_axi_gmem_ARPROT = 3'h0; // @[XilinxShell.scala 92:21]
-  assign m_axi_gmem_ARQOS = 4'h0; // @[XilinxShell.scala 93:20]
-  assign m_axi_gmem_ARREGION = 4'h0; // @[XilinxShell.scala 94:23]
-  assign m_axi_gmem_RREADY = shell_io_mem_r_ready; // @[XilinxShell.scala 97:21]
-  assign s_axi_control_AWREADY = shell_io_host_aw_ready; // @[XilinxShell.scala 106:25]
-  assign s_axi_control_WREADY = shell_io_host_w_ready; // @[XilinxShell.scala 110:24]
-  assign s_axi_control_BVALID = shell_io_host_b_valid; // @[XilinxShell.scala 114:24]
-  assign s_axi_control_BRESP = 2'h0; // @[XilinxShell.scala 116:23]
-  assign s_axi_control_ARREADY = shell_io_host_ar_ready; // @[XilinxShell.scala 119:25]
-  assign s_axi_control_RVALID = shell_io_host_r_valid; // @[XilinxShell.scala 122:24]
-  assign s_axi_control_RDATA = shell_io_host_r_bits_data; // @[XilinxShell.scala 124:23]
-  assign s_axi_control_RRESP = 2'h0; // @[XilinxShell.scala 125:23]
+  assign s_axi_control_AWREADY = shell_io_host_aw_ready; // @[XilinxShell.scala 108:25]
+  assign s_axi_control_WREADY = shell_io_host_w_ready; // @[XilinxShell.scala 112:24]
+  assign s_axi_control_BVALID = shell_io_host_b_valid; // @[XilinxShell.scala 116:24]
+  assign s_axi_control_BRESP = 2'h0; // @[XilinxShell.scala 118:23]
+  assign s_axi_control_ARREADY = shell_io_host_ar_ready; // @[XilinxShell.scala 121:25]
+  assign s_axi_control_RVALID = shell_io_host_r_valid; // @[XilinxShell.scala 124:24]
+  assign s_axi_control_RDATA = shell_io_host_r_bits_data; // @[XilinxShell.scala 126:23]
+  assign s_axi_control_RRESP = 2'h0; // @[XilinxShell.scala 127:23]
   assign shell_clock = ap_clk;
   assign shell_reset = ~ ap_rst_n;
-  assign shell_io_host_aw_valid = s_axi_control_AWVALID; // @[XilinxShell.scala 105:26]
-  assign shell_io_host_aw_bits_addr = s_axi_control_AWADDR; // @[XilinxShell.scala 107:30]
-  assign shell_io_host_w_valid = s_axi_control_WVALID; // @[XilinxShell.scala 109:25]
-  assign shell_io_host_w_bits_data = s_axi_control_WDATA; // @[XilinxShell.scala 111:29]
-  assign shell_io_host_b_ready = s_axi_control_BREADY; // @[XilinxShell.scala 115:25]
-  assign shell_io_host_ar_valid = s_axi_control_ARVALID; // @[XilinxShell.scala 118:26]
-  assign shell_io_host_ar_bits_addr = s_axi_control_ARADDR; // @[XilinxShell.scala 120:30]
-  assign shell_io_host_r_ready = s_axi_control_RREADY; // @[XilinxShell.scala 123:25]
-  assign shell_io_mem_aw_ready = m_axi_gmem_AWREADY; // @[XilinxShell.scala 55:25]
-  assign shell_io_mem_w_ready = m_axi_gmem_WREADY; // @[XilinxShell.scala 69:24]
-  assign shell_io_mem_b_valid = m_axi_gmem_BVALID; // @[XilinxShell.scala 76:24]
-  assign shell_io_mem_ar_ready = m_axi_gmem_ARREADY; // @[XilinxShell.scala 83:25]
-  assign shell_io_mem_r_valid = m_axi_gmem_RVALID; // @[XilinxShell.scala 96:24]
-  assign shell_io_mem_r_bits_data = m_axi_gmem_RDATA; // @[XilinxShell.scala 98:28]
+  assign shell_io_host_aw_valid = s_axi_control_AWVALID; // @[XilinxShell.scala 107:26]
+  assign shell_io_host_aw_bits_addr = s_axi_control_AWADDR; // @[XilinxShell.scala 109:30]
+  assign shell_io_host_w_valid = s_axi_control_WVALID; // @[XilinxShell.scala 111:25]
+  assign shell_io_host_w_bits_data = s_axi_control_WDATA; // @[XilinxShell.scala 113:29]
+  assign shell_io_host_b_ready = s_axi_control_BREADY; // @[XilinxShell.scala 117:25]
+  assign shell_io_host_ar_valid = s_axi_control_ARVALID; // @[XilinxShell.scala 120:26]
+  assign shell_io_host_ar_bits_addr = s_axi_control_ARADDR; // @[XilinxShell.scala 122:30]
+  assign shell_io_host_r_ready = s_axi_control_RREADY; // @[XilinxShell.scala 125:25]
 endmodule
