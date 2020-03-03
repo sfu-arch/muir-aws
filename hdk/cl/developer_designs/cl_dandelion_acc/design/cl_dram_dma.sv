@@ -307,64 +307,33 @@ cl_dma_pcis_slv #(.SCRB_BURST_LEN_MINUS1(DDR_SCRB_BURST_LEN_MINUS1),
 ///////////////////////////////////////////////////////////////////////
 ///////////////// Secondary AXI Master module /////////////////////////
 ///////////////////////////////////////////////////////////////////////
-// cl_dram_dma_axi_mstr  CL_DRAM_DMA_AXI_MSTR (
-//     .aclk(clk),
-//     .aresetn(dma_pcis_slv_sync_rst_n),
-//     .cl_axi_mstr_bus(cl_axi_mstr_bus),
-//     .axi_mstr_cfg_bus(axi_mstr_cfg_bus)
-//   );
+ cl_dram_dma_axi_mstr  CL_DRAM_DMA_AXI_MSTR (
+     .aclk(clk),
+     .aresetn(dma_pcis_slv_sync_rst_n),
+     .cl_axi_mstr_bus(cl_axi_mstr_bus),
+     .axi_mstr_cfg_bus(axi_mstr_cfg_bus)
+   );
 
  DandelionF1Accel dandelion_accel(
-     .ap_clk                   (clk),
-     .ap_rst_n                 (dma_pcis_slv_sync_rst_n),
-
-
-      .m_axi_gmem_AWVALID  (cl_axi_mstr_bus.awvalid),
-      .m_axi_gmem_AWREADY  (cl_axi_mstr_bus.awready),
-      .m_axi_gmem_AWADDR   (cl_axi_mstr_bus.awaddr),
-      .m_axi_gmem_AWID     (cl_axi_mstr_bus.awid),
-      .m_axi_gmem_AWUSER   (),
-      .m_axi_gmem_AWLEN    (cl_axi_mstr_bus.awlen),
-      .m_axi_gmem_AWSIZE   (cl_axi_mstr_bus.awsize),
-      .m_axi_gmem_AWBURST  (),
-      .m_axi_gmem_AWLOCK   (),
-      .m_axi_gmem_AWCACHE  (),
-      .m_axi_gmem_AWPROT   (),
-      .m_axi_gmem_AWQOS    (),
-      .m_axi_gmem_AWREGION (),
-      .m_axi_gmem_WVALID   (cl_axi_mstr_bus.wvalid),
-      .m_axi_gmem_WREADY   (cl_axi_mstr_bus.wready),
-      .m_axi_gmem_WDATA    (cl_axi_mstr_bus.wdata),
-      .m_axi_gmem_WSTRB    (cl_axi_mstr_bus.wstrb),
-      .m_axi_gmem_WLAST    (cl_axi_mstr_bus.wlast),
-      .m_axi_gmem_WID      (cl_axi_mstr_bus.wid),
-      .m_axi_gmem_WUSER    (),
-      .m_axi_gmem_BVALID   (cl_axi_mstr_bus.bvalid),
-      .m_axi_gmem_BREADY   (cl_axi_mstr_bus.bready),
-      .m_axi_gmem_BRESP    (cl_axi_mstr_bus.bresp),
-      .m_axi_gmem_BID      (cl_axi_mstr_bus.bid),
-      .m_axi_gmem_BUSER    (),
-      .m_axi_gmem_ARVALID  (cl_axi_mstr_bus.arvalid),
-      .m_axi_gmem_ARREADY  (cl_axi_mstr_bus.arready),
-      .m_axi_gmem_ARADDR   (cl_axi_mstr_bus.araddr),
-      .m_axi_gmem_ARID     (cl_axi_mstr_bus.arid),
-      .m_axi_gmem_ARUSER   (),
-      .m_axi_gmem_ARLEN    (cl_axi_mstr_bus.arlen),
-      .m_axi_gmem_ARSIZE   (cl_axi_mstr_bus.arsize),
-      .m_axi_gmem_ARBURST  (),
-      .m_axi_gmem_ARLOCK   (),
-      .m_axi_gmem_ARCACHE  (),
-      .m_axi_gmem_ARPROT   (),
-      .m_axi_gmem_ARQOS    (),
-      .m_axi_gmem_ARREGION (),
-      .m_axi_gmem_RVALID   (cl_axi_mstr_bus.rvalid),
-      .m_axi_gmem_RREADY   (cl_axi_mstr_bus.rready),
-      .m_axi_gmem_RDATA    (cl_axi_mstr_bus.rdata),
-      .m_axi_gmem_RRESP    (cl_axi_mstr_bus.rresp),
-      .m_axi_gmem_RLAST    (cl_axi_mstr_bus.rlast),
-      .m_axi_gmem_RID      (cl_axi_mstr_bus.rid),
-      .m_axi_gmem_RUSER    (),
-
+     .ap_clk                   (clk_main_a0),
+     .ap_rst_n                 (rst_main_n_sync),
+     //.s_axi_control_AWVALID    (awvalid),
+     //.s_axi_control_AWREADY    (awready),
+     //.s_axi_control_AWADDR     (awaddr),
+     //.s_axi_control_WVALID     (wvalid),
+     //.s_axi_control_WREADY     (wready),
+     //.s_axi_control_WDATA      (wdata),
+     //.s_axi_control_WSTRB      (wstrb),
+     //.s_axi_control_BVALID     (bvalid),
+     //.s_axi_control_BREADY     (bready),
+     //.s_axi_control_BRESP      (bresp),
+     //.s_axi_control_ARVALID    (arvalid),
+     //.s_axi_control_ARREADY    (arready),
+     //.s_axi_control_ARADDR     (araddr),
+     //.s_axi_control_RVALID     (rvalid),
+     //.s_axi_control_RREADY     (rready),
+     //.s_axi_control_RDATA      (rdata),
+     //.s_axi_control_RRESP      (rresp)
 
      .s_axi_control_AWVALID    (sh_bar1_awvalid),
      .s_axi_control_AWREADY    (bar1_sh_awready),
@@ -384,6 +353,82 @@ cl_dma_pcis_slv #(.SCRB_BURST_LEN_MINUS1(DDR_SCRB_BURST_LEN_MINUS1),
      .s_axi_control_RDATA      (bar1_sh_rdata),
      .s_axi_control_RRESP      (bar1_sh_rresp)
    );
+
+
+
+ //axi_mstr_cfg_bus.ack <= 0;
+ //axi_mstr_cfg_bus.rdata[31:0] <= 32'h00000000;
+
+ //DandelionF1Accel dandelion_accel(
+     //.ap_clk                   (clk),
+     //.ap_rst_n                 (dma_pcis_slv_sync_rst_n),
+
+
+      //.m_axi_gmem_AWVALID  (cl_axi_mstr_bus.awvalid),
+      //.m_axi_gmem_AWREADY  (cl_axi_mstr_bus.awready),
+      //.m_axi_gmem_AWADDR   (cl_axi_mstr_bus.awaddr),
+      //.m_axi_gmem_AWID     (cl_axi_mstr_bus.awid),
+      //.m_axi_gmem_AWUSER   (11'h0),
+      //.m_axi_gmem_AWLEN    (cl_axi_mstr_bus.awlen),
+      //.m_axi_gmem_AWSIZE   (cl_axi_mstr_bus.awsize),
+      //.m_axi_gmem_AWBURST  (),
+      //.m_axi_gmem_AWLOCK   (),
+      //.m_axi_gmem_AWCACHE  (),
+      //.m_axi_gmem_AWPROT   (),
+      //.m_axi_gmem_AWQOS    (),
+      //.m_axi_gmem_AWREGION (),
+      //.m_axi_gmem_WVALID   (cl_axi_mstr_bus.wvalid),
+      //.m_axi_gmem_WREADY   (cl_axi_mstr_bus.wready),
+      //.m_axi_gmem_WDATA    (cl_axi_mstr_bus.wdata),
+      //.m_axi_gmem_WSTRB    (cl_axi_mstr_bus.wstrb),
+      //.m_axi_gmem_WLAST    (cl_axi_mstr_bus.wlast),
+      //.m_axi_gmem_WID      (cl_axi_mstr_bus.wid),
+      //.m_axi_gmem_WUSER    (),
+      //.m_axi_gmem_BVALID   (cl_axi_mstr_bus.bvalid),
+      //.m_axi_gmem_BREADY   (cl_axi_mstr_bus.bready),
+      //.m_axi_gmem_BRESP    (cl_axi_mstr_bus.bresp),
+      //.m_axi_gmem_BID      (cl_axi_mstr_bus.bid),
+      //.m_axi_gmem_BUSER    (),
+      //.m_axi_gmem_ARVALID  (cl_axi_mstr_bus.arvalid),
+      //.m_axi_gmem_ARREADY  (cl_axi_mstr_bus.arready),
+      //.m_axi_gmem_ARADDR   (cl_axi_mstr_bus.araddr),
+      //.m_axi_gmem_ARID     (cl_axi_mstr_bus.arid),
+      //.m_axi_gmem_ARUSER   (),
+      //.m_axi_gmem_ARLEN    (cl_axi_mstr_bus.arlen),
+      //.m_axi_gmem_ARSIZE   (cl_axi_mstr_bus.arsize),
+      //.m_axi_gmem_ARBURST  (),
+      //.m_axi_gmem_ARLOCK   (),
+      //.m_axi_gmem_ARCACHE  (),
+      //.m_axi_gmem_ARPROT   (),
+      //.m_axi_gmem_ARQOS    (),
+      //.m_axi_gmem_ARREGION (),
+      //.m_axi_gmem_RVALID   (cl_axi_mstr_bus.rvalid),
+      //.m_axi_gmem_RREADY   (cl_axi_mstr_bus.rready),
+      //.m_axi_gmem_RDATA    (cl_axi_mstr_bus.rdata),
+      //.m_axi_gmem_RRESP    (cl_axi_mstr_bus.rresp),
+      //.m_axi_gmem_RLAST    (cl_axi_mstr_bus.rlast),
+      //.m_axi_gmem_RID      (cl_axi_mstr_bus.rid),
+      //.m_axi_gmem_RUSER    (),
+
+
+     //.s_axi_control_AWVALID    (sh_bar1_awvalid),
+     //.s_axi_control_AWREADY    (bar1_sh_awready),
+     //.s_axi_control_AWADDR     (sh_bar1_awaddr),
+     //.s_axi_control_WVALID     (sh_bar1_wvalid),
+     //.s_axi_control_WREADY     (bar1_sh_wready),
+     //.s_axi_control_WDATA      (sh_bar1_wdata),
+     //.s_axi_control_WSTRB      (sh_barr1_wstrb),
+     //.s_axi_control_BVALID     (bar1_sh_bvalid),
+     //.s_axi_control_BREADY     (sh_bar1_bready),
+     //.s_axi_control_BRESP      (bar1_sh_bresp),
+     //.s_axi_control_ARVALID    (sh_bar1_arvalid),
+     //.s_axi_control_ARREADY    (bar1_sh_arready),
+     //.s_axi_control_ARADDR     (sh_bar1_araddr),
+     //.s_axi_control_RVALID     (bar1_sh_rvalid),
+     //.s_axi_control_RREADY     (sh_bar1_rready),
+     //.s_axi_control_RDATA      (bar1_sh_rdata),
+     //.s_axi_control_RRESP      (bar1_sh_rresp)
+   //);
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////// Secondary AXI Master module /////////////////////////
@@ -605,8 +650,8 @@ assign cl_sh_ddr_rready_2d = {lcl_cl_sh_ddrd.rready, lcl_cl_sh_ddrb.rready, lcl_
 lib_pipe #(.WIDTH(1), .STAGES(4)) SH_DDR_SLC_RST_N (.clk(clk), .rst_n(1'b1), .in_bus(sync_rst_n), .out_bus(sh_ddr_sync_rst_n));
 sh_ddr #(
          .DDR_A_PRESENT(`DDR_A_PRESENT),
-         .DDR_B_PRESENT(`DDR_B_PRESENT),
-         .DDR_D_PRESENT(`DDR_D_PRESENT)
+         .DDR_B_PRESENT(0),
+         .DDR_D_PRESENT(0)
    ) SH_DDR
    (
    .clk(clk),

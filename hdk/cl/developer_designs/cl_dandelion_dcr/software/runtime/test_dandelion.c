@@ -46,6 +46,8 @@ uint32_t test_accel(uint32_t a, uint32_t b){
 }
 
 /* use the stdout logger for printing debug information  */
+#define SV_TEST 
+
 #ifndef SV_TEST
 const struct logger *logger = &logger_stdout;
 /*
@@ -143,8 +145,7 @@ int main(int argc, char **argv)
 
     
     /* Accessing the CL registers via AppPF BAR0, which maps to sh_cl_ocl_ AXI-Lite bus between AWS FPGA Shell and the CL*/
-
-    printf("===== Starting with peek_poke_example =====\n");
+    cosim_printf("===== Starting with peek_poke_example =====\n");
 
     rc = peek_poke_example(value1, value2, slot_id, FPGA_APP_PF, APP_PF_BAR0);
 
