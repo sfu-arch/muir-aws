@@ -23,6 +23,16 @@
 int fill_buffer_urandom(uint8_t *buf, size_t size);
 
 /**
+ * Fills the buffer with bytes read from urandom.
+ */
+int fill_buffer_ones(uint8_t *buf, size_t size);
+
+/**
+ * Fills the buffer with bytes read from urandom.
+ */
+int fill_buffer_zeros(uint8_t *buf, size_t size);
+
+/**
  * This function is like memcmp, but it returns the number of bytes that differ.
  *
  * @returns number of bytes which differ, i.e. zero if buffers are the same

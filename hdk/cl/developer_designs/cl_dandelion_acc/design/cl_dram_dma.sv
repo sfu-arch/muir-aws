@@ -24,7 +24,6 @@ module cl_dram_dma #(parameter NUM_DDR=4)
 `include "cl_id_defines.vh"          // Defines for ID0 and ID1 (PCI ID's)
 `include "cl_dram_dma_defines.vh"
 
-
 `include "DandelionF1Accel.v" // CL Defines for dandelion accel
 
 // TIE OFF ALL UNUSED INTERFACES
@@ -437,7 +436,6 @@ cl_pcim_mstr CL_PCIM_MSTR (
 
      .cl_sh_pcim_bus     (cl_sh_pcim_bus)
 );
-  
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////// OCL SLAVE module ////////////////////////////////////

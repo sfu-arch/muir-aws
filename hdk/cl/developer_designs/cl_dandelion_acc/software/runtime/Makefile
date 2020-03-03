@@ -20,11 +20,17 @@ CFLAGS = -DCONFIG_LOGLEVEL=4 -std=gnu11 -g -Wall -Werror $(INCLUDES)
 
 LDLIBS = -lfpga_mgmt
 
-SRC = test_dram_dma_common.c test_dram_dma_retention.c test_dram_dma.c test_dram_dma_hwsw_cosim.c
+SRC = test_dram_dandelion.c test_dram_dma_common.c test_dram_dma_retention.c test_dram_dma.c test_dram_dma_hwsw_cosim.c
 OBJ = $(SRC:.c=.o)
 
+DANDELION = test_dandelion
 
-all: test_dram_dma check_env retention cosim $(BIN)
+
+all: test_dandelion test_dram_dma check_env retention cosim $(BIN)
+
+
+$(DANDELION): $(OBJ)
+	$(CC) $(CFLAGS) -o $(DANDELION) test_dram_dandelion.o test_dram_dma_common.o  $(LDFLAGS) $(LDLIBS)
 
 test_dram_dma: $(OBJ)
 	$(CC) $(CFLAGS) -o test_dram_dma test_dram_dma.o test_dram_dma_common.o  $(LDFLAGS) $(LDLIBS)

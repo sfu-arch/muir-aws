@@ -41,7 +41,7 @@ int dma_example(int slot_id, size_t buffer_size);
 
 int axi_mstr_example(int slot_id);
 int axi_mstr_ddr_access(int slot_id, pci_bar_handle_t pci_bar_handle, uint32_t ddr_hi_addr, uint32_t ddr_lo_addr, uint32_t  ddr_data);
-int dandelion_access(int slot_id, pci_bar_handle_t pci_bar_handle, uint32_t ddr_hi_addr, uint32_t ddr_lo_addr, uint32_t  ddr_data);
+int dandelion_access(int slot_id);
 
 int main(int argc, char **argv) {
     int rc;
@@ -76,8 +76,8 @@ int main(int argc, char **argv) {
 #endif
 
     /* run the dma test example */
-    rc = dma_example(slot_id, 1ULL << 24);
-    fail_on(rc, out, "DMA example failed");
+    /*rc = dma_example(slot_id, 1ULL << 24);*/
+    /*fail_on(rc, out, "DMA example failed");*/
     
     /* run dandelion example */
     rc = dandelion_access(slot_id);
@@ -121,7 +121,7 @@ int dma_example(int slot_id, size_t buffer_size) {
         /*channel*/ 0, /*is_read*/ false);
     fail_on((rc = (write_fd < 0) ? -1 : 0), out, "unable to open write dma queue");
 
-    rc = fill_buffer_ones(write_buffer, buffer_size);
+    rc = fill_buffer_zeros(write_buffer, buffer_size);
     fail_on(rc, out, "unabled to initialize buffer");
 
     for (dimm = 0; dimm < 4; dimm++) {
@@ -176,18 +176,21 @@ int dandelion_access(int slot_id) {
     uint32_t vector_len   = 0;
     uint32_t constant_val = 0;
     uint32_t cycle_count = 0;
-    uint32_t control_reg = 0;
+    /*uint32_t control_reg = 0;*/
 
     /**
      * Dandelion memory mapped address space BAR1
     */
-    uint32_t pf_id = FPGA_APP_PF;
-    uint32_t bar_id = APP_PF_BAR1;
+    pf_id = FPGA_APP_PF;
+    bar_id = APP_PF_BAR1;
+    /*rc_control = fpga_pci_attach(slot_id, pf_id, bar_id, fpga_attach_flags, &pci_bar_handle);*/
+
     rc_control = fpga_pci_attach(slot_id, pf_id, bar_id, fpga_attach_flags, &pci_bar_handle);
+    fail_on(rc_control, out, "Unable to attach to the AFI on slot id %d", slot_id);
 
     
     //Variables for DMA back data to buffer
-    int write_fd, read_fd, dimm, rc;
+    int write_fd, read_fd;
     read_fd = -1;
     write_fd = -1;
 
@@ -208,26 +211,29 @@ int dandelion_access(int slot_id) {
         /*channel*/ 0, /*is_read*/ false);
     fail_on((rc_memory = (write_fd < 0) ? -1 : 0), out, "unable to open write dma queue");
 
-    rc_memory = fill_buffer_ones(write_buffer, buffer_size);
+    rc_memory = fill_buffer_zeros(write_buffer, buffer_size);
     fail_on(rc_memory, out, "unabled to initialize buffer");
 
-    rc_memory = fpga_dma_burst_write(write_fd, write_buffer, buffer_size, MEM_16G);
+    rc_memory = fpga_dma_burst_write(write_fd, write_buffer, buffer_size, 0);
     fail_on(rc_memory, out, "DMA write failed");
 
-    rc_control = fpga_pci_attach(slot_id, pf_id, bar_id, fpga_attach_flags, &pci_bar_handle);
-    fail_on(rc_control, out, "Unable to attach to the AFI on slot id %d", slot_id);
+    rc_memory = fpga_dma_burst_read(read_fd, read_buffer, buffer_size, 0);
+    fail_on(rc_memory, out, "DMA read failed");
+
+    printf("Checking memory output\n");
+    for(uint32_t i = 0; i < buffer_size; i++){
+        printf("Buffer [%d]: %d\n", i, read_buffer[i]);
+    }
 
     log_info("Starting AXI Master to DDR test");
 
-    /* Initializing dandelion control registers * /
-
-    /** Register File.
-     *
+    /* Initializing dandelion control registers
+     * Register File.
      * Six 32-bit register file.
      *
      * -------------------------------
      * Register description    | addr
-     * -------------------------|-----
+     * ------------------------|-----
      * Control status register | 0x00
      * Cycle counter           | 0x04
      * Constant value          | 0x08
@@ -246,14 +252,14 @@ int dandelion_access(int slot_id) {
      * ------------------------------
     */
 
-    static uint32_t ccr_control  = 0x00;
-    static uint32_t ccr_cycle    = 0x04;
-    static uint32_t ccr_cnst     = 0x08;
-    static uint32_t ccr_len      = 0x0C;
-    static uint32_t ccr_in_lsb   = 0x10;
-    static uint32_t ccr_in_msb   = 0x14;
-    static uint32_t ccr_out_lsb  = 0x17;
-    static uint32_t ccr_out_msb  = 0x1C;
+    /*static uint64_t ccr_control  = 0x00;*/
+    static uint64_t ccr_cycle    = 0x04;
+    static uint64_t ccr_cnst     = 0x08;
+    static uint64_t ccr_len      = 0x0C;
+    static uint64_t ccr_in_lsb   = 0x10;
+    static uint64_t ccr_in_msb   = 0x14;
+    static uint64_t ccr_out_lsb  = 0x17;
+    static uint64_t ccr_out_msb  = 0x1C;
 
 
     in_hi_addr = 0x00000000;
@@ -270,57 +276,56 @@ int dandelion_access(int slot_id) {
 
     printf("Writing 0x%08x to Dandelion const register (0x%016lx)\n\n", constant_val, ccr_cnst);
     rc_control = fpga_pci_poke(pci_bar_handle, ccr_cnst, constant_val);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    fail_on(rc_control, out, "Unable to write to the fpga !");
 
     printf("Writing 0x%08x to Dandelion vector len register (0x%016lx)\n\n", vector_len, ccr_len);
     rc_control = fpga_pci_poke(pci_bar_handle, ccr_len, vector_len);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    fail_on(rc_control, out, "Unable to write to the fpga !");
 
-    printf("Writing 0x%08x to Dandelion in lsb register (0x%016lx)\n\n", ccr_in_lsb, in_lo_addr);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_len, vector_len);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    printf("Writing 0x%08x to Dandelion in lsb register (0x%016lx)\n\n", in_lo_addr, ccr_in_lsb);
+    rc_control = fpga_pci_poke(pci_bar_handle, ccr_in_lsb, in_lo_addr);
+    fail_on(rc_control, out, "Unable to write to the fpga !");
 
-    printf("Writing 0x%08x to Dandelion in msb register (0x%016lx)\n\n", ccr_in_msb, in_hi_addr);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_len, vector_len);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    printf("Writing 0x%08x to Dandelion in msb register (0x%016lx)\n\n", in_hi_addr, ccr_in_msb);
+    rc_control = fpga_pci_poke(pci_bar_handle, ccr_in_msb, in_hi_addr);
+    fail_on(rc_control, out, "Unable to write to the fpga !");
 
-    printf("Writing 0x%08x to Dandelion out lsb register (0x%016lx)\n\n", ccr_out_lsb, out_lo_addr);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_len, vector_len);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    printf("Writing 0x%08x to Dandelion out lsb register (0x%016lx)\n\n", out_lo_addr, ccr_out_lsb);
+    rc_control = fpga_pci_poke(pci_bar_handle, ccr_out_lsb, out_lo_addr);
+    fail_on(rc_control, out, "Unable to write to the fpga !");
 
 
-    printf("Writing 0x%08x to Dandelion out msb register (0x%016lx)\n\n", ccr_out_msb, out_hi_addr);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_len, vector_len);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    printf("Writing 0x%08x to Dandelion out msb register (0x%016lx)\n\n", out_hi_addr, ccr_out_msb);
+    rc_control = fpga_pci_poke(pci_bar_handle, ccr_out_msb, out_hi_addr);
+    fail_on(rc_control, out, "Unable to write to the fpga !");
 
-    printf("Lunching -- Writing 0x1 to dandelion ctrl register:\n");
-    rc = fpga_pci_poke(pci_bar_handle, ccr_control, 0x1);
-    fail_on(rc, out, "Unable to write to the fpga !");
+    /*printf("Lunching -- Writing 0x1 to dandelion ctrl register:\n");*/
+    /*rc_control = fpga_pci_poke(pci_bar_handle, ccr_control, 0x1);*/
+    /*fail_on(rc_control, out, "Unable to write to the fpga !");*/
 
-    do{
-        rc_control = fpga_pci_peek(pci_bar_handle, ccr_control, &control_reg);
-        fail_on(rc, out, "Unable to read read from the fpga !");
-    } while(control_reg != 2);
+    /*do{*/
+        /*rc_control = fpga_pci_peek(pci_bar_handle, ccr_control, &control_reg);*/
+        /*fail_on(rc_control, out, "Unable to read read from the fpga !");*/
+    /*} while(control_reg != 2);*/
 
     /* read it back and print it out; you should expect the byte order to be
      * reversed (That's what this CL does) */
     rc_control = fpga_pci_peek(pci_bar_handle, ccr_cycle, &cycle_count);
-    fail_on(rc, out, "Unable to read read from the fpga !");
+    fail_on(rc_memory, out, "Unable to read read from the fpga !");
 
     // rc = axi_mstr_ddr_access(slot_id, pci_bar_handle, ddr_hi_addr, ddr_lo_addr, ddr_data);
     // fail_on(rc, out, "Unable to access DDR A.");
 
-    rc_memory = fpga_dma_burst_read(read_fd, read_buffer, buffer_size, out_lo_addr);
-    fail_on(rc, out, "DMA read failed on reading form out buffer.");
+    rc_memory = fpga_dma_burst_read(read_fd, read_buffer, buffer_size, 0);
+    fail_on(rc_memory, out, "DMA read failed on reading form out buffer.");
 
 
-    printf("Execution finished in [ %d ] cycle\n", cycle_count);
+    /*printf("Execution finished in [ %d ] cycle\n", cycle_count);*/
 
-    printf("Checking memory output\n");
-
-    for(uint32_t i = 0; i < buffer_size; i++){
-        printf("Buffer [%d]: %d\n", i, read_buffer[i]);
-    }
+    /*printf("Checking memory output\n");*/
+    /*for(uint32_t i = 0; i < buffer_size; i++){*/
+        /*printf("Buffer [%d]: %d\n", i, read_buffer[i]);*/
+    /*}*/
 
 out:
     if (write_buffer != NULL) {

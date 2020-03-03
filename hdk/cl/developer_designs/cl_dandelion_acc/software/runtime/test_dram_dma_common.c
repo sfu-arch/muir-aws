@@ -73,7 +73,7 @@ int fill_buffer_zeros(uint8_t *buf, size_t size)
 
 int fill_buffer_ones(uint8_t *buf, size_t size)
 {
-    memset(buf, 0, size);
+    memset(buf, 1, size);
     return 0;
 }
 
