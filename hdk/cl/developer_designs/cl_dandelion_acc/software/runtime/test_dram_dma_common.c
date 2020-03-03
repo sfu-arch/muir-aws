@@ -65,6 +65,18 @@ int fill_buffer_urandom(uint8_t *buf, size_t size)
     return 0;
 }
 
+int fill_buffer_zeros(uint8_t *buf, size_t size)
+{
+    memset(buf, 0, size);
+    return 0;
+}
+
+int fill_buffer_ones(uint8_t *buf, size_t size)
+{
+    memset(buf, 0, size);
+    return 0;
+}
+
 uint64_t buffer_compare(uint8_t *bufa, uint8_t *bufb,
     size_t buffer_size)
 {
