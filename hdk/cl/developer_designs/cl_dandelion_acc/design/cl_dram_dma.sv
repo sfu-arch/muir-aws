@@ -309,16 +309,16 @@ cl_dma_pcis_slv #(.SCRB_BURST_LEN_MINUS1(DDR_SCRB_BURST_LEN_MINUS1),
 ///////////////////////////////////////////////////////////////////////
 ///////////////// Secondary AXI Master module /////////////////////////
 ///////////////////////////////////////////////////////////////////////
-//  cl_dram_dma_axi_mstr  CL_DRAM_DMA_AXI_MSTR (
-//      .aclk(clk),
-//      .aresetn(dma_pcis_slv_sync_rst_n),
-//      .cl_axi_mstr_bus(cl_axi_mstr_bus),
-//      .axi_mstr_cfg_bus(axi_mstr_cfg_bus)
-//    );
+  //cl_dram_dma_axi_mstr  CL_DRAM_DMA_AXI_MSTR (
+      //.aclk(clk),
+      //.aresetn(dma_pcis_slv_sync_rst_n),
+      //.cl_axi_mstr_bus(cl_axi_mstr_bus),
+      //.axi_mstr_cfg_bus(axi_mstr_cfg_bus)
+    //);
 
  DandelionF1Accel dandelion_accel(
-     .ap_clk                   (clk_main_a0),
-     .ap_rst_n                 (rst_main_n_sync),
+     .ap_clk                   (clk),
+     .ap_rst_n                 (dma_pcis_slv_sync_rst_n),
      .cl_axi_mstr_bus_AWVALID  (cl_axi_mstr_bus.awvalid),
      .cl_axi_mstr_bus_AWREADY  (cl_axi_mstr_bus.awready),
      .cl_axi_mstr_bus_AWADDR   (cl_axi_mstr_bus.awaddr),
@@ -374,9 +374,6 @@ cl_dma_pcis_slv #(.SCRB_BURST_LEN_MINUS1(DDR_SCRB_BURST_LEN_MINUS1),
    );
 
 
-
- //axi_mstr_cfg_bus.ack <= 0;
- //axi_mstr_cfg_bus.rdata[31:0] <= 32'h00000000;
 
  //DandelionF1Accel dandelion_accel(
      //.ap_clk                   (clk),
