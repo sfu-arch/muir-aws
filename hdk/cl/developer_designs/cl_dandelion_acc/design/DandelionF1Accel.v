@@ -1,102 +1,132 @@
-module VCR(
+module DCR(
   input         clock,
   input         reset,
-  output        io_host_aw_ready,
-  input         io_host_aw_valid,
-  input  [31:0] io_host_aw_bits_addr,
-  output        io_host_w_ready,
-  input         io_host_w_valid,
-  input  [31:0] io_host_w_bits_data,
-  input         io_host_b_ready,
-  output        io_host_b_valid,
-  output        io_host_ar_ready,
-  input         io_host_ar_valid,
-  input  [31:0] io_host_ar_bits_addr,
-  input         io_host_r_ready,
-  output        io_host_r_valid,
-  output [31:0] io_host_r_bits_data,
-  output        io_vcr_launch,
-  input         io_vcr_finish,
-  input         io_vcr_ecnt_0_valid,
-  input  [31:0] io_vcr_ecnt_0_bits,
-  input         io_vcr_ecnt_1_valid,
-  input  [31:0] io_vcr_ecnt_1_bits,
-  output [31:0] io_vcr_vals_0,
-  output [31:0] io_vcr_vals_1
+  input  [31:0] io_host_addr,
+  input  [31:0] io_host_wdata,
+  input         io_host_wr,
+  input         io_host_rd,
+  output        io_host_ack,
+  output [31:0] io_host_rdata,
+  output        io_dcr_launch,
+  input         io_dcr_finish,
+  input         io_dcr_ecnt_0_valid,
+  input  [31:0] io_dcr_ecnt_0_bits,
+  output [31:0] io_dcr_vals_0,
+  output [31:0] io_dcr_vals_1,
+  output [63:0] io_dcr_ptrs_0,
+  output [63:0] io_dcr_ptrs_2
 );
-  reg [31:0] waddr; // @[VCR.scala 62:22]
+  reg [31:0] waddr; // @[DCR.scala 92:22]
   reg [31:0] _RAND_0;
-  reg [1:0] wstate; // @[VCR.scala 65:23]
+  reg  rstate; // @[DCR.scala 99:23]
   reg [31:0] _RAND_1;
-  reg  rstate; // @[VCR.scala 69:23]
+  reg [31:0] rdata; // @[DCR.scala 100:22]
   reg [31:0] _RAND_2;
-  reg [31:0] rdata; // @[VCR.scala 70:22]
+  reg [31:0] reg_0; // @[DCR.scala 106:37]
   reg [31:0] _RAND_3;
-  reg [31:0] reg_0; // @[VCR.scala 76:37]
+  reg [31:0] reg_1; // @[DCR.scala 106:37]
   reg [31:0] _RAND_4;
-  reg [31:0] reg_1; // @[VCR.scala 76:37]
+  reg [31:0] reg_2; // @[DCR.scala 106:37]
   reg [31:0] _RAND_5;
-  reg [31:0] reg_2; // @[VCR.scala 76:37]
+  reg [31:0] reg_3; // @[DCR.scala 106:37]
   reg [31:0] _RAND_6;
-  reg [31:0] reg_3; // @[VCR.scala 76:37]
+  reg [31:0] reg_4; // @[DCR.scala 106:37]
   reg [31:0] _RAND_7;
-  reg [31:0] reg_4; // @[VCR.scala 76:37]
+  reg [31:0] reg_5; // @[DCR.scala 106:37]
   reg [31:0] _RAND_8;
-  wire  _T; // @[Conditional.scala 37:30]
-  wire  _T_1; // @[Conditional.scala 37:30]
-  wire  _T_2; // @[Conditional.scala 37:30]
-  wire  _T_3; // @[Decoupled.scala 40:37]
-  wire  _T_7; // @[Conditional.scala 37:30]
-  wire  _GEN_7; // @[VCR.scala 110:30]
-  wire  _T_11; // @[Decoupled.scala 40:37]
-  wire  _T_12; // @[VCR.scala 128:44]
-  wire  _T_13; // @[VCR.scala 128:31]
-  wire  _T_15; // @[VCR.scala 135:51]
-  wire  _T_16; // @[VCR.scala 135:33]
-  wire  _T_18; // @[VCR.scala 135:51]
-  wire  _T_19; // @[VCR.scala 135:33]
-  wire  _T_21; // @[VCR.scala 141:45]
-  wire  _T_22; // @[VCR.scala 141:27]
-  wire  _T_24; // @[VCR.scala 141:45]
-  wire  _T_25; // @[VCR.scala 141:27]
-  wire  _T_26; // @[Decoupled.scala 40:37]
-  wire  _T_27; // @[Mux.scala 80:60]
-  wire  _T_29; // @[Mux.scala 80:60]
-  wire  _T_31; // @[Mux.scala 80:60]
-  wire  _T_33; // @[Mux.scala 80:60]
-  wire  _T_35; // @[Mux.scala 80:60]
-  assign _T = 2'h0 == wstate; // @[Conditional.scala 37:30]
-  assign _T_1 = 2'h1 == wstate; // @[Conditional.scala 37:30]
-  assign _T_2 = 2'h2 == wstate; // @[Conditional.scala 37:30]
-  assign _T_3 = io_host_aw_ready & io_host_aw_valid; // @[Decoupled.scala 40:37]
-  assign _T_7 = 1'h0 == rstate; // @[Conditional.scala 37:30]
-  assign _GEN_7 = io_host_ar_valid | rstate; // @[VCR.scala 110:30]
-  assign _T_11 = io_host_w_ready & io_host_w_valid; // @[Decoupled.scala 40:37]
-  assign _T_12 = 32'h0 == waddr; // @[VCR.scala 128:44]
-  assign _T_13 = _T_11 & _T_12; // @[VCR.scala 128:31]
-  assign _T_15 = 32'h4 == waddr; // @[VCR.scala 135:51]
-  assign _T_16 = _T_11 & _T_15; // @[VCR.scala 135:33]
-  assign _T_18 = 32'h8 == waddr; // @[VCR.scala 135:51]
-  assign _T_19 = _T_11 & _T_18; // @[VCR.scala 135:33]
-  assign _T_21 = 32'hc == waddr; // @[VCR.scala 141:45]
-  assign _T_22 = _T_11 & _T_21; // @[VCR.scala 141:27]
-  assign _T_24 = 32'h10 == waddr; // @[VCR.scala 141:45]
-  assign _T_25 = _T_11 & _T_24; // @[VCR.scala 141:27]
-  assign _T_26 = io_host_ar_ready & io_host_ar_valid; // @[Decoupled.scala 40:37]
-  assign _T_27 = 32'h0 == io_host_ar_bits_addr; // @[Mux.scala 80:60]
-  assign _T_29 = 32'h4 == io_host_ar_bits_addr; // @[Mux.scala 80:60]
-  assign _T_31 = 32'h8 == io_host_ar_bits_addr; // @[Mux.scala 80:60]
-  assign _T_33 = 32'hc == io_host_ar_bits_addr; // @[Mux.scala 80:60]
-  assign _T_35 = 32'h10 == io_host_ar_bits_addr; // @[Mux.scala 80:60]
-  assign io_host_aw_ready = wstate == 2'h0; // @[VCR.scala 103:20]
-  assign io_host_w_ready = wstate == 2'h1; // @[VCR.scala 104:19]
-  assign io_host_b_valid = wstate == 2'h2; // @[VCR.scala 105:19]
-  assign io_host_ar_ready = rstate == 1'h0; // @[VCR.scala 121:20]
-  assign io_host_r_valid = rstate; // @[VCR.scala 122:19]
-  assign io_host_r_bits_data = rdata; // @[VCR.scala 123:23]
-  assign io_vcr_launch = reg_0[0]; // @[VCR.scala 150:17]
-  assign io_vcr_vals_0 = reg_3; // @[VCR.scala 153:20]
-  assign io_vcr_vals_1 = reg_4; // @[VCR.scala 153:20]
+  reg [31:0] reg_6; // @[DCR.scala 106:37]
+  reg [31:0] _RAND_9;
+  reg [31:0] reg_7; // @[DCR.scala 106:37]
+  reg [31:0] _RAND_10;
+  reg [31:0] reg_8; // @[DCR.scala 106:37]
+  reg [31:0] _RAND_11;
+  reg [31:0] reg_9; // @[DCR.scala 106:37]
+  reg [31:0] _RAND_12;
+  reg [31:0] reg_10; // @[DCR.scala 106:37]
+  reg [31:0] _RAND_13;
+  reg [31:0] reg_11; // @[DCR.scala 106:37]
+  reg [31:0] _RAND_14;
+  wire  _GEN_4; // @[DCR.scala 131:24]
+  wire  _T_4; // @[DCR.scala 145:38]
+  wire  _T_5; // @[DCR.scala 145:25]
+  wire  _T_6; // @[DCR.scala 152:45]
+  wire  _T_7; // @[DCR.scala 152:27]
+  wire  _T_8; // @[DCR.scala 158:39]
+  wire  _T_9; // @[DCR.scala 158:21]
+  wire  _T_10; // @[DCR.scala 158:39]
+  wire  _T_11; // @[DCR.scala 158:21]
+  wire  _T_12; // @[DCR.scala 158:39]
+  wire  _T_13; // @[DCR.scala 158:21]
+  wire  _T_14; // @[DCR.scala 158:39]
+  wire  _T_15; // @[DCR.scala 158:21]
+  wire  _T_16; // @[DCR.scala 158:39]
+  wire  _T_17; // @[DCR.scala 158:21]
+  wire  _T_18; // @[DCR.scala 158:39]
+  wire  _T_19; // @[DCR.scala 158:21]
+  wire  _T_20; // @[DCR.scala 158:39]
+  wire  _T_21; // @[DCR.scala 158:21]
+  wire  _T_22; // @[DCR.scala 158:39]
+  wire  _T_23; // @[DCR.scala 158:21]
+  wire  _T_24; // @[DCR.scala 158:39]
+  wire  _T_25; // @[DCR.scala 158:21]
+  wire  _T_26; // @[DCR.scala 158:39]
+  wire  _T_27; // @[DCR.scala 158:21]
+  wire  _T_28; // @[Mux.scala 80:60]
+  wire  _T_30; // @[Mux.scala 80:60]
+  wire  _T_32; // @[Mux.scala 80:60]
+  wire  _T_34; // @[Mux.scala 80:60]
+  wire  _T_36; // @[Mux.scala 80:60]
+  wire  _T_38; // @[Mux.scala 80:60]
+  wire  _T_40; // @[Mux.scala 80:60]
+  wire  _T_42; // @[Mux.scala 80:60]
+  wire  _T_44; // @[Mux.scala 80:60]
+  wire  _T_46; // @[Mux.scala 80:60]
+  wire  _T_48; // @[Mux.scala 80:60]
+  wire  _T_50; // @[Mux.scala 80:60]
+  assign _GEN_4 = io_host_rd | rstate; // @[DCR.scala 131:24]
+  assign _T_4 = 32'h0 == waddr; // @[DCR.scala 145:38]
+  assign _T_5 = io_host_wr & _T_4; // @[DCR.scala 145:25]
+  assign _T_6 = 32'h4 == waddr; // @[DCR.scala 152:45]
+  assign _T_7 = io_host_wr & _T_6; // @[DCR.scala 152:27]
+  assign _T_8 = 32'h8 == waddr; // @[DCR.scala 158:39]
+  assign _T_9 = io_host_wr & _T_8; // @[DCR.scala 158:21]
+  assign _T_10 = 32'hc == waddr; // @[DCR.scala 158:39]
+  assign _T_11 = io_host_wr & _T_10; // @[DCR.scala 158:21]
+  assign _T_12 = 32'h10 == waddr; // @[DCR.scala 158:39]
+  assign _T_13 = io_host_wr & _T_12; // @[DCR.scala 158:21]
+  assign _T_14 = 32'h14 == waddr; // @[DCR.scala 158:39]
+  assign _T_15 = io_host_wr & _T_14; // @[DCR.scala 158:21]
+  assign _T_16 = 32'h18 == waddr; // @[DCR.scala 158:39]
+  assign _T_17 = io_host_wr & _T_16; // @[DCR.scala 158:21]
+  assign _T_18 = 32'h1c == waddr; // @[DCR.scala 158:39]
+  assign _T_19 = io_host_wr & _T_18; // @[DCR.scala 158:21]
+  assign _T_20 = 32'h20 == waddr; // @[DCR.scala 158:39]
+  assign _T_21 = io_host_wr & _T_20; // @[DCR.scala 158:21]
+  assign _T_22 = 32'h24 == waddr; // @[DCR.scala 158:39]
+  assign _T_23 = io_host_wr & _T_22; // @[DCR.scala 158:21]
+  assign _T_24 = 32'h28 == waddr; // @[DCR.scala 158:39]
+  assign _T_25 = io_host_wr & _T_24; // @[DCR.scala 158:21]
+  assign _T_26 = 32'h2c == waddr; // @[DCR.scala 158:39]
+  assign _T_27 = io_host_wr & _T_26; // @[DCR.scala 158:21]
+  assign _T_28 = 32'h0 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_30 = 32'h4 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_32 = 32'h8 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_34 = 32'hc == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_36 = 32'h10 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_38 = 32'h14 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_40 = 32'h18 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_42 = 32'h1c == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_44 = 32'h20 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_46 = 32'h24 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_48 = 32'h28 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_50 = 32'h2c == io_host_addr; // @[Mux.scala 80:60]
+  assign io_host_ack = rstate ? rstate : 1'h0; // @[DCR.scala 121:19 DCR.scala 127:15 DCR.scala 137:19]
+  assign io_host_rdata = rdata; // @[DCR.scala 141:17]
+  assign io_dcr_launch = reg_0[0]; // @[DCR.scala 167:17]
+  assign io_dcr_vals_0 = reg_2; // @[DCR.scala 170:20]
+  assign io_dcr_vals_1 = reg_3; // @[DCR.scala 170:20]
+  assign io_dcr_ptrs_0 = {reg_5,reg_4}; // @[DCR.scala 179:22]
+  assign io_dcr_ptrs_2 = {reg_9,reg_8}; // @[DCR.scala 179:22]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -134,35 +164,59 @@ initial begin
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  wstate = _RAND_1[1:0];
+  rstate = _RAND_1[0:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  rstate = _RAND_2[0:0];
+  rdata = _RAND_2[31:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  rdata = _RAND_3[31:0];
+  reg_0 = _RAND_3[31:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  reg_0 = _RAND_4[31:0];
+  reg_1 = _RAND_4[31:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_5 = {1{`RANDOM}};
-  reg_1 = _RAND_5[31:0];
+  reg_2 = _RAND_5[31:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_6 = {1{`RANDOM}};
-  reg_2 = _RAND_6[31:0];
+  reg_3 = _RAND_6[31:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_7 = {1{`RANDOM}};
-  reg_3 = _RAND_7[31:0];
+  reg_4 = _RAND_7[31:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_8 = {1{`RANDOM}};
-  reg_4 = _RAND_8[31:0];
+  reg_5 = _RAND_8[31:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_9 = {1{`RANDOM}};
+  reg_6 = _RAND_9[31:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_10 = {1{`RANDOM}};
+  reg_7 = _RAND_10[31:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_11 = {1{`RANDOM}};
+  reg_8 = _RAND_11[31:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_12 = {1{`RANDOM}};
+  reg_9 = _RAND_12[31:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_13 = {1{`RANDOM}};
+  reg_10 = _RAND_13[31:0];
+  `endif // RANDOMIZE_REG_INIT
+  `ifdef RANDOMIZE_REG_INIT
+  _RAND_14 = {1{`RANDOM}};
+  reg_11 = _RAND_14[31:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -170,45 +224,42 @@ end // initial
   always @(posedge clock) begin
     if (reset) begin
       waddr <= 32'hffff;
-    end else if (_T_3) begin
-      waddr <= io_host_aw_bits_addr;
-    end
-    if (reset) begin
-      wstate <= 2'h0;
-    end else if (_T) begin
-      if (io_host_aw_valid) begin
-        wstate <= 2'h1;
-      end
-    end else if (_T_1) begin
-      if (io_host_w_valid) begin
-        wstate <= 2'h2;
-      end
-    end else if (_T_2) begin
-      if (io_host_b_ready) begin
-        wstate <= 2'h0;
-      end
+    end else if (io_host_wr) begin
+      waddr <= io_host_addr;
     end
     if (reset) begin
       rstate <= 1'h0;
-    end else if (_T_7) begin
-      rstate <= _GEN_7;
+    end else if (~rstate) begin
+      rstate <= _GEN_4;
     end else if (rstate) begin
-      if (io_host_r_ready) begin
-        rstate <= 1'h0;
-      end
+      rstate <= 1'h0;
     end
     if (reset) begin
       rdata <= 32'h0;
-    end else if (_T_26) begin
-      if (_T_35) begin
+    end else if (io_host_rd) begin
+      if (_T_50) begin
+        rdata <= reg_11;
+      end else if (_T_48) begin
+        rdata <= reg_10;
+      end else if (_T_46) begin
+        rdata <= reg_9;
+      end else if (_T_44) begin
+        rdata <= reg_8;
+      end else if (_T_42) begin
+        rdata <= reg_7;
+      end else if (_T_40) begin
+        rdata <= reg_6;
+      end else if (_T_38) begin
+        rdata <= reg_5;
+      end else if (_T_36) begin
         rdata <= reg_4;
-      end else if (_T_33) begin
+      end else if (_T_34) begin
         rdata <= reg_3;
-      end else if (_T_31) begin
+      end else if (_T_32) begin
         rdata <= reg_2;
-      end else if (_T_29) begin
+      end else if (_T_30) begin
         rdata <= reg_1;
-      end else if (_T_27) begin
+      end else if (_T_28) begin
         rdata <= reg_0;
       end else begin
         rdata <= 32'h0;
@@ -216,676 +267,213 @@ end // initial
     end
     if (reset) begin
       reg_0 <= 32'h0;
-    end else if (io_vcr_finish) begin
+    end else if (io_dcr_finish) begin
       reg_0 <= 32'h2;
-    end else if (_T_13) begin
-      reg_0 <= io_host_w_bits_data;
+    end else if (_T_5) begin
+      reg_0 <= io_host_wdata;
     end
     if (reset) begin
       reg_1 <= 32'h0;
-    end else if (io_vcr_ecnt_0_valid) begin
-      reg_1 <= io_vcr_ecnt_0_bits;
-    end else if (_T_16) begin
-      reg_1 <= io_host_w_bits_data;
+    end else if (io_dcr_ecnt_0_valid) begin
+      reg_1 <= io_dcr_ecnt_0_bits;
+    end else if (_T_7) begin
+      reg_1 <= io_host_wdata;
     end
     if (reset) begin
       reg_2 <= 32'h0;
-    end else if (io_vcr_ecnt_1_valid) begin
-      reg_2 <= io_vcr_ecnt_1_bits;
-    end else if (_T_19) begin
-      reg_2 <= io_host_w_bits_data;
+    end else if (_T_9) begin
+      reg_2 <= io_host_wdata;
     end
     if (reset) begin
       reg_3 <= 32'h0;
-    end else if (_T_22) begin
-      reg_3 <= io_host_w_bits_data;
+    end else if (_T_11) begin
+      reg_3 <= io_host_wdata;
     end
     if (reset) begin
       reg_4 <= 32'h0;
+    end else if (_T_13) begin
+      reg_4 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_5 <= 32'h0;
+    end else if (_T_15) begin
+      reg_5 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_6 <= 32'h0;
+    end else if (_T_17) begin
+      reg_6 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_7 <= 32'h0;
+    end else if (_T_19) begin
+      reg_7 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_8 <= 32'h0;
+    end else if (_T_21) begin
+      reg_8 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_9 <= 32'h0;
+    end else if (_T_23) begin
+      reg_9 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_10 <= 32'h0;
     end else if (_T_25) begin
-      reg_4 <= io_host_w_bits_data;
+      reg_10 <= io_host_wdata;
+    end
+    if (reset) begin
+      reg_11 <= 32'h0;
+    end else if (_T_27) begin
+      reg_11 <= io_host_wdata;
     end
   end
 endmodule
-module SimpleCache(
-  input   clock,
-  input   reset,
-  input   io_cpu_flush,
-  output  io_cpu_flush_done
+module Arbiter(
+  output        io_in_0_ready,
+  input         io_in_0_valid,
+  input  [63:0] io_in_0_bits_addr,
+  input  [7:0]  io_in_0_bits_len,
+  input         io_out_ready,
+  output        io_out_valid,
+  output [63:0] io_out_bits_addr,
+  output [7:0]  io_out_bits_len
 );
-  reg [2:0] flush_state; // @[AXICache.scala 79:28]
-  reg [31:0] _RAND_0;
-  wire  _T_8; // @[AXICache.scala 105:51]
-  reg [7:0] set_count; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_1;
-  wire  _T_9; // @[Counter.scala 37:24]
-  wire [7:0] _T_11; // @[Counter.scala 38:22]
-  wire  set_wrap; // @[Counter.scala 72:20]
-  wire [255:0] _T_235; // @[AXICache.scala 213:29]
-  wire  _T_236; // @[AXICache.scala 213:29]
-  wire  is_block_dirty; // @[AXICache.scala 213:41]
-  wire  _T_297; // @[Conditional.scala 37:30]
-  wire  _T_298; // @[Conditional.scala 37:30]
-  wire  _T_300; // @[Conditional.scala 37:30]
-  wire  _GEN_251; // @[Conditional.scala 39:67]
-  assign _T_8 = flush_state == 3'h1; // @[AXICache.scala 105:51]
-  assign _T_9 = set_count == 8'hff; // @[Counter.scala 37:24]
-  assign _T_11 = set_count + 8'h1; // @[Counter.scala 38:22]
-  assign set_wrap = _T_8 & _T_9; // @[Counter.scala 72:20]
-  assign _T_235 = 256'h0 >> set_count; // @[AXICache.scala 213:29]
-  assign _T_236 = _T_235[0]; // @[AXICache.scala 213:29]
-  assign is_block_dirty = _T_236 & _T_236; // @[AXICache.scala 213:41]
-  assign _T_297 = 3'h0 == flush_state; // @[Conditional.scala 37:30]
-  assign _T_298 = 3'h1 == flush_state; // @[Conditional.scala 37:30]
-  assign _T_300 = 3'h2 == flush_state; // @[Conditional.scala 37:30]
-  assign _GEN_251 = _T_298 & set_wrap; // @[Conditional.scala 39:67]
-  assign io_cpu_flush_done = _T_297 ? 1'h0 : _GEN_251; // @[AXICache.scala 233:21 AXICache.scala 349:27]
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_0 = {1{`RANDOM}};
-  flush_state = _RAND_0[2:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {1{`RANDOM}};
-  set_count = _RAND_1[7:0];
-  `endif // RANDOMIZE_REG_INIT
-  `endif // RANDOMIZE
-end // initial
-`endif // SYNTHESIS
-  always @(posedge clock) begin
-    if (reset) begin
-      flush_state <= 3'h0;
-    end else if (_T_297) begin
-      if (io_cpu_flush) begin
-        flush_state <= 3'h1;
-      end
-    end else if (_T_298) begin
-      if (set_wrap) begin
-        flush_state <= 3'h0;
-      end else if (is_block_dirty) begin
-        flush_state <= 3'h2;
-      end
-    end else if (_T_300) begin
-      flush_state <= 3'h3;
-    end
-    if (reset) begin
-      set_count <= 8'h0;
-    end else if (_T_8) begin
-      set_count <= _T_11;
-    end
-  end
+  assign io_in_0_ready = io_out_ready; // @[Arbiter.scala 134:14]
+  assign io_out_valid = io_in_0_valid; // @[Arbiter.scala 135:16]
+  assign io_out_bits_addr = io_in_0_bits_addr; // @[Arbiter.scala 124:15]
+  assign io_out_bits_len = io_in_0_bits_len; // @[Arbiter.scala 124:15]
 endmodule
-module SplitCallNew(
-  input         clock,
-  input         reset,
-  output        io_In_ready,
-  input         io_In_valid,
-  input  [31:0] io_In_bits_data_field1_data,
-  input  [31:0] io_In_bits_data_field0_data,
-  input         io_Out_enable_ready,
-  output        io_Out_enable_valid,
-  output        io_Out_enable_bits_control,
-  input         io_Out_data_field1_0_ready,
-  output        io_Out_data_field1_0_valid,
-  output [63:0] io_Out_data_field1_0_bits_data,
-  input         io_Out_data_field0_0_ready,
-  output        io_Out_data_field0_0_valid,
-  output [63:0] io_Out_data_field0_0_bits_data
+module VME(
+  input          clock,
+  input          reset,
+  input          io_mem_aw_ready,
+  output         io_mem_aw_valid,
+  output [63:0]  io_mem_aw_bits_addr,
+  output [7:0]   io_mem_aw_bits_len,
+  input          io_mem_w_ready,
+  output         io_mem_w_valid,
+  output [511:0] io_mem_w_bits_data,
+  output         io_mem_w_bits_last,
+  output         io_mem_b_ready,
+  input          io_mem_b_valid,
+  input          io_mem_ar_ready,
+  output         io_mem_ar_valid,
+  output [63:0]  io_mem_ar_bits_addr,
+  output [7:0]   io_mem_ar_bits_len,
+  output         io_mem_r_ready,
+  input          io_mem_r_valid,
+  input  [511:0] io_mem_r_bits_data,
+  input          io_mem_r_bits_last,
+  output         io_vme_rd_0_cmd_ready,
+  input          io_vme_rd_0_cmd_valid,
+  input  [63:0]  io_vme_rd_0_cmd_bits_addr,
+  input  [7:0]   io_vme_rd_0_cmd_bits_len,
+  input          io_vme_rd_0_data_ready,
+  output         io_vme_rd_0_data_valid,
+  output [511:0] io_vme_rd_0_data_bits,
+  output         io_vme_wr_0_cmd_ready,
+  input          io_vme_wr_0_cmd_valid,
+  input  [63:0]  io_vme_wr_0_cmd_bits_addr,
+  input  [7:0]   io_vme_wr_0_cmd_bits_len,
+  output         io_vme_wr_0_data_ready,
+  input          io_vme_wr_0_data_valid,
+  input  [511:0] io_vme_wr_0_data_bits,
+  output         io_vme_wr_0_ack
 );
-  reg  inputReg_enable_control; // @[SplitDecoupled.scala 152:26]
+  wire  rd_arb_io_in_0_ready; // @[VME.scala 119:22]
+  wire  rd_arb_io_in_0_valid; // @[VME.scala 119:22]
+  wire [63:0] rd_arb_io_in_0_bits_addr; // @[VME.scala 119:22]
+  wire [7:0] rd_arb_io_in_0_bits_len; // @[VME.scala 119:22]
+  wire  rd_arb_io_out_ready; // @[VME.scala 119:22]
+  wire  rd_arb_io_out_valid; // @[VME.scala 119:22]
+  wire [63:0] rd_arb_io_out_bits_addr; // @[VME.scala 119:22]
+  wire [7:0] rd_arb_io_out_bits_len; // @[VME.scala 119:22]
+  wire  _T; // @[Decoupled.scala 40:37]
+  reg [1:0] rstate; // @[VME.scala 127:23]
   reg [31:0] _RAND_0;
-  reg [31:0] inputReg_data_field1_data; // @[SplitDecoupled.scala 152:26]
-  reg [31:0] _RAND_1;
-  reg [31:0] inputReg_data_field0_data; // @[SplitDecoupled.scala 152:26]
-  reg [31:0] _RAND_2;
-  reg  enableValidReg; // @[SplitDecoupled.scala 154:31]
-  reg [31:0] _RAND_3;
-  reg  allValid_0; // @[SplitDecoupled.scala 157:49]
-  reg [31:0] _RAND_4;
-  reg  allValid_1; // @[SplitDecoupled.scala 157:49]
-  reg [31:0] _RAND_5;
-  reg  state; // @[SplitDecoupled.scala 166:22]
-  reg [31:0] _RAND_6;
-  wire  _T_1; // @[SplitDecoupled.scala 168:24]
+  wire  _T_1; // @[Conditional.scala 37:30]
   wire  _T_2; // @[Conditional.scala 37:30]
-  wire  _T_3; // @[Decoupled.scala 40:37]
-  wire  _GEN_0; // @[SplitDecoupled.scala 172:27]
-  wire  _GEN_2; // @[SplitDecoupled.scala 172:27]
-  wire  _T_5; // @[SplitDecoupled.scala 178:36]
-  wire  _T_6; // @[SplitDecoupled.scala 178:13]
-  wire  _T_7; // @[SplitDecoupled.scala 178:45]
-  wire  _T_8; // @[SplitDecoupled.scala 178:42]
-  wire  _T_10; // @[SplitDecoupled.scala 186:24]
-  wire  _GEN_20; // @[SplitDecoupled.scala 186:45]
-  wire  _T_12; // @[SplitDecoupled.scala 189:32]
-  wire  _GEN_22; // @[SplitDecoupled.scala 186:45]
-  wire  _T_16; // @[SplitDecoupled.scala 189:32]
-  wire  _GEN_24; // @[SplitDecoupled.scala 197:41]
-  wire  _T_20; // @[SplitDecoupled.scala 200:28]
-  assign _T_1 = state == 1'h0; // @[SplitDecoupled.scala 168:24]
-  assign _T_2 = 1'h0 == state; // @[Conditional.scala 37:30]
-  assign _T_3 = io_In_ready & io_In_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_0 = _T_3 | state; // @[SplitDecoupled.scala 172:27]
-  assign _GEN_2 = _T_3 | inputReg_enable_control; // @[SplitDecoupled.scala 172:27]
-  assign _T_5 = allValid_0 | allValid_1; // @[SplitDecoupled.scala 178:36]
-  assign _T_6 = _T_5 == 1'h0; // @[SplitDecoupled.scala 178:13]
-  assign _T_7 = enableValidReg == 1'h0; // @[SplitDecoupled.scala 178:45]
-  assign _T_8 = _T_6 & _T_7; // @[SplitDecoupled.scala 178:42]
-  assign _T_10 = io_In_valid & _T_1; // @[SplitDecoupled.scala 186:24]
-  assign _GEN_20 = _T_10 | allValid_0; // @[SplitDecoupled.scala 186:45]
-  assign _T_12 = state & io_Out_data_field0_0_ready; // @[SplitDecoupled.scala 189:32]
-  assign _GEN_22 = _T_10 | allValid_1; // @[SplitDecoupled.scala 186:45]
-  assign _T_16 = state & io_Out_data_field1_0_ready; // @[SplitDecoupled.scala 189:32]
-  assign _GEN_24 = _T_10 | enableValidReg; // @[SplitDecoupled.scala 197:41]
-  assign _T_20 = state & io_Out_enable_ready; // @[SplitDecoupled.scala 200:28]
-  assign io_In_ready = state == 1'h0; // @[SplitDecoupled.scala 168:15]
-  assign io_Out_enable_valid = enableValidReg; // @[SplitDecoupled.scala 203:23]
-  assign io_Out_enable_bits_control = inputReg_enable_control; // @[SplitDecoupled.scala 204:22]
-  assign io_Out_data_field1_0_valid = allValid_1; // @[SplitDecoupled.scala 192:40]
-  assign io_Out_data_field1_0_bits_data = {{32'd0}, inputReg_data_field1_data}; // @[SplitDecoupled.scala 193:39]
-  assign io_Out_data_field0_0_valid = allValid_0; // @[SplitDecoupled.scala 192:40]
-  assign io_Out_data_field0_0_bits_data = {{32'd0}, inputReg_data_field0_data}; // @[SplitDecoupled.scala 193:39]
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_0 = {1{`RANDOM}};
-  inputReg_enable_control = _RAND_0[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {1{`RANDOM}};
-  inputReg_data_field1_data = _RAND_1[31:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_2 = {1{`RANDOM}};
-  inputReg_data_field0_data = _RAND_2[31:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_3 = {1{`RANDOM}};
-  enableValidReg = _RAND_3[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_4 = {1{`RANDOM}};
-  allValid_0 = _RAND_4[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_5 = {1{`RANDOM}};
-  allValid_1 = _RAND_5[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_6 = {1{`RANDOM}};
-  state = _RAND_6[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `endif // RANDOMIZE
-end // initial
-`endif // SYNTHESIS
-  always @(posedge clock) begin
-    if (reset) begin
-      inputReg_enable_control <= 1'h0;
-    end else if (_T_2) begin
-      inputReg_enable_control <= _GEN_2;
-    end
-    if (reset) begin
-      inputReg_data_field1_data <= 32'h0;
-    end else if (_T_2) begin
-      if (_T_3) begin
-        inputReg_data_field1_data <= io_In_bits_data_field1_data;
-      end
-    end
-    if (reset) begin
-      inputReg_data_field0_data <= 32'h0;
-    end else if (_T_2) begin
-      if (_T_3) begin
-        inputReg_data_field0_data <= io_In_bits_data_field0_data;
-      end
-    end
-    if (reset) begin
-      enableValidReg <= 1'h0;
-    end else if (_T_20) begin
-      enableValidReg <= 1'h0;
-    end else begin
-      enableValidReg <= _GEN_24;
-    end
-    if (reset) begin
-      allValid_0 <= 1'h0;
-    end else if (_T_12) begin
-      allValid_0 <= 1'h0;
-    end else begin
-      allValid_0 <= _GEN_20;
-    end
-    if (reset) begin
-      allValid_1 <= 1'h0;
-    end else if (_T_16) begin
-      allValid_1 <= 1'h0;
-    end else begin
-      allValid_1 <= _GEN_22;
-    end
-    if (reset) begin
-      state <= 1'h0;
-    end else if (_T_2) begin
-      state <= _GEN_0;
-    end else if (state) begin
-      if (_T_8) begin
-        state <= 1'h0;
-      end
-    end
-  end
-endmodule
-module BasicBlockNoMaskFastNode(
-  input   clock,
-  input   reset,
-  output  io_predicateIn_0_ready,
-  input   io_predicateIn_0_valid,
-  input   io_predicateIn_0_bits_control,
-  input   io_Out_0_ready,
-  output  io_Out_0_valid,
-  output  io_Out_0_bits_control,
-  input   io_Out_1_ready,
-  output  io_Out_1_valid
-);
-  reg [14:0] cycleCount; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_0;
-  wire [14:0] _T_2; // @[Counter.scala 38:22]
-  reg  in_data_R_0_control; // @[BasicBlock.scala 223:46]
+  wire  _T_3; // @[Conditional.scala 37:30]
+  wire  _T_4; // @[Decoupled.scala 40:37]
+  wire  _T_5; // @[VME.scala 141:28]
+  reg [1:0] wstate; // @[VME.scala 148:23]
   reg [31:0] _RAND_1;
-  reg  in_data_valid_R_0; // @[BasicBlock.scala 224:52]
+  reg [7:0] wr_cnt; // @[VME.scala 151:23]
   reg [31:0] _RAND_2;
-  reg  output_valid_R_0; // @[BasicBlock.scala 227:49]
-  reg [31:0] _RAND_3;
-  reg  output_valid_R_1; // @[BasicBlock.scala 227:49]
-  reg [31:0] _RAND_4;
-  reg  output_fire_R_0; // @[BasicBlock.scala 228:48]
-  reg [31:0] _RAND_5;
-  reg  output_fire_R_1; // @[BasicBlock.scala 228:48]
-  reg [31:0] _RAND_6;
+  wire  _T_6; // @[VME.scala 153:15]
   wire  _T_7; // @[Decoupled.scala 40:37]
-  wire  _GEN_3; // @[BasicBlock.scala 233:36]
-  wire  _T_8; // @[Decoupled.scala 40:37]
-  wire  _GEN_4; // @[BasicBlock.scala 245:28]
-  wire  _T_9; // @[Decoupled.scala 40:37]
-  wire  _GEN_6; // @[BasicBlock.scala 245:28]
-  wire  out_fire_mask_0; // @[BasicBlock.scala 257:85]
-  wire  out_fire_mask_1; // @[BasicBlock.scala 257:85]
-  reg  state; // @[BasicBlock.scala 293:22]
-  reg [31:0] _RAND_7;
-  wire  _T_18; // @[Conditional.scala 37:30]
-  wire  _T_21; // @[BasicBlock.scala 310:81]
-  wire  _T_22; // @[BasicBlock.scala 310:81]
-  wire  _T_23; // @[BasicBlock.scala 316:19]
-  wire  _T_24; // @[BasicBlock.scala 316:19]
-  wire  _GEN_8; // @[BasicBlock.scala 305:8]
-  wire  _GEN_9; // @[BasicBlock.scala 305:8]
-  wire  _GEN_12; // @[BasicBlock.scala 305:8]
-  wire  _T_28; // @[BasicBlock.scala 329:35]
-  wire  _GEN_35; // @[BasicBlock.scala 316:19]
-  wire  _GEN_36; // @[BasicBlock.scala 316:19]
-  wire  _GEN_38; // @[BasicBlock.scala 321:19]
-  wire  _GEN_39; // @[BasicBlock.scala 321:19]
-  assign _T_2 = cycleCount + 15'h1; // @[Counter.scala 38:22]
-  assign _T_7 = io_predicateIn_0_ready & io_predicateIn_0_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_3 = _T_7 | in_data_valid_R_0; // @[BasicBlock.scala 233:36]
-  assign _T_8 = io_Out_0_ready & io_Out_0_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_4 = _T_8 | output_fire_R_0; // @[BasicBlock.scala 245:28]
-  assign _T_9 = io_Out_1_ready & io_Out_1_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_6 = _T_9 | output_fire_R_1; // @[BasicBlock.scala 245:28]
-  assign out_fire_mask_0 = output_fire_R_0 | _T_8; // @[BasicBlock.scala 257:85]
-  assign out_fire_mask_1 = output_fire_R_1 | _T_9; // @[BasicBlock.scala 257:85]
-  assign _T_18 = 1'h0 == state; // @[Conditional.scala 37:30]
-  assign _T_21 = _T_8 ^ 1'h1; // @[BasicBlock.scala 310:81]
-  assign _T_22 = _T_9 ^ 1'h1; // @[BasicBlock.scala 310:81]
-  assign _T_23 = $unsigned(reset); // @[BasicBlock.scala 316:19]
-  assign _T_24 = _T_23 == 1'h0; // @[BasicBlock.scala 316:19]
-  assign _GEN_8 = _GEN_3 | output_valid_R_0; // @[BasicBlock.scala 305:8]
-  assign _GEN_9 = _GEN_3 | output_valid_R_1; // @[BasicBlock.scala 305:8]
-  assign _GEN_12 = _GEN_3 | state; // @[BasicBlock.scala 305:8]
-  assign _T_28 = out_fire_mask_0 & out_fire_mask_1; // @[BasicBlock.scala 329:35]
-  assign io_predicateIn_0_ready = ~ in_data_valid_R_0; // @[BasicBlock.scala 232:29]
-  assign io_Out_0_valid = _T_18 ? _GEN_8 : output_valid_R_0; // @[BasicBlock.scala 288:21 BasicBlock.scala 307:34]
-  assign io_Out_0_bits_control = _T_7 ? io_predicateIn_0_bits_control : in_data_R_0_control; // @[BasicBlock.scala 283:22]
-  assign io_Out_1_valid = _T_18 ? _GEN_9 : output_valid_R_1; // @[BasicBlock.scala 288:21 BasicBlock.scala 307:34]
-  assign _GEN_35 = _T_18 & _GEN_3; // @[BasicBlock.scala 316:19]
-  assign _GEN_36 = _GEN_35 & in_data_R_0_control; // @[BasicBlock.scala 316:19]
-  assign _GEN_38 = in_data_R_0_control == 1'h0; // @[BasicBlock.scala 321:19]
-  assign _GEN_39 = _GEN_35 & _GEN_38; // @[BasicBlock.scala 321:19]
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_0 = {1{`RANDOM}};
-  cycleCount = _RAND_0[14:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {1{`RANDOM}};
-  in_data_R_0_control = _RAND_1[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_2 = {1{`RANDOM}};
-  in_data_valid_R_0 = _RAND_2[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_3 = {1{`RANDOM}};
-  output_valid_R_0 = _RAND_3[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_4 = {1{`RANDOM}};
-  output_valid_R_1 = _RAND_4[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_5 = {1{`RANDOM}};
-  output_fire_R_0 = _RAND_5[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_6 = {1{`RANDOM}};
-  output_fire_R_1 = _RAND_6[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_7 = {1{`RANDOM}};
-  state = _RAND_7[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `endif // RANDOMIZE
-end // initial
-`endif // SYNTHESIS
-  always @(posedge clock) begin
-    if (reset) begin
-      cycleCount <= 15'h0;
-    end else begin
-      cycleCount <= _T_2;
-    end
-    if (reset) begin
-      in_data_R_0_control <= 1'h0;
-    end else if (_T_18) begin
-      if (_T_7) begin
-        in_data_R_0_control <= io_predicateIn_0_bits_control;
-      end
-    end else if (state) begin
-      if (_T_28) begin
-        in_data_R_0_control <= 1'h0;
-      end else if (_T_7) begin
-        in_data_R_0_control <= io_predicateIn_0_bits_control;
-      end
-    end else if (_T_7) begin
-      in_data_R_0_control <= io_predicateIn_0_bits_control;
-    end
-    if (reset) begin
-      in_data_valid_R_0 <= 1'h0;
-    end else if (_T_18) begin
-      in_data_valid_R_0 <= _GEN_3;
-    end else if (state) begin
-      if (_T_28) begin
-        in_data_valid_R_0 <= 1'h0;
-      end else begin
-        in_data_valid_R_0 <= _GEN_3;
-      end
-    end else begin
-      in_data_valid_R_0 <= _GEN_3;
-    end
-    if (reset) begin
-      output_valid_R_0 <= 1'h0;
-    end else if (_T_18) begin
-      if (_GEN_3) begin
-        output_valid_R_0 <= _T_21;
-      end else if (_T_8) begin
-        output_valid_R_0 <= 1'h0;
-      end
-    end else if (_T_8) begin
-      output_valid_R_0 <= 1'h0;
-    end
-    if (reset) begin
-      output_valid_R_1 <= 1'h0;
-    end else if (_T_18) begin
-      if (_GEN_3) begin
-        output_valid_R_1 <= _T_22;
-      end else if (_T_9) begin
-        output_valid_R_1 <= 1'h0;
-      end
-    end else if (_T_9) begin
-      output_valid_R_1 <= 1'h0;
-    end
-    if (reset) begin
-      output_fire_R_0 <= 1'h0;
-    end else if (_T_18) begin
-      output_fire_R_0 <= _GEN_4;
-    end else if (state) begin
-      if (_T_28) begin
-        output_fire_R_0 <= 1'h0;
-      end else begin
-        output_fire_R_0 <= _GEN_4;
-      end
-    end else begin
-      output_fire_R_0 <= _GEN_4;
-    end
-    if (reset) begin
-      output_fire_R_1 <= 1'h0;
-    end else if (_T_18) begin
-      output_fire_R_1 <= _GEN_6;
-    end else if (state) begin
-      if (_T_28) begin
-        output_fire_R_1 <= 1'h0;
-      end else begin
-        output_fire_R_1 <= _GEN_6;
-      end
-    end else begin
-      output_fire_R_1 <= _GEN_6;
-    end
-    if (reset) begin
-      state <= 1'h0;
-    end else if (_T_18) begin
-      state <= _GEN_12;
-    end else if (state) begin
-      if (_T_28) begin
-        state <= 1'h0;
-      end
-    end
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_36 & _T_24) begin
-          $fwrite(32'h80000002,"[LOG] [Test01] [TID->%d] [BB]   bb_entry0: Output [T] fired @ %d\n",5'h0,cycleCount); // @[BasicBlock.scala 316:19]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_39 & _T_24) begin
-          $fwrite(32'h80000002,"[LOG] [Test01] [TID->%d] [BB]   bb_entry0: Output [F] fired @ %d\n",5'h0,cycleCount); // @[BasicBlock.scala 321:19]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-  end
-endmodule
-module UALU(
-  input  [63:0] io_in1,
-  input  [63:0] io_in2,
-  output [63:0] io_out
-);
-  wire [127:0] _T_24; // @[Alu.scala 195:32]
-  assign _T_24 = io_in1 * io_in2; // @[Alu.scala 195:32]
-  assign io_out = _T_24[63:0]; // @[Alu.scala 236:10]
-endmodule
-module ComputeNode(
-  input         clock,
-  input         reset,
-  output        io_enable_ready,
-  input         io_enable_valid,
-  input         io_enable_bits_control,
-  input         io_Out_0_ready,
-  output        io_Out_0_valid,
-  output [63:0] io_Out_0_bits_data,
-  output        io_LeftIO_ready,
-  input         io_LeftIO_valid,
-  input  [63:0] io_LeftIO_bits_data,
-  output        io_RightIO_ready,
-  input         io_RightIO_valid,
-  input  [63:0] io_RightIO_bits_data
-);
-  wire [63:0] FU_io_in1; // @[ComputeNode.scala 52:18]
-  wire [63:0] FU_io_in2; // @[ComputeNode.scala 52:18]
-  wire [63:0] FU_io_out; // @[ComputeNode.scala 52:18]
-  reg  enable_R_control; // @[HandShaking.scala 168:31]
-  reg [31:0] _RAND_0;
-  reg  enable_valid_R; // @[HandShaking.scala 169:31]
-  reg [31:0] _RAND_1;
-  reg  out_ready_R_0; // @[HandShaking.scala 172:46]
-  reg [31:0] _RAND_2;
-  reg  out_valid_R_0; // @[HandShaking.scala 173:46]
-  reg [31:0] _RAND_3;
-  wire  _T_1; // @[Decoupled.scala 40:37]
-  wire  _T_3; // @[Decoupled.scala 40:37]
-  reg [14:0] cycleCount; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_4;
-  wire [14:0] _T_6; // @[Counter.scala 38:22]
-  reg [63:0] left_R_data; // @[ComputeNode.scala 44:23]
-  reg [63:0] _RAND_5;
-  reg  left_valid_R; // @[ComputeNode.scala 45:29]
-  reg [31:0] _RAND_6;
-  reg [63:0] right_R_data; // @[ComputeNode.scala 48:24]
-  reg [63:0] _RAND_7;
-  reg  right_valid_R; // @[ComputeNode.scala 49:30]
-  reg [31:0] _RAND_8;
-  reg  state; // @[ComputeNode.scala 55:22]
-  reg [31:0] _RAND_9;
-  reg [63:0] out_data_R; // @[ComputeNode.scala 59:27]
-  reg [63:0] _RAND_10;
-  wire  _T_12; // @[Decoupled.scala 40:37]
-  wire  _GEN_9; // @[ComputeNode.scala 71:26]
-  wire  _T_14; // @[Decoupled.scala 40:37]
-  wire  _GEN_13; // @[ComputeNode.scala 77:27]
+  wire [7:0] _T_9; // @[VME.scala 156:22]
+  wire  _T_10; // @[Conditional.scala 37:30]
+  wire  _T_11; // @[Conditional.scala 37:30]
+  wire  _T_12; // @[Conditional.scala 37:30]
+  wire  _T_13; // @[VME.scala 175:18]
+  wire  _T_14; // @[VME.scala 175:46]
+  wire  _T_15; // @[VME.scala 175:36]
   wire  _T_16; // @[Conditional.scala 37:30]
-  wire  _T_17; // @[ComputeNode.scala 96:27]
-  wire  _T_18; // @[ComputeNode.scala 96:43]
-  wire  _T_21; // @[HandShaking.scala 233:72]
-  wire  _T_22; // @[ComputeNode.scala 104:17]
-  wire  _T_23; // @[ComputeNode.scala 104:17]
-  wire [63:0] _T_19_data; // @[interfaces.scala 306:20 interfaces.scala 307:15]
-  wire [63:0] _GEN_14; // @[ComputeNode.scala 96:61]
-  wire  _GEN_17; // @[ComputeNode.scala 96:61]
-  wire  _GEN_21; // @[ComputeNode.scala 96:61]
-  wire  _T_26; // @[HandShaking.scala 218:83]
-  wire  _GEN_41; // @[ComputeNode.scala 104:17]
-  UALU FU ( // @[ComputeNode.scala 52:18]
-    .io_in1(FU_io_in1),
-    .io_in2(FU_io_in2),
-    .io_out(FU_io_out)
+  reg [7:0] rd_len; // @[VME.scala 187:23]
+  reg [31:0] _RAND_3;
+  reg [7:0] wr_len; // @[VME.scala 188:23]
+  reg [31:0] _RAND_4;
+  reg [63:0] rd_addr; // @[VME.scala 189:24]
+  reg [63:0] _RAND_5;
+  reg [63:0] wr_addr; // @[VME.scala 190:24]
+  reg [63:0] _RAND_6;
+  wire  _T_18; // @[Decoupled.scala 40:37]
+  wire  _T_24; // @[VME.scala 213:37]
+  wire  _T_32; // @[VME.scala 230:28]
+  Arbiter rd_arb ( // @[VME.scala 119:22]
+    .io_in_0_ready(rd_arb_io_in_0_ready),
+    .io_in_0_valid(rd_arb_io_in_0_valid),
+    .io_in_0_bits_addr(rd_arb_io_in_0_bits_addr),
+    .io_in_0_bits_len(rd_arb_io_in_0_bits_len),
+    .io_out_ready(rd_arb_io_out_ready),
+    .io_out_valid(rd_arb_io_out_valid),
+    .io_out_bits_addr(rd_arb_io_out_bits_addr),
+    .io_out_bits_len(rd_arb_io_out_bits_len)
   );
-  assign _T_1 = io_Out_0_ready & io_Out_0_valid; // @[Decoupled.scala 40:37]
-  assign _T_3 = io_enable_ready & io_enable_valid; // @[Decoupled.scala 40:37]
-  assign _T_6 = cycleCount + 15'h1; // @[Counter.scala 38:22]
-  assign _T_12 = io_LeftIO_ready & io_LeftIO_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_9 = _T_12 | left_valid_R; // @[ComputeNode.scala 71:26]
-  assign _T_14 = io_RightIO_ready & io_RightIO_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_13 = _T_14 | right_valid_R; // @[ComputeNode.scala 77:27]
-  assign _T_16 = 1'h0 == state; // @[Conditional.scala 37:30]
-  assign _T_17 = enable_valid_R & left_valid_R; // @[ComputeNode.scala 96:27]
-  assign _T_18 = _T_17 & right_valid_R; // @[ComputeNode.scala 96:43]
-  assign _T_21 = _T_1 ^ 1'h1; // @[HandShaking.scala 233:72]
-  assign _T_22 = $unsigned(reset); // @[ComputeNode.scala 104:17]
-  assign _T_23 = _T_22 == 1'h0; // @[ComputeNode.scala 104:17]
-  assign _T_19_data = FU_io_out; // @[interfaces.scala 306:20 interfaces.scala 307:15]
-  assign _GEN_14 = _T_18 ? _T_19_data : out_data_R; // @[ComputeNode.scala 96:61]
-  assign _GEN_17 = _T_18 | out_valid_R_0; // @[ComputeNode.scala 96:61]
-  assign _GEN_21 = _T_18 | state; // @[ComputeNode.scala 96:61]
-  assign _T_26 = out_ready_R_0 | _T_1; // @[HandShaking.scala 218:83]
-  assign io_enable_ready = ~ enable_valid_R; // @[HandShaking.scala 192:19]
-  assign io_Out_0_valid = _T_16 ? _GEN_17 : out_valid_R_0; // @[HandShaking.scala 181:21 ComputeNode.scala 98:32]
-  assign io_Out_0_bits_data = _T_16 ? _GEN_14 : out_data_R; // @[ComputeNode.scala 89:25 ComputeNode.scala 97:31]
-  assign io_LeftIO_ready = ~ left_valid_R; // @[ComputeNode.scala 70:19]
-  assign io_RightIO_ready = ~ right_valid_R; // @[ComputeNode.scala 76:20]
-  assign FU_io_in1 = left_R_data; // @[ComputeNode.scala 67:13]
-  assign FU_io_in2 = right_R_data; // @[ComputeNode.scala 68:13]
-  assign _GEN_41 = _T_16 & _T_18; // @[ComputeNode.scala 104:17]
+  assign _T = rd_arb_io_out_ready & rd_arb_io_out_valid; // @[Decoupled.scala 40:37]
+  assign _T_1 = 2'h0 == rstate; // @[Conditional.scala 37:30]
+  assign _T_2 = 2'h1 == rstate; // @[Conditional.scala 37:30]
+  assign _T_3 = 2'h2 == rstate; // @[Conditional.scala 37:30]
+  assign _T_4 = io_mem_r_ready & io_mem_r_valid; // @[Decoupled.scala 40:37]
+  assign _T_5 = _T_4 & io_mem_r_bits_last; // @[VME.scala 141:28]
+  assign _T_6 = wstate == 2'h0; // @[VME.scala 153:15]
+  assign _T_7 = io_mem_w_ready & io_mem_w_valid; // @[Decoupled.scala 40:37]
+  assign _T_9 = wr_cnt + 8'h1; // @[VME.scala 156:22]
+  assign _T_10 = 2'h0 == wstate; // @[Conditional.scala 37:30]
+  assign _T_11 = 2'h1 == wstate; // @[Conditional.scala 37:30]
+  assign _T_12 = 2'h2 == wstate; // @[Conditional.scala 37:30]
+  assign _T_13 = io_vme_wr_0_data_valid & io_mem_w_ready; // @[VME.scala 175:18]
+  assign _T_14 = wr_cnt == io_vme_wr_0_cmd_bits_len; // @[VME.scala 175:46]
+  assign _T_15 = _T_13 & _T_14; // @[VME.scala 175:36]
+  assign _T_16 = 2'h3 == wstate; // @[Conditional.scala 37:30]
+  assign _T_18 = io_vme_wr_0_cmd_ready & io_vme_wr_0_cmd_valid; // @[Decoupled.scala 40:37]
+  assign _T_24 = wstate == 2'h2; // @[VME.scala 213:37]
+  assign _T_32 = rstate == 2'h2; // @[VME.scala 230:28]
+  assign io_mem_aw_valid = wstate == 2'h1; // @[VME.scala 216:19]
+  assign io_mem_aw_bits_addr = wr_addr; // @[VME.scala 217:23]
+  assign io_mem_aw_bits_len = wr_len; // @[VME.scala 218:22]
+  assign io_mem_w_valid = _T_24 & io_vme_wr_0_data_valid; // @[VME.scala 220:18]
+  assign io_mem_w_bits_data = io_vme_wr_0_data_bits; // @[VME.scala 221:22]
+  assign io_mem_w_bits_last = wr_cnt == io_vme_wr_0_cmd_bits_len; // @[VME.scala 222:22]
+  assign io_mem_b_ready = wstate == 2'h3; // @[VME.scala 224:18]
+  assign io_mem_ar_valid = rstate == 2'h1; // @[VME.scala 226:19]
+  assign io_mem_ar_bits_addr = rd_addr; // @[VME.scala 227:23]
+  assign io_mem_ar_bits_len = rd_len; // @[VME.scala 228:22]
+  assign io_mem_r_ready = _T_32 & io_vme_rd_0_data_ready; // @[VME.scala 230:18]
+  assign io_vme_rd_0_cmd_ready = rd_arb_io_in_0_ready; // @[VME.scala 123:21]
+  assign io_vme_rd_0_data_valid = io_mem_r_valid; // @[VME.scala 207:29]
+  assign io_vme_rd_0_data_bits = io_mem_r_bits_data; // @[VME.scala 208:28]
+  assign io_vme_wr_0_cmd_ready = wstate == 2'h0; // @[VME.scala 211:26]
+  assign io_vme_wr_0_data_ready = _T_24 & io_mem_w_ready; // @[VME.scala 213:27]
+  assign io_vme_wr_0_ack = io_mem_b_ready & io_mem_b_valid; // @[VME.scala 212:20]
+  assign rd_arb_io_in_0_valid = io_vme_rd_0_cmd_valid; // @[VME.scala 123:21]
+  assign rd_arb_io_in_0_bits_addr = io_vme_rd_0_cmd_bits_addr; // @[VME.scala 123:21]
+  assign rd_arb_io_in_0_bits_len = io_vme_rd_0_cmd_bits_len; // @[VME.scala 123:21]
+  assign rd_arb_io_out_ready = rstate == 2'h0; // @[VME.scala 203:23]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -919,236 +507,157 @@ initial begin
     `endif
   `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  enable_R_control = _RAND_0[0:0];
+  rstate = _RAND_0[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  enable_valid_R = _RAND_1[0:0];
+  wstate = _RAND_1[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  out_ready_R_0 = _RAND_2[0:0];
+  wr_cnt = _RAND_2[7:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  out_valid_R_0 = _RAND_3[0:0];
+  rd_len = _RAND_3[7:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  cycleCount = _RAND_4[14:0];
+  wr_len = _RAND_4[7:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_5 = {2{`RANDOM}};
-  left_R_data = _RAND_5[63:0];
+  rd_addr = _RAND_5[63:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
-  _RAND_6 = {1{`RANDOM}};
-  left_valid_R = _RAND_6[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_7 = {2{`RANDOM}};
-  right_R_data = _RAND_7[63:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_8 = {1{`RANDOM}};
-  right_valid_R = _RAND_8[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_9 = {1{`RANDOM}};
-  state = _RAND_9[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_10 = {2{`RANDOM}};
-  out_data_R = _RAND_10[63:0];
+  _RAND_6 = {2{`RANDOM}};
+  wr_addr = _RAND_6[63:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
     if (reset) begin
-      enable_R_control <= 1'h0;
-    end else if (_T_3) begin
-      enable_R_control <= io_enable_bits_control;
-    end
-    if (reset) begin
-      enable_valid_R <= 1'h0;
-    end else if (_T_16) begin
-      if (_T_3) begin
-        enable_valid_R <= io_enable_valid;
+      rstate <= 2'h0;
+    end else if (_T_1) begin
+      if (rd_arb_io_out_valid) begin
+        rstate <= 2'h1;
       end
-    end else if (state) begin
-      if (_T_26) begin
-        enable_valid_R <= 1'h0;
-      end else if (_T_3) begin
-        enable_valid_R <= io_enable_valid;
+    end else if (_T_2) begin
+      if (io_mem_ar_ready) begin
+        rstate <= 2'h2;
       end
     end else if (_T_3) begin
-      enable_valid_R <= io_enable_valid;
-    end
-    if (reset) begin
-      out_ready_R_0 <= 1'h0;
-    end else if (_T_16) begin
-      if (_T_1) begin
-        out_ready_R_0 <= io_Out_0_ready;
+      if (_T_5) begin
+        rstate <= 2'h0;
       end
-    end else if (state) begin
-      if (_T_26) begin
-        out_ready_R_0 <= 1'h0;
-      end else if (_T_1) begin
-        out_ready_R_0 <= io_Out_0_ready;
+    end
+    if (reset) begin
+      wstate <= 2'h0;
+    end else if (_T_10) begin
+      if (io_vme_wr_0_cmd_valid) begin
+        wstate <= 2'h1;
       end
-    end else if (_T_1) begin
-      out_ready_R_0 <= io_Out_0_ready;
-    end
-    if (reset) begin
-      out_valid_R_0 <= 1'h0;
-    end else if (_T_16) begin
-      if (_T_18) begin
-        out_valid_R_0 <= _T_21;
-      end else if (_T_1) begin
-        out_valid_R_0 <= 1'h0;
+    end else if (_T_11) begin
+      if (io_mem_aw_ready) begin
+        wstate <= 2'h2;
       end
-    end else if (_T_1) begin
-      out_valid_R_0 <= 1'h0;
-    end
-    if (reset) begin
-      cycleCount <= 15'h0;
-    end else begin
-      cycleCount <= _T_6;
-    end
-    if (reset) begin
-      left_R_data <= 64'h0;
     end else if (_T_12) begin
-      left_R_data <= io_LeftIO_bits_data;
-    end
-    if (reset) begin
-      left_valid_R <= 1'h0;
+      if (_T_15) begin
+        wstate <= 2'h3;
+      end
     end else if (_T_16) begin
-      if (_T_18) begin
-        left_valid_R <= 1'h0;
-      end else begin
-        left_valid_R <= _GEN_9;
-      end
-    end else begin
-      left_valid_R <= _GEN_9;
-    end
-    if (reset) begin
-      right_R_data <= 64'h0;
-    end else if (_T_14) begin
-      right_R_data <= io_RightIO_bits_data;
-    end
-    if (reset) begin
-      right_valid_R <= 1'h0;
-    end else if (_T_16) begin
-      if (_T_18) begin
-        right_valid_R <= 1'h0;
-      end else begin
-        right_valid_R <= _GEN_13;
-      end
-    end else begin
-      right_valid_R <= _GEN_13;
-    end
-    if (reset) begin
-      state <= 1'h0;
-    end else if (_T_16) begin
-      state <= _GEN_21;
-    end else if (state) begin
-      if (_T_26) begin
-        state <= 1'h0;
+      if (io_mem_b_valid) begin
+        wstate <= 2'h0;
       end
     end
     if (reset) begin
-      out_data_R <= 64'h0;
-    end else if (_T_16) begin
-      if (enable_R_control) begin
-        out_data_R <= FU_io_out;
-      end else begin
-        out_data_R <= 64'h0;
-      end
-    end else if (state) begin
-      if (_T_26) begin
-        out_data_R <= 64'h0;
-      end else if (enable_R_control) begin
-        out_data_R <= FU_io_out;
-      end else begin
-        out_data_R <= 64'h0;
-      end
-    end else if (enable_R_control) begin
-      out_data_R <= FU_io_out;
-    end else begin
-      out_data_R <= 64'h0;
+      wr_cnt <= 8'h0;
+    end else if (_T_6) begin
+      wr_cnt <= 8'h0;
+    end else if (_T_7) begin
+      wr_cnt <= _T_9;
     end
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_41 & _T_23) begin
-          $fwrite(32'h80000002,"[LOG] [Test01] [TID->%d] [COMPUTE] binaryOp_mul0: Output fired @ %d, Value: %d (%d + %d)\n",5'h0,cycleCount,FU_io_out,left_R_data,right_R_data); // @[ComputeNode.scala 104:17]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
+    if (reset) begin
+      rd_len <= 8'h0;
+    end else if (_T) begin
+      rd_len <= rd_arb_io_out_bits_len;
+    end
+    if (reset) begin
+      wr_len <= 8'h0;
+    end else if (_T_18) begin
+      wr_len <= io_vme_wr_0_cmd_bits_len;
+    end
+    if (reset) begin
+      rd_addr <= 64'h0;
+    end else if (_T) begin
+      rd_addr <= rd_arb_io_out_bits_addr;
+    end
+    if (reset) begin
+      wr_addr <= 64'h0;
+    end else if (_T_18) begin
+      wr_addr <= io_vme_wr_0_cmd_bits_addr;
+    end
   end
 endmodule
-module RetNode2(
-  input         clock,
-  input         reset,
-  output        io_In_enable_ready,
-  input         io_In_enable_valid,
-  output        io_In_data_field0_ready,
-  input         io_In_data_field0_valid,
-  input  [31:0] io_In_data_field0_bits_data,
-  input         io_Out_ready,
-  output        io_Out_valid,
-  output [31:0] io_Out_bits_data_field0_data
+module Queue(
+  input          clock,
+  input          reset,
+  output         io_enq_ready,
+  input          io_enq_valid,
+  input  [511:0] io_enq_bits,
+  input          io_deq_ready,
+  output         io_deq_valid,
+  output [511:0] io_deq_bits
 );
-  reg [14:0] cycleCount; // @[Counter.scala 29:33]
-  reg [31:0] _RAND_0;
-  wire [14:0] _T_2; // @[Counter.scala 38:22]
-  reg  state; // @[RetNode.scala 133:22]
-  reg [31:0] _RAND_1;
-  reg  enable_valid_R; // @[RetNode.scala 136:31]
+  reg [511:0] _T [0:39]; // @[Decoupled.scala 209:24]
+  reg [511:0] _RAND_0;
+  wire [511:0] _T__T_18_data; // @[Decoupled.scala 209:24]
+  wire [5:0] _T__T_18_addr; // @[Decoupled.scala 209:24]
+  reg [511:0] _RAND_1;
+  wire [511:0] _T__T_10_data; // @[Decoupled.scala 209:24]
+  wire [5:0] _T__T_10_addr; // @[Decoupled.scala 209:24]
+  wire  _T__T_10_mask; // @[Decoupled.scala 209:24]
+  wire  _T__T_10_en; // @[Decoupled.scala 209:24]
+  reg [5:0] value; // @[Counter.scala 29:33]
   reg [31:0] _RAND_2;
-  reg  in_data_valid_R_0; // @[RetNode.scala 139:58]
+  reg [5:0] value_1; // @[Counter.scala 29:33]
   reg [31:0] _RAND_3;
-  reg [31:0] output_R_data_field0_data; // @[RetNode.scala 142:25]
+  reg  _T_1; // @[Decoupled.scala 212:35]
   reg [31:0] _RAND_4;
-  reg  out_ready_R; // @[RetNode.scala 143:28]
-  reg [31:0] _RAND_5;
-  reg  out_valid_R; // @[RetNode.scala 144:28]
-  reg [31:0] _RAND_6;
+  wire  _T_2; // @[Decoupled.scala 214:41]
+  wire  _T_4; // @[Decoupled.scala 215:33]
+  wire  _T_5; // @[Decoupled.scala 216:32]
   wire  _T_6; // @[Decoupled.scala 40:37]
   wire  _T_8; // @[Decoupled.scala 40:37]
-  wire  _GEN_7; // @[RetNode.scala 164:41]
-  wire  _T_9; // @[Decoupled.scala 40:37]
-  wire  _GEN_9; // @[RetNode.scala 174:23]
-  wire  _T_10; // @[Conditional.scala 37:30]
-  wire  _GEN_10; // @[RetNode.scala 182:27]
-  wire  _GEN_11; // @[RetNode.scala 182:27]
-  wire  _T_12; // @[RetNode.scala 200:17]
-  wire  _T_13; // @[RetNode.scala 200:17]
-  wire  _GEN_29; // @[RetNode.scala 200:17]
-  wire  _GEN_30; // @[RetNode.scala 200:17]
-  wire  _GEN_31; // @[RetNode.scala 200:17]
-  assign _T_2 = cycleCount + 15'h1; // @[Counter.scala 38:22]
-  assign _T_6 = io_In_enable_ready & io_In_enable_valid; // @[Decoupled.scala 40:37]
-  assign _T_8 = io_In_data_field0_ready & io_In_data_field0_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_7 = _T_8 | in_data_valid_R_0; // @[RetNode.scala 164:41]
-  assign _T_9 = io_Out_ready & io_Out_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_9 = _T_9 ? 1'h0 : out_valid_R; // @[RetNode.scala 174:23]
-  assign _T_10 = 1'h0 == state; // @[Conditional.scala 37:30]
-  assign _GEN_10 = in_data_valid_R_0 | _GEN_9; // @[RetNode.scala 182:27]
-  assign _GEN_11 = in_data_valid_R_0 | state; // @[RetNode.scala 182:27]
-  assign _T_12 = $unsigned(reset); // @[RetNode.scala 200:17]
-  assign _T_13 = _T_12 == 1'h0; // @[RetNode.scala 200:17]
-  assign io_In_enable_ready = ~ enable_valid_R; // @[RetNode.scala 155:22]
-  assign io_In_data_field0_ready = ~ in_data_valid_R_0; // @[RetNode.scala 163:34]
-  assign io_Out_valid = out_valid_R; // @[RetNode.scala 172:16]
-  assign io_Out_bits_data_field0_data = output_R_data_field0_data; // @[RetNode.scala 171:15]
-  assign _GEN_29 = _T_10 == 1'h0; // @[RetNode.scala 200:17]
-  assign _GEN_30 = _GEN_29 & state; // @[RetNode.scala 200:17]
-  assign _GEN_31 = _GEN_30 & out_ready_R; // @[RetNode.scala 200:17]
+  wire  wrap; // @[Counter.scala 37:24]
+  wire [5:0] _T_12; // @[Counter.scala 38:22]
+  wire  wrap_1; // @[Counter.scala 37:24]
+  wire [5:0] _T_14; // @[Counter.scala 38:22]
+  wire  _T_15; // @[Decoupled.scala 227:16]
+  assign _T__T_18_addr = value_1;
+  `ifndef RANDOMIZE_GARBAGE_ASSIGN
+  assign _T__T_18_data = _T[_T__T_18_addr]; // @[Decoupled.scala 209:24]
+  `else
+  assign _T__T_18_data = _T__T_18_addr >= 6'h28 ? _RAND_1[511:0] : _T[_T__T_18_addr]; // @[Decoupled.scala 209:24]
+  `endif // RANDOMIZE_GARBAGE_ASSIGN
+  assign _T__T_10_data = io_enq_bits;
+  assign _T__T_10_addr = value;
+  assign _T__T_10_mask = 1'h1;
+  assign _T__T_10_en = io_enq_ready & io_enq_valid;
+  assign _T_2 = value == value_1; // @[Decoupled.scala 214:41]
+  assign _T_4 = _T_2 & ~_T_1; // @[Decoupled.scala 215:33]
+  assign _T_5 = _T_2 & _T_1; // @[Decoupled.scala 216:32]
+  assign _T_6 = io_enq_ready & io_enq_valid; // @[Decoupled.scala 40:37]
+  assign _T_8 = io_deq_ready & io_deq_valid; // @[Decoupled.scala 40:37]
+  assign wrap = value == 6'h27; // @[Counter.scala 37:24]
+  assign _T_12 = value + 6'h1; // @[Counter.scala 38:22]
+  assign wrap_1 = value_1 == 6'h27; // @[Counter.scala 37:24]
+  assign _T_14 = value_1 + 6'h1; // @[Counter.scala 38:22]
+  assign _T_15 = _T_6 != _T_8; // @[Decoupled.scala 227:16]
+  assign io_enq_ready = ~_T_5; // @[Decoupled.scala 232:16]
+  assign io_deq_valid = ~_T_4; // @[Decoupled.scala 231:16]
+  assign io_deq_bits = _T__T_18_data; // @[Decoupled.scala 233:15]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -1180,446 +689,279 @@ initial begin
         #0.002 begin end
       `endif
     `endif
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_0 = {1{`RANDOM}};
-  cycleCount = _RAND_0[14:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_1 = {1{`RANDOM}};
-  state = _RAND_1[0:0];
-  `endif // RANDOMIZE_REG_INIT
+  _RAND_0 = {16{`RANDOM}};
+  `ifdef RANDOMIZE_MEM_INIT
+  for (initvar = 0; initvar < 40; initvar = initvar+1)
+    _T[initvar] = _RAND_0[511:0];
+  `endif // RANDOMIZE_MEM_INIT
+  _RAND_1 = {16{`RANDOM}};
   `ifdef RANDOMIZE_REG_INIT
   _RAND_2 = {1{`RANDOM}};
-  enable_valid_R = _RAND_2[0:0];
+  value = _RAND_2[5:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_3 = {1{`RANDOM}};
-  in_data_valid_R_0 = _RAND_3[0:0];
+  value_1 = _RAND_3[5:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_4 = {1{`RANDOM}};
-  output_R_data_field0_data = _RAND_4[31:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_5 = {1{`RANDOM}};
-  out_ready_R = _RAND_5[0:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_6 = {1{`RANDOM}};
-  out_valid_R = _RAND_6[0:0];
+  _T_1 = _RAND_4[0:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
-    if (reset) begin
-      cycleCount <= 15'h0;
-    end else begin
-      cycleCount <= _T_2;
+    if(_T__T_10_en & _T__T_10_mask) begin
+      _T[_T__T_10_addr] <= _T__T_10_data; // @[Decoupled.scala 209:24]
     end
     if (reset) begin
-      state <= 1'h0;
-    end else if (_T_10) begin
-      if (enable_valid_R) begin
-        state <= _GEN_11;
-      end
-    end else if (state) begin
-      if (out_ready_R) begin
-        state <= 1'h0;
-      end
-    end
-    if (reset) begin
-      enable_valid_R <= 1'h0;
-    end else if (_T_10) begin
-      if (_T_6) begin
-        enable_valid_R <= io_In_enable_valid;
-      end
-    end else if (state) begin
-      if (out_ready_R) begin
-        enable_valid_R <= 1'h0;
-      end else if (_T_6) begin
-        enable_valid_R <= io_In_enable_valid;
-      end
+      value <= 6'h0;
     end else if (_T_6) begin
-      enable_valid_R <= io_In_enable_valid;
-    end
-    if (reset) begin
-      in_data_valid_R_0 <= 1'h0;
-    end else if (_T_10) begin
-      in_data_valid_R_0 <= _GEN_7;
-    end else if (state) begin
-      if (out_ready_R) begin
-        in_data_valid_R_0 <= 1'h0;
+      if (wrap) begin
+        value <= 6'h0;
       end else begin
-        in_data_valid_R_0 <= _GEN_7;
+        value <= _T_12;
       end
-    end else begin
-      in_data_valid_R_0 <= _GEN_7;
     end
     if (reset) begin
-      output_R_data_field0_data <= 32'h0;
+      value_1 <= 6'h0;
     end else if (_T_8) begin
-      output_R_data_field0_data <= io_In_data_field0_bits_data;
+      if (wrap_1) begin
+        value_1 <= 6'h0;
+      end else begin
+        value_1 <= _T_14;
+      end
     end
     if (reset) begin
-      out_ready_R <= 1'h0;
-    end else if (_T_10) begin
-      if (_T_9) begin
-        out_ready_R <= io_Out_ready;
-      end
-    end else if (state) begin
-      if (out_ready_R) begin
-        out_ready_R <= 1'h0;
-      end else if (_T_9) begin
-        out_ready_R <= io_Out_ready;
-      end
-    end else if (_T_9) begin
-      out_ready_R <= io_Out_ready;
+      _T_1 <= 1'h0;
+    end else if (_T_15) begin
+      _T_1 <= _T_6;
     end
-    if (reset) begin
-      out_valid_R <= 1'h0;
-    end else if (_T_10) begin
-      if (enable_valid_R) begin
-        out_valid_R <= _GEN_10;
-      end else if (_T_9) begin
-        out_valid_R <= 1'h0;
-      end
-    end else if (state) begin
-      if (out_ready_R) begin
-        out_valid_R <= 1'h0;
-      end else if (_T_9) begin
-        out_valid_R <= 1'h0;
-      end
-    end else if (_T_9) begin
-      out_valid_R <= 1'h0;
-    end
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_31 & _T_13) begin
-          $fwrite(32'h80000002,"[LOG] [Test01] [TID->%d] [RET] ret_1: Output fired @ %d\n",5'h0,cycleCount); // @[RetNode.scala 200:17]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
   end
 endmodule
-module test01DF(
-  input         clock,
-  input         reset,
-  output        io_in_ready,
-  input         io_in_valid,
-  input  [31:0] io_in_bits_data_field1_data,
-  input  [31:0] io_in_bits_data_field0_data,
-  input         io_out_ready,
-  output        io_out_valid,
-  output [31:0] io_out_bits_data_field0_data
+module DandelionF1DTAShell(
+  input          clock,
+  input          reset,
+  input  [31:0]  io_host_addr,
+  input  [31:0]  io_host_wdata,
+  input          io_host_wr,
+  input          io_host_rd,
+  output         io_host_ack,
+  output [31:0]  io_host_rdata,
+  input          io_mem_aw_ready,
+  output         io_mem_aw_valid,
+  output [63:0]  io_mem_aw_bits_addr,
+  output [7:0]   io_mem_aw_bits_len,
+  input          io_mem_w_ready,
+  output         io_mem_w_valid,
+  output [511:0] io_mem_w_bits_data,
+  output         io_mem_w_bits_last,
+  input          io_mem_b_valid,
+  input          io_mem_ar_ready,
+  output         io_mem_ar_valid,
+  output [63:0]  io_mem_ar_bits_addr,
+  output [7:0]   io_mem_ar_bits_len,
+  output         io_mem_r_ready,
+  input          io_mem_r_valid,
+  input  [511:0] io_mem_r_bits_data,
+  input          io_mem_r_bits_last
 );
-  wire  InputSplitter_clock; // @[test01.scala 38:29]
-  wire  InputSplitter_reset; // @[test01.scala 38:29]
-  wire  InputSplitter_io_In_ready; // @[test01.scala 38:29]
-  wire  InputSplitter_io_In_valid; // @[test01.scala 38:29]
-  wire [31:0] InputSplitter_io_In_bits_data_field1_data; // @[test01.scala 38:29]
-  wire [31:0] InputSplitter_io_In_bits_data_field0_data; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_enable_ready; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_enable_valid; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_enable_bits_control; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_data_field1_0_ready; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_data_field1_0_valid; // @[test01.scala 38:29]
-  wire [63:0] InputSplitter_io_Out_data_field1_0_bits_data; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_data_field0_0_ready; // @[test01.scala 38:29]
-  wire  InputSplitter_io_Out_data_field0_0_valid; // @[test01.scala 38:29]
-  wire [63:0] InputSplitter_io_Out_data_field0_0_bits_data; // @[test01.scala 38:29]
-  wire  bb_entry0_clock; // @[test01.scala 53:25]
-  wire  bb_entry0_reset; // @[test01.scala 53:25]
-  wire  bb_entry0_io_predicateIn_0_ready; // @[test01.scala 53:25]
-  wire  bb_entry0_io_predicateIn_0_valid; // @[test01.scala 53:25]
-  wire  bb_entry0_io_predicateIn_0_bits_control; // @[test01.scala 53:25]
-  wire  bb_entry0_io_Out_0_ready; // @[test01.scala 53:25]
-  wire  bb_entry0_io_Out_0_valid; // @[test01.scala 53:25]
-  wire  bb_entry0_io_Out_0_bits_control; // @[test01.scala 53:25]
-  wire  bb_entry0_io_Out_1_ready; // @[test01.scala 53:25]
-  wire  bb_entry0_io_Out_1_valid; // @[test01.scala 53:25]
-  wire  binaryOp_mul0_clock; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_reset; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_enable_ready; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_enable_valid; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_enable_bits_control; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_Out_0_ready; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_Out_0_valid; // @[test01.scala 62:29]
-  wire [63:0] binaryOp_mul0_io_Out_0_bits_data; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_LeftIO_ready; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_LeftIO_valid; // @[test01.scala 62:29]
-  wire [63:0] binaryOp_mul0_io_LeftIO_bits_data; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_RightIO_ready; // @[test01.scala 62:29]
-  wire  binaryOp_mul0_io_RightIO_valid; // @[test01.scala 62:29]
-  wire [63:0] binaryOp_mul0_io_RightIO_bits_data; // @[test01.scala 62:29]
-  wire  ret_1_clock; // @[test01.scala 65:21]
-  wire  ret_1_reset; // @[test01.scala 65:21]
-  wire  ret_1_io_In_enable_ready; // @[test01.scala 65:21]
-  wire  ret_1_io_In_enable_valid; // @[test01.scala 65:21]
-  wire  ret_1_io_In_data_field0_ready; // @[test01.scala 65:21]
-  wire  ret_1_io_In_data_field0_valid; // @[test01.scala 65:21]
-  wire [31:0] ret_1_io_In_data_field0_bits_data; // @[test01.scala 65:21]
-  wire  ret_1_io_Out_ready; // @[test01.scala 65:21]
-  wire  ret_1_io_Out_valid; // @[test01.scala 65:21]
-  wire [31:0] ret_1_io_Out_bits_data_field0_data; // @[test01.scala 65:21]
-  SplitCallNew InputSplitter ( // @[test01.scala 38:29]
-    .clock(InputSplitter_clock),
-    .reset(InputSplitter_reset),
-    .io_In_ready(InputSplitter_io_In_ready),
-    .io_In_valid(InputSplitter_io_In_valid),
-    .io_In_bits_data_field1_data(InputSplitter_io_In_bits_data_field1_data),
-    .io_In_bits_data_field0_data(InputSplitter_io_In_bits_data_field0_data),
-    .io_Out_enable_ready(InputSplitter_io_Out_enable_ready),
-    .io_Out_enable_valid(InputSplitter_io_Out_enable_valid),
-    .io_Out_enable_bits_control(InputSplitter_io_Out_enable_bits_control),
-    .io_Out_data_field1_0_ready(InputSplitter_io_Out_data_field1_0_ready),
-    .io_Out_data_field1_0_valid(InputSplitter_io_Out_data_field1_0_valid),
-    .io_Out_data_field1_0_bits_data(InputSplitter_io_Out_data_field1_0_bits_data),
-    .io_Out_data_field0_0_ready(InputSplitter_io_Out_data_field0_0_ready),
-    .io_Out_data_field0_0_valid(InputSplitter_io_Out_data_field0_0_valid),
-    .io_Out_data_field0_0_bits_data(InputSplitter_io_Out_data_field0_0_bits_data)
-  );
-  BasicBlockNoMaskFastNode bb_entry0 ( // @[test01.scala 53:25]
-    .clock(bb_entry0_clock),
-    .reset(bb_entry0_reset),
-    .io_predicateIn_0_ready(bb_entry0_io_predicateIn_0_ready),
-    .io_predicateIn_0_valid(bb_entry0_io_predicateIn_0_valid),
-    .io_predicateIn_0_bits_control(bb_entry0_io_predicateIn_0_bits_control),
-    .io_Out_0_ready(bb_entry0_io_Out_0_ready),
-    .io_Out_0_valid(bb_entry0_io_Out_0_valid),
-    .io_Out_0_bits_control(bb_entry0_io_Out_0_bits_control),
-    .io_Out_1_ready(bb_entry0_io_Out_1_ready),
-    .io_Out_1_valid(bb_entry0_io_Out_1_valid)
-  );
-  ComputeNode binaryOp_mul0 ( // @[test01.scala 62:29]
-    .clock(binaryOp_mul0_clock),
-    .reset(binaryOp_mul0_reset),
-    .io_enable_ready(binaryOp_mul0_io_enable_ready),
-    .io_enable_valid(binaryOp_mul0_io_enable_valid),
-    .io_enable_bits_control(binaryOp_mul0_io_enable_bits_control),
-    .io_Out_0_ready(binaryOp_mul0_io_Out_0_ready),
-    .io_Out_0_valid(binaryOp_mul0_io_Out_0_valid),
-    .io_Out_0_bits_data(binaryOp_mul0_io_Out_0_bits_data),
-    .io_LeftIO_ready(binaryOp_mul0_io_LeftIO_ready),
-    .io_LeftIO_valid(binaryOp_mul0_io_LeftIO_valid),
-    .io_LeftIO_bits_data(binaryOp_mul0_io_LeftIO_bits_data),
-    .io_RightIO_ready(binaryOp_mul0_io_RightIO_ready),
-    .io_RightIO_valid(binaryOp_mul0_io_RightIO_valid),
-    .io_RightIO_bits_data(binaryOp_mul0_io_RightIO_bits_data)
-  );
-  RetNode2 ret_1 ( // @[test01.scala 65:21]
-    .clock(ret_1_clock),
-    .reset(ret_1_reset),
-    .io_In_enable_ready(ret_1_io_In_enable_ready),
-    .io_In_enable_valid(ret_1_io_In_enable_valid),
-    .io_In_data_field0_ready(ret_1_io_In_data_field0_ready),
-    .io_In_data_field0_valid(ret_1_io_In_data_field0_valid),
-    .io_In_data_field0_bits_data(ret_1_io_In_data_field0_bits_data),
-    .io_Out_ready(ret_1_io_Out_ready),
-    .io_Out_valid(ret_1_io_Out_valid),
-    .io_Out_bits_data_field0_data(ret_1_io_Out_bits_data_field0_data)
-  );
-  assign io_in_ready = InputSplitter_io_In_ready; // @[test01.scala 39:23]
-  assign io_out_valid = ret_1_io_Out_valid; // @[test01.scala 195:10]
-  assign io_out_bits_data_field0_data = ret_1_io_Out_bits_data_field0_data; // @[test01.scala 195:10]
-  assign InputSplitter_clock = clock;
-  assign InputSplitter_reset = reset;
-  assign InputSplitter_io_In_valid = io_in_valid; // @[test01.scala 39:23]
-  assign InputSplitter_io_In_bits_data_field1_data = io_in_bits_data_field1_data; // @[test01.scala 39:23]
-  assign InputSplitter_io_In_bits_data_field0_data = io_in_bits_data_field0_data; // @[test01.scala 39:23]
-  assign InputSplitter_io_Out_enable_ready = bb_entry0_io_predicateIn_0_ready; // @[test01.scala 79:31]
-  assign InputSplitter_io_Out_data_field1_0_ready = binaryOp_mul0_io_LeftIO_ready; // @[test01.scala 187:27]
-  assign InputSplitter_io_Out_data_field0_0_ready = binaryOp_mul0_io_RightIO_ready; // @[test01.scala 185:28]
-  assign bb_entry0_clock = clock;
-  assign bb_entry0_reset = reset;
-  assign bb_entry0_io_predicateIn_0_valid = InputSplitter_io_Out_enable_valid; // @[test01.scala 79:31]
-  assign bb_entry0_io_predicateIn_0_bits_control = InputSplitter_io_Out_enable_bits_control; // @[test01.scala 79:31]
-  assign bb_entry0_io_Out_0_ready = binaryOp_mul0_io_enable_ready; // @[test01.scala 147:27]
-  assign bb_entry0_io_Out_1_ready = ret_1_io_In_enable_ready; // @[test01.scala 150:22]
-  assign binaryOp_mul0_clock = clock;
-  assign binaryOp_mul0_reset = reset;
-  assign binaryOp_mul0_io_enable_valid = bb_entry0_io_Out_0_valid; // @[test01.scala 147:27]
-  assign binaryOp_mul0_io_enable_bits_control = bb_entry0_io_Out_0_bits_control; // @[test01.scala 147:27]
-  assign binaryOp_mul0_io_Out_0_ready = ret_1_io_In_data_field0_ready; // @[test01.scala 183:30]
-  assign binaryOp_mul0_io_LeftIO_valid = InputSplitter_io_Out_data_field1_0_valid; // @[test01.scala 187:27]
-  assign binaryOp_mul0_io_LeftIO_bits_data = InputSplitter_io_Out_data_field1_0_bits_data; // @[test01.scala 187:27]
-  assign binaryOp_mul0_io_RightIO_valid = InputSplitter_io_Out_data_field0_0_valid; // @[test01.scala 185:28]
-  assign binaryOp_mul0_io_RightIO_bits_data = InputSplitter_io_Out_data_field0_0_bits_data; // @[test01.scala 185:28]
-  assign ret_1_clock = clock;
-  assign ret_1_reset = reset;
-  assign ret_1_io_In_enable_valid = bb_entry0_io_Out_1_valid; // @[test01.scala 150:22]
-  assign ret_1_io_In_data_field0_valid = binaryOp_mul0_io_Out_0_valid; // @[test01.scala 183:30]
-  assign ret_1_io_In_data_field0_bits_data = binaryOp_mul0_io_Out_0_bits_data[31:0]; // @[test01.scala 183:30]
-  assign ret_1_io_Out_ready = io_out_ready; // @[test01.scala 195:10]
-endmodule
-module DandelionCacheShell(
-  input         clock,
-  input         reset,
-  output        io_host_aw_ready,
-  input         io_host_aw_valid,
-  input  [31:0] io_host_aw_bits_addr,
-  output        io_host_w_ready,
-  input         io_host_w_valid,
-  input  [31:0] io_host_w_bits_data,
-  input         io_host_b_ready,
-  output        io_host_b_valid,
-  output        io_host_ar_ready,
-  input         io_host_ar_valid,
-  input  [31:0] io_host_ar_bits_addr,
-  input         io_host_r_ready,
-  output        io_host_r_valid,
-  output [31:0] io_host_r_bits_data
-);
-  wire  vcr_clock; // @[DandelionShell.scala 164:19]
-  wire  vcr_reset; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_aw_ready; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_aw_valid; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_host_aw_bits_addr; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_w_ready; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_w_valid; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_host_w_bits_data; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_b_ready; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_b_valid; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_ar_ready; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_ar_valid; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_host_ar_bits_addr; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_r_ready; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_host_r_valid; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_host_r_bits_data; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_vcr_launch; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_vcr_finish; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_vcr_ecnt_0_valid; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_vcr_ecnt_0_bits; // @[DandelionShell.scala 164:19]
-  wire  vcr_io_vcr_ecnt_1_valid; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_vcr_ecnt_1_bits; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_vcr_vals_0; // @[DandelionShell.scala 164:19]
-  wire [31:0] vcr_io_vcr_vals_1; // @[DandelionShell.scala 164:19]
-  wire  cache_clock; // @[DandelionShell.scala 165:21]
-  wire  cache_reset; // @[DandelionShell.scala 165:21]
-  wire  cache_io_cpu_flush; // @[DandelionShell.scala 165:21]
-  wire  cache_io_cpu_flush_done; // @[DandelionShell.scala 165:21]
-  wire  accel_clock; // @[DandelionShell.scala 167:21]
-  wire  accel_reset; // @[DandelionShell.scala 167:21]
-  wire  accel_io_in_ready; // @[DandelionShell.scala 167:21]
-  wire  accel_io_in_valid; // @[DandelionShell.scala 167:21]
-  wire [31:0] accel_io_in_bits_data_field1_data; // @[DandelionShell.scala 167:21]
-  wire [31:0] accel_io_in_bits_data_field0_data; // @[DandelionShell.scala 167:21]
-  wire  accel_io_out_ready; // @[DandelionShell.scala 167:21]
-  wire  accel_io_out_valid; // @[DandelionShell.scala 167:21]
-  wire [31:0] accel_io_out_bits_data_field0_data; // @[DandelionShell.scala 167:21]
-  reg [1:0] state; // @[DandelionShell.scala 174:22]
+  wire  dcr_clock; // @[DandelionShell.scala 147:19]
+  wire  dcr_reset; // @[DandelionShell.scala 147:19]
+  wire [31:0] dcr_io_host_addr; // @[DandelionShell.scala 147:19]
+  wire [31:0] dcr_io_host_wdata; // @[DandelionShell.scala 147:19]
+  wire  dcr_io_host_wr; // @[DandelionShell.scala 147:19]
+  wire  dcr_io_host_rd; // @[DandelionShell.scala 147:19]
+  wire  dcr_io_host_ack; // @[DandelionShell.scala 147:19]
+  wire [31:0] dcr_io_host_rdata; // @[DandelionShell.scala 147:19]
+  wire  dcr_io_dcr_launch; // @[DandelionShell.scala 147:19]
+  wire  dcr_io_dcr_finish; // @[DandelionShell.scala 147:19]
+  wire  dcr_io_dcr_ecnt_0_valid; // @[DandelionShell.scala 147:19]
+  wire [31:0] dcr_io_dcr_ecnt_0_bits; // @[DandelionShell.scala 147:19]
+  wire [31:0] dcr_io_dcr_vals_0; // @[DandelionShell.scala 147:19]
+  wire [31:0] dcr_io_dcr_vals_1; // @[DandelionShell.scala 147:19]
+  wire [63:0] dcr_io_dcr_ptrs_0; // @[DandelionShell.scala 147:19]
+  wire [63:0] dcr_io_dcr_ptrs_2; // @[DandelionShell.scala 147:19]
+  wire  vmem_clock; // @[DandelionShell.scala 148:20]
+  wire  vmem_reset; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_aw_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_aw_valid; // @[DandelionShell.scala 148:20]
+  wire [63:0] vmem_io_mem_aw_bits_addr; // @[DandelionShell.scala 148:20]
+  wire [7:0] vmem_io_mem_aw_bits_len; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_w_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_w_valid; // @[DandelionShell.scala 148:20]
+  wire [511:0] vmem_io_mem_w_bits_data; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_w_bits_last; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_b_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_b_valid; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_ar_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_ar_valid; // @[DandelionShell.scala 148:20]
+  wire [63:0] vmem_io_mem_ar_bits_addr; // @[DandelionShell.scala 148:20]
+  wire [7:0] vmem_io_mem_ar_bits_len; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_r_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_r_valid; // @[DandelionShell.scala 148:20]
+  wire [511:0] vmem_io_mem_r_bits_data; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_mem_r_bits_last; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_rd_0_cmd_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_rd_0_cmd_valid; // @[DandelionShell.scala 148:20]
+  wire [63:0] vmem_io_vme_rd_0_cmd_bits_addr; // @[DandelionShell.scala 148:20]
+  wire [7:0] vmem_io_vme_rd_0_cmd_bits_len; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_rd_0_data_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_rd_0_data_valid; // @[DandelionShell.scala 148:20]
+  wire [511:0] vmem_io_vme_rd_0_data_bits; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_wr_0_cmd_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_wr_0_cmd_valid; // @[DandelionShell.scala 148:20]
+  wire [63:0] vmem_io_vme_wr_0_cmd_bits_addr; // @[DandelionShell.scala 148:20]
+  wire [7:0] vmem_io_vme_wr_0_cmd_bits_len; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_wr_0_data_ready; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_wr_0_data_valid; // @[DandelionShell.scala 148:20]
+  wire [511:0] vmem_io_vme_wr_0_data_bits; // @[DandelionShell.scala 148:20]
+  wire  vmem_io_vme_wr_0_ack; // @[DandelionShell.scala 148:20]
+  wire  buffer_clock; // @[DandelionShell.scala 150:22]
+  wire  buffer_reset; // @[DandelionShell.scala 150:22]
+  wire  buffer_io_enq_ready; // @[DandelionShell.scala 150:22]
+  wire  buffer_io_enq_valid; // @[DandelionShell.scala 150:22]
+  wire [511:0] buffer_io_enq_bits; // @[DandelionShell.scala 150:22]
+  wire  buffer_io_deq_ready; // @[DandelionShell.scala 150:22]
+  wire  buffer_io_deq_valid; // @[DandelionShell.scala 150:22]
+  wire [511:0] buffer_io_deq_bits; // @[DandelionShell.scala 150:22]
+  reg [1:0] Rstate; // @[DandelionShell.scala 153:23]
   reg [31:0] _RAND_0;
-  reg [31:0] cycles; // @[DandelionShell.scala 175:23]
+  reg [1:0] Wstate; // @[DandelionShell.scala 154:23]
   reg [31:0] _RAND_1;
-  wire  _T; // @[DandelionShell.scala 180:14]
-  wire  _T_1; // @[DandelionShell.scala 182:20]
-  wire [31:0] _T_3; // @[DandelionShell.scala 183:22]
-  reg [63:0] vals_0; // @[Reg.scala 27:20]
-  reg [63:0] _RAND_2;
-  reg [63:0] vals_1; // @[Reg.scala 27:20]
-  reg [63:0] _RAND_3;
-  wire  _T_9; // @[Conditional.scala 37:30]
-  wire  _T_10; // @[DandelionShell.scala 230:15]
-  wire  _T_11; // @[DandelionShell.scala 230:15]
-  wire  _T_20; // @[Decoupled.scala 40:37]
-  wire  _GEN_5; // @[DandelionShell.scala 229:31]
-  wire  _T_21; // @[Conditional.scala 37:30]
-  wire  _T_22; // @[Decoupled.scala 40:37]
-  wire  _T_23; // @[Conditional.scala 37:30]
-  wire  _T_24; // @[Conditional.scala 37:30]
-  wire  _GEN_13; // @[Conditional.scala 39:67]
-  wire  _GEN_17; // @[DandelionShell.scala 230:15]
-  VCR vcr ( // @[DandelionShell.scala 164:19]
-    .clock(vcr_clock),
-    .reset(vcr_reset),
-    .io_host_aw_ready(vcr_io_host_aw_ready),
-    .io_host_aw_valid(vcr_io_host_aw_valid),
-    .io_host_aw_bits_addr(vcr_io_host_aw_bits_addr),
-    .io_host_w_ready(vcr_io_host_w_ready),
-    .io_host_w_valid(vcr_io_host_w_valid),
-    .io_host_w_bits_data(vcr_io_host_w_bits_data),
-    .io_host_b_ready(vcr_io_host_b_ready),
-    .io_host_b_valid(vcr_io_host_b_valid),
-    .io_host_ar_ready(vcr_io_host_ar_ready),
-    .io_host_ar_valid(vcr_io_host_ar_valid),
-    .io_host_ar_bits_addr(vcr_io_host_ar_bits_addr),
-    .io_host_r_ready(vcr_io_host_r_ready),
-    .io_host_r_valid(vcr_io_host_r_valid),
-    .io_host_r_bits_data(vcr_io_host_r_bits_data),
-    .io_vcr_launch(vcr_io_vcr_launch),
-    .io_vcr_finish(vcr_io_vcr_finish),
-    .io_vcr_ecnt_0_valid(vcr_io_vcr_ecnt_0_valid),
-    .io_vcr_ecnt_0_bits(vcr_io_vcr_ecnt_0_bits),
-    .io_vcr_ecnt_1_valid(vcr_io_vcr_ecnt_1_valid),
-    .io_vcr_ecnt_1_bits(vcr_io_vcr_ecnt_1_bits),
-    .io_vcr_vals_0(vcr_io_vcr_vals_0),
-    .io_vcr_vals_1(vcr_io_vcr_vals_1)
+  reg [7:0] value; // @[Counter.scala 29:33]
+  reg [31:0] _RAND_2;
+  wire  _T; // @[DandelionShell.scala 158:15]
+  wire  _T_1; // @[Counter.scala 37:24]
+  wire [7:0] _T_3; // @[Counter.scala 38:22]
+  wire  _T_4; // @[Conditional.scala 37:30]
+  wire  _T_5; // @[Conditional.scala 37:30]
+  wire  _T_6; // @[Decoupled.scala 40:37]
+  wire  _T_7; // @[Conditional.scala 37:30]
+  wire  _T_8; // @[Conditional.scala 37:30]
+  wire  _T_9; // @[Decoupled.scala 40:37]
+  wire  _T_12; // @[DandelionShell.scala 210:21]
+  wire [511:0] _GEN_16; // @[DandelionShell.scala 221:53]
+  DCR dcr ( // @[DandelionShell.scala 147:19]
+    .clock(dcr_clock),
+    .reset(dcr_reset),
+    .io_host_addr(dcr_io_host_addr),
+    .io_host_wdata(dcr_io_host_wdata),
+    .io_host_wr(dcr_io_host_wr),
+    .io_host_rd(dcr_io_host_rd),
+    .io_host_ack(dcr_io_host_ack),
+    .io_host_rdata(dcr_io_host_rdata),
+    .io_dcr_launch(dcr_io_dcr_launch),
+    .io_dcr_finish(dcr_io_dcr_finish),
+    .io_dcr_ecnt_0_valid(dcr_io_dcr_ecnt_0_valid),
+    .io_dcr_ecnt_0_bits(dcr_io_dcr_ecnt_0_bits),
+    .io_dcr_vals_0(dcr_io_dcr_vals_0),
+    .io_dcr_vals_1(dcr_io_dcr_vals_1),
+    .io_dcr_ptrs_0(dcr_io_dcr_ptrs_0),
+    .io_dcr_ptrs_2(dcr_io_dcr_ptrs_2)
   );
-  SimpleCache cache ( // @[DandelionShell.scala 165:21]
-    .clock(cache_clock),
-    .reset(cache_reset),
-    .io_cpu_flush(cache_io_cpu_flush),
-    .io_cpu_flush_done(cache_io_cpu_flush_done)
+  VME vmem ( // @[DandelionShell.scala 148:20]
+    .clock(vmem_clock),
+    .reset(vmem_reset),
+    .io_mem_aw_ready(vmem_io_mem_aw_ready),
+    .io_mem_aw_valid(vmem_io_mem_aw_valid),
+    .io_mem_aw_bits_addr(vmem_io_mem_aw_bits_addr),
+    .io_mem_aw_bits_len(vmem_io_mem_aw_bits_len),
+    .io_mem_w_ready(vmem_io_mem_w_ready),
+    .io_mem_w_valid(vmem_io_mem_w_valid),
+    .io_mem_w_bits_data(vmem_io_mem_w_bits_data),
+    .io_mem_w_bits_last(vmem_io_mem_w_bits_last),
+    .io_mem_b_ready(vmem_io_mem_b_ready),
+    .io_mem_b_valid(vmem_io_mem_b_valid),
+    .io_mem_ar_ready(vmem_io_mem_ar_ready),
+    .io_mem_ar_valid(vmem_io_mem_ar_valid),
+    .io_mem_ar_bits_addr(vmem_io_mem_ar_bits_addr),
+    .io_mem_ar_bits_len(vmem_io_mem_ar_bits_len),
+    .io_mem_r_ready(vmem_io_mem_r_ready),
+    .io_mem_r_valid(vmem_io_mem_r_valid),
+    .io_mem_r_bits_data(vmem_io_mem_r_bits_data),
+    .io_mem_r_bits_last(vmem_io_mem_r_bits_last),
+    .io_vme_rd_0_cmd_ready(vmem_io_vme_rd_0_cmd_ready),
+    .io_vme_rd_0_cmd_valid(vmem_io_vme_rd_0_cmd_valid),
+    .io_vme_rd_0_cmd_bits_addr(vmem_io_vme_rd_0_cmd_bits_addr),
+    .io_vme_rd_0_cmd_bits_len(vmem_io_vme_rd_0_cmd_bits_len),
+    .io_vme_rd_0_data_ready(vmem_io_vme_rd_0_data_ready),
+    .io_vme_rd_0_data_valid(vmem_io_vme_rd_0_data_valid),
+    .io_vme_rd_0_data_bits(vmem_io_vme_rd_0_data_bits),
+    .io_vme_wr_0_cmd_ready(vmem_io_vme_wr_0_cmd_ready),
+    .io_vme_wr_0_cmd_valid(vmem_io_vme_wr_0_cmd_valid),
+    .io_vme_wr_0_cmd_bits_addr(vmem_io_vme_wr_0_cmd_bits_addr),
+    .io_vme_wr_0_cmd_bits_len(vmem_io_vme_wr_0_cmd_bits_len),
+    .io_vme_wr_0_data_ready(vmem_io_vme_wr_0_data_ready),
+    .io_vme_wr_0_data_valid(vmem_io_vme_wr_0_data_valid),
+    .io_vme_wr_0_data_bits(vmem_io_vme_wr_0_data_bits),
+    .io_vme_wr_0_ack(vmem_io_vme_wr_0_ack)
   );
-  test01DF accel ( // @[DandelionShell.scala 167:21]
-    .clock(accel_clock),
-    .reset(accel_reset),
-    .io_in_ready(accel_io_in_ready),
-    .io_in_valid(accel_io_in_valid),
-    .io_in_bits_data_field1_data(accel_io_in_bits_data_field1_data),
-    .io_in_bits_data_field0_data(accel_io_in_bits_data_field0_data),
-    .io_out_ready(accel_io_out_ready),
-    .io_out_valid(accel_io_out_valid),
-    .io_out_bits_data_field0_data(accel_io_out_bits_data_field0_data)
+  Queue buffer ( // @[DandelionShell.scala 150:22]
+    .clock(buffer_clock),
+    .reset(buffer_reset),
+    .io_enq_ready(buffer_io_enq_ready),
+    .io_enq_valid(buffer_io_enq_valid),
+    .io_enq_bits(buffer_io_enq_bits),
+    .io_deq_ready(buffer_io_deq_ready),
+    .io_deq_valid(buffer_io_deq_valid),
+    .io_deq_bits(buffer_io_deq_bits)
   );
-  assign _T = state == 2'h0; // @[DandelionShell.scala 180:14]
-  assign _T_1 = state != 2'h2; // @[DandelionShell.scala 182:20]
-  assign _T_3 = cycles + 32'h1; // @[DandelionShell.scala 183:22]
-  assign _T_9 = 2'h0 == state; // @[Conditional.scala 37:30]
-  assign _T_10 = $unsigned(reset); // @[DandelionShell.scala 230:15]
-  assign _T_11 = _T_10 == 1'h0; // @[DandelionShell.scala 230:15]
-  assign _T_20 = accel_io_in_ready & accel_io_in_valid; // @[Decoupled.scala 40:37]
-  assign _GEN_5 = vcr_io_vcr_launch; // @[DandelionShell.scala 229:31]
-  assign _T_21 = 2'h1 == state; // @[Conditional.scala 37:30]
-  assign _T_22 = accel_io_out_ready & accel_io_out_valid; // @[Decoupled.scala 40:37]
-  assign _T_23 = 2'h2 == state; // @[Conditional.scala 37:30]
-  assign _T_24 = 2'h3 == state; // @[Conditional.scala 37:30]
-  assign _GEN_13 = _T_21 ? 1'h0 : _T_23; // @[Conditional.scala 39:67]
-  assign io_host_aw_ready = vcr_io_host_aw_ready; // @[DandelionShell.scala 261:11]
-  assign io_host_w_ready = vcr_io_host_w_ready; // @[DandelionShell.scala 261:11]
-  assign io_host_b_valid = vcr_io_host_b_valid; // @[DandelionShell.scala 261:11]
-  assign io_host_ar_ready = vcr_io_host_ar_ready; // @[DandelionShell.scala 261:11]
-  assign io_host_r_valid = vcr_io_host_r_valid; // @[DandelionShell.scala 261:11]
-  assign io_host_r_bits_data = vcr_io_host_r_bits_data; // @[DandelionShell.scala 261:11]
-  assign vcr_clock = clock;
-  assign vcr_reset = reset;
-  assign vcr_io_host_aw_valid = io_host_aw_valid; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_aw_bits_addr = io_host_aw_bits_addr; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_w_valid = io_host_w_valid; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_w_bits_data = io_host_w_bits_data; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_b_ready = io_host_b_ready; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_ar_valid = io_host_ar_valid; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_ar_bits_addr = io_host_ar_bits_addr; // @[DandelionShell.scala 261:11]
-  assign vcr_io_host_r_ready = io_host_r_ready; // @[DandelionShell.scala 261:11]
-  assign vcr_io_vcr_finish = state == 2'h3; // @[DandelionShell.scala 258:21]
-  assign vcr_io_vcr_ecnt_0_valid = state == 2'h3; // @[DandelionShell.scala 190:28]
-  assign vcr_io_vcr_ecnt_0_bits = cycles; // @[DandelionShell.scala 191:27]
-  assign vcr_io_vcr_ecnt_1_valid = accel_io_out_valid; // @[DandelionShell.scala 196:32]
-  assign vcr_io_vcr_ecnt_1_bits = accel_io_out_bits_data_field0_data; // @[DandelionShell.scala 195:31]
-  assign cache_clock = clock;
-  assign cache_reset = reset;
-  assign cache_io_cpu_flush = _T_9 ? 1'h0 : _GEN_13; // @[DandelionShell.scala 225:22 DandelionShell.scala 247:26]
-  assign accel_clock = clock;
-  assign accel_reset = reset;
-  assign accel_io_in_valid = _T_9 & _GEN_5; // @[DandelionShell.scala 221:21 DandelionShell.scala 235:27]
-  assign accel_io_in_bits_data_field1_data = vals_1[31:0]; // @[DandelionShell.scala 215:41]
-  assign accel_io_in_bits_data_field0_data = vals_0[31:0]; // @[DandelionShell.scala 215:41]
-  assign accel_io_out_ready = state == 2'h1; // @[DandelionShell.scala 222:22]
-  assign _GEN_17 = _T_9 & vcr_io_vcr_launch; // @[DandelionShell.scala 230:15]
+  assign _T = Rstate != 2'h0; // @[DandelionShell.scala 158:15]
+  assign _T_1 = value == 8'hc7; // @[Counter.scala 37:24]
+  assign _T_3 = value + 8'h1; // @[Counter.scala 38:22]
+  assign _T_4 = 2'h0 == Rstate; // @[Conditional.scala 37:30]
+  assign _T_5 = 2'h1 == Rstate; // @[Conditional.scala 37:30]
+  assign _T_6 = vmem_io_vme_rd_0_cmd_ready & vmem_io_vme_rd_0_cmd_valid; // @[Decoupled.scala 40:37]
+  assign _T_7 = 2'h0 == Wstate; // @[Conditional.scala 37:30]
+  assign _T_8 = 2'h1 == Wstate; // @[Conditional.scala 37:30]
+  assign _T_9 = vmem_io_vme_wr_0_cmd_ready & vmem_io_vme_wr_0_cmd_valid; // @[Decoupled.scala 40:37]
+  assign _T_12 = Wstate == 2'h2; // @[DandelionShell.scala 210:21]
+  assign _GEN_16 = {{480'd0}, dcr_io_dcr_vals_0}; // @[DandelionShell.scala 221:53]
+  assign io_host_ack = dcr_io_host_ack; // @[DandelionShell.scala 225:11]
+  assign io_host_rdata = dcr_io_host_rdata; // @[DandelionShell.scala 225:11]
+  assign io_mem_aw_valid = vmem_io_mem_aw_valid; // @[DandelionShell.scala 224:10]
+  assign io_mem_aw_bits_addr = vmem_io_mem_aw_bits_addr; // @[DandelionShell.scala 224:10]
+  assign io_mem_aw_bits_len = vmem_io_mem_aw_bits_len; // @[DandelionShell.scala 224:10]
+  assign io_mem_w_valid = vmem_io_mem_w_valid; // @[DandelionShell.scala 224:10]
+  assign io_mem_w_bits_data = vmem_io_mem_w_bits_data; // @[DandelionShell.scala 224:10]
+  assign io_mem_w_bits_last = vmem_io_mem_w_bits_last; // @[DandelionShell.scala 224:10]
+  assign io_mem_ar_valid = vmem_io_mem_ar_valid; // @[DandelionShell.scala 224:10]
+  assign io_mem_ar_bits_addr = vmem_io_mem_ar_bits_addr; // @[DandelionShell.scala 224:10]
+  assign io_mem_ar_bits_len = vmem_io_mem_ar_bits_len; // @[DandelionShell.scala 224:10]
+  assign io_mem_r_ready = vmem_io_mem_r_ready; // @[DandelionShell.scala 224:10]
+  assign dcr_clock = clock;
+  assign dcr_reset = reset;
+  assign dcr_io_host_addr = io_host_addr; // @[DandelionShell.scala 225:11]
+  assign dcr_io_host_wdata = io_host_wdata; // @[DandelionShell.scala 225:11]
+  assign dcr_io_host_wr = io_host_wr; // @[DandelionShell.scala 225:11]
+  assign dcr_io_host_rd = io_host_rd; // @[DandelionShell.scala 225:11]
+  assign dcr_io_dcr_finish = _T_12 & vmem_io_vme_wr_0_ack; // @[DandelionShell.scala 211:21]
+  assign dcr_io_dcr_ecnt_0_valid = _T_12 & vmem_io_vme_wr_0_ack; // @[DandelionShell.scala 212:28]
+  assign dcr_io_dcr_ecnt_0_bits = {{24'd0}, value}; // @[DandelionShell.scala 163:29]
+  assign vmem_clock = clock;
+  assign vmem_reset = reset;
+  assign vmem_io_mem_aw_ready = io_mem_aw_ready; // @[DandelionShell.scala 224:10]
+  assign vmem_io_mem_w_ready = io_mem_w_ready; // @[DandelionShell.scala 224:10]
+  assign vmem_io_mem_b_valid = io_mem_b_valid; // @[DandelionShell.scala 224:10]
+  assign vmem_io_mem_ar_ready = io_mem_ar_ready; // @[DandelionShell.scala 224:10]
+  assign vmem_io_mem_r_valid = io_mem_r_valid; // @[DandelionShell.scala 224:10]
+  assign vmem_io_mem_r_bits_data = io_mem_r_bits_data; // @[DandelionShell.scala 224:10]
+  assign vmem_io_mem_r_bits_last = io_mem_r_bits_last; // @[DandelionShell.scala 224:10]
+  assign vmem_io_vme_rd_0_cmd_valid = Rstate == 2'h1; // @[DandelionShell.scala 195:31 DandelionShell.scala 202:33]
+  assign vmem_io_vme_rd_0_cmd_bits_addr = dcr_io_dcr_ptrs_0; // @[DandelionShell.scala 193:35]
+  assign vmem_io_vme_rd_0_cmd_bits_len = dcr_io_dcr_vals_1[7:0]; // @[DandelionShell.scala 194:34]
+  assign vmem_io_vme_rd_0_data_ready = buffer_io_enq_ready; // @[DandelionShell.scala 220:17]
+  assign vmem_io_vme_wr_0_cmd_valid = Wstate == 2'h1; // @[DandelionShell.scala 199:31 DandelionShell.scala 206:33]
+  assign vmem_io_vme_wr_0_cmd_bits_addr = dcr_io_dcr_ptrs_2; // @[DandelionShell.scala 197:35]
+  assign vmem_io_vme_wr_0_cmd_bits_len = dcr_io_dcr_vals_1[7:0]; // @[DandelionShell.scala 198:34]
+  assign vmem_io_vme_wr_0_data_valid = buffer_io_deq_valid; // @[DandelionShell.scala 222:26]
+  assign vmem_io_vme_wr_0_data_bits = buffer_io_deq_bits; // @[DandelionShell.scala 222:26]
+  assign buffer_clock = clock;
+  assign buffer_reset = reset;
+  assign buffer_io_enq_valid = vmem_io_vme_rd_0_data_valid; // @[DandelionShell.scala 220:17]
+  assign buffer_io_enq_bits = vmem_io_vme_rd_0_data_bits + _GEN_16; // @[DandelionShell.scala 220:17 DandelionShell.scala 221:22]
+  assign buffer_io_deq_ready = vmem_io_vme_wr_0_data_ready; // @[DandelionShell.scala 222:26]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -1653,188 +995,219 @@ initial begin
     `endif
   `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  state = _RAND_0[1:0];
+  Rstate = _RAND_0[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  cycles = _RAND_1[31:0];
+  Wstate = _RAND_1[1:0];
   `endif // RANDOMIZE_REG_INIT
   `ifdef RANDOMIZE_REG_INIT
-  _RAND_2 = {2{`RANDOM}};
-  vals_0 = _RAND_2[63:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_3 = {2{`RANDOM}};
-  vals_1 = _RAND_3[63:0];
+  _RAND_2 = {1{`RANDOM}};
+  value = _RAND_2[7:0];
   `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
   always @(posedge clock) begin
     if (reset) begin
-      state <= 2'h0;
-    end else if (_T_9) begin
-      if (vcr_io_vcr_launch) begin
-        if (_T_20) begin
-          state <= 2'h1;
-        end
+      Rstate <= 2'h0;
+    end else if (vmem_io_vme_wr_0_ack) begin
+      Rstate <= 2'h0;
+    end else if (_T_4) begin
+      if (dcr_io_dcr_launch) begin
+        Rstate <= 2'h1;
       end
-    end else if (_T_21) begin
-      if (_T_22) begin
-        state <= 2'h2;
+    end else if (_T_5) begin
+      if (_T_6) begin
+        Rstate <= 2'h2;
       end
-    end else if (_T_23) begin
-      if (cache_io_cpu_flush_done) begin
-        state <= 2'h3;
-      end
-    end else if (_T_24) begin
-      state <= 2'h0;
     end
     if (reset) begin
-      cycles <= 32'h0;
-    end else if (_T) begin
-      cycles <= 32'h0;
-    end else if (_T_1) begin
-      cycles <= _T_3;
+      Wstate <= 2'h0;
+    end else if (vmem_io_vme_wr_0_ack) begin
+      Wstate <= 2'h0;
+    end else if (_T_7) begin
+      if (dcr_io_dcr_launch) begin
+        Wstate <= 2'h1;
+      end
+    end else if (_T_8) begin
+      if (_T_9) begin
+        Wstate <= 2'h2;
+      end
     end
     if (reset) begin
-      vals_0 <= 64'h0;
+      value <= 8'h0;
+    end else if (_T_4) begin
+      if (dcr_io_dcr_launch) begin
+        value <= 8'h0;
+      end else if (_T) begin
+        if (_T_1) begin
+          value <= 8'h0;
+        end else begin
+          value <= _T_3;
+        end
+      end
     end else if (_T) begin
-      vals_0 <= {{32'd0}, vcr_io_vcr_vals_0};
+      if (_T_1) begin
+        value <= 8'h0;
+      end else begin
+        value <= _T_3;
+      end
     end
-    if (reset) begin
-      vals_1 <= 64'h0;
-    end else if (_T) begin
-      vals_1 <= {{32'd0}, vcr_io_vcr_vals_1};
-    end
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_17 & _T_11) begin
-          $fwrite(32'h80000002,"Ptrs: "); // @[DandelionShell.scala 230:15]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_17 & _T_11) begin
-          $fwrite(32'h80000002,"\nVals: "); // @[DandelionShell.scala 232:15]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_17 & _T_11) begin
-          $fwrite(32'h80000002,"val(0): %d, ",vals_0); // @[DandelionShell.scala 233:46]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_17 & _T_11) begin
-          $fwrite(32'h80000002,"val(1): %d, ",vals_1); // @[DandelionShell.scala 233:46]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
-    `ifndef SYNTHESIS
-    `ifdef PRINTF_COND
-      if (`PRINTF_COND) begin
-    `endif
-        if (_GEN_17 & _T_11) begin
-          $fwrite(32'h80000002,"\n"); // @[DandelionShell.scala 234:15]
-        end
-    `ifdef PRINTF_COND
-      end
-    `endif
-    `endif // SYNTHESIS
   end
 endmodule
 module DandelionF1Accel(
-  input         ap_clk,
-  input         ap_rst_n,
-  input         s_axi_control_AWVALID,
-  output        s_axi_control_AWREADY,
-  input  [31:0] s_axi_control_AWADDR,
-  input         s_axi_control_WVALID,
-  output        s_axi_control_WREADY,
-  input  [31:0] s_axi_control_WDATA,
-  input  [3:0]  s_axi_control_WSTRB,
-  output        s_axi_control_BVALID,
-  input         s_axi_control_BREADY,
-  output [1:0]  s_axi_control_BRESP,
-  input         s_axi_control_ARVALID,
-  output        s_axi_control_ARREADY,
-  input  [31:0] s_axi_control_ARADDR,
-  output        s_axi_control_RVALID,
-  input         s_axi_control_RREADY,
-  output [31:0] s_axi_control_RDATA,
-  output [1:0]  s_axi_control_RRESP
+  input          ap_clk,
+  input          ap_rst_n,
+  output         cl_axi_mstr_bus_AWVALID,
+  input          cl_axi_mstr_bus_AWREADY,
+  output [63:0]  cl_axi_mstr_bus_AWADDR,
+  output [15:0]  cl_axi_mstr_bus_AWID,
+  output [9:0]   cl_axi_mstr_bus_AWUSER,
+  output [7:0]   cl_axi_mstr_bus_AWLEN,
+  output [2:0]   cl_axi_mstr_bus_AWSIZE,
+  output [1:0]   cl_axi_mstr_bus_AWBURST,
+  output [1:0]   cl_axi_mstr_bus_AWLOCK,
+  output [3:0]   cl_axi_mstr_bus_AWCACHE,
+  output [2:0]   cl_axi_mstr_bus_AWPROT,
+  output [3:0]   cl_axi_mstr_bus_AWQOS,
+  output [3:0]   cl_axi_mstr_bus_AWREGION,
+  output         cl_axi_mstr_bus_WVALID,
+  input          cl_axi_mstr_bus_WREADY,
+  output [511:0] cl_axi_mstr_bus_WDATA,
+  output [63:0]  cl_axi_mstr_bus_WSTRB,
+  output         cl_axi_mstr_bus_WLAST,
+  output [15:0]  cl_axi_mstr_bus_WID,
+  output [9:0]   cl_axi_mstr_bus_WUSER,
+  input          cl_axi_mstr_bus_BVALID,
+  output         cl_axi_mstr_bus_BREADY,
+  input  [1:0]   cl_axi_mstr_bus_BRESP,
+  input  [15:0]  cl_axi_mstr_bus_BID,
+  input  [9:0]   cl_axi_mstr_bus_BUSER,
+  output         cl_axi_mstr_bus_ARVALID,
+  input          cl_axi_mstr_bus_ARREADY,
+  output [63:0]  cl_axi_mstr_bus_ARADDR,
+  output [15:0]  cl_axi_mstr_bus_ARID,
+  output [9:0]   cl_axi_mstr_bus_ARUSER,
+  output [7:0]   cl_axi_mstr_bus_ARLEN,
+  output [2:0]   cl_axi_mstr_bus_ARSIZE,
+  output [1:0]   cl_axi_mstr_bus_ARBURST,
+  output [1:0]   cl_axi_mstr_bus_ARLOCK,
+  output [3:0]   cl_axi_mstr_bus_ARCACHE,
+  output [2:0]   cl_axi_mstr_bus_ARPROT,
+  output [3:0]   cl_axi_mstr_bus_ARQOS,
+  output [3:0]   cl_axi_mstr_bus_ARREGION,
+  input          cl_axi_mstr_bus_RVALID,
+  output         cl_axi_mstr_bus_RREADY,
+  input  [511:0] cl_axi_mstr_bus_RDATA,
+  input  [1:0]   cl_axi_mstr_bus_RRESP,
+  input          cl_axi_mstr_bus_RLAST,
+  input  [15:0]  cl_axi_mstr_bus_RID,
+  input  [9:0]   cl_axi_mstr_bus_RUSER,
+  input  [31:0]  axi_mstr_cfg_bus_addr,
+  input  [31:0]  axi_mstr_cfg_bus_wdata,
+  input          axi_mstr_cfg_bus_wr,
+  input          axi_mstr_cfg_bus_rd,
+  output         axi_mstr_cfg_bus_ack,
+  output [31:0]  axi_mstr_cfg_bus_rdata
 );
-  wire  shell_clock; // @[XilinxShell.scala 50:11]
-  wire  shell_reset; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_aw_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_aw_valid; // @[XilinxShell.scala 50:11]
-  wire [31:0] shell_io_host_aw_bits_addr; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_w_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_w_valid; // @[XilinxShell.scala 50:11]
-  wire [31:0] shell_io_host_w_bits_data; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_b_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_b_valid; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_ar_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_ar_valid; // @[XilinxShell.scala 50:11]
-  wire [31:0] shell_io_host_ar_bits_addr; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_r_ready; // @[XilinxShell.scala 50:11]
-  wire  shell_io_host_r_valid; // @[XilinxShell.scala 50:11]
-  wire [31:0] shell_io_host_r_bits_data; // @[XilinxShell.scala 50:11]
-  DandelionCacheShell shell ( // @[XilinxShell.scala 50:11]
+  wire  shell_clock; // @[XilinxShell.scala 51:11]
+  wire  shell_reset; // @[XilinxShell.scala 51:11]
+  wire [31:0] shell_io_host_addr; // @[XilinxShell.scala 51:11]
+  wire [31:0] shell_io_host_wdata; // @[XilinxShell.scala 51:11]
+  wire  shell_io_host_wr; // @[XilinxShell.scala 51:11]
+  wire  shell_io_host_rd; // @[XilinxShell.scala 51:11]
+  wire  shell_io_host_ack; // @[XilinxShell.scala 51:11]
+  wire [31:0] shell_io_host_rdata; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_aw_ready; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_aw_valid; // @[XilinxShell.scala 51:11]
+  wire [63:0] shell_io_mem_aw_bits_addr; // @[XilinxShell.scala 51:11]
+  wire [7:0] shell_io_mem_aw_bits_len; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_w_ready; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_w_valid; // @[XilinxShell.scala 51:11]
+  wire [511:0] shell_io_mem_w_bits_data; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_w_bits_last; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_b_valid; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_ar_ready; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_ar_valid; // @[XilinxShell.scala 51:11]
+  wire [63:0] shell_io_mem_ar_bits_addr; // @[XilinxShell.scala 51:11]
+  wire [7:0] shell_io_mem_ar_bits_len; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_r_ready; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_r_valid; // @[XilinxShell.scala 51:11]
+  wire [511:0] shell_io_mem_r_bits_data; // @[XilinxShell.scala 51:11]
+  wire  shell_io_mem_r_bits_last; // @[XilinxShell.scala 51:11]
+  DandelionF1DTAShell shell ( // @[XilinxShell.scala 51:11]
     .clock(shell_clock),
     .reset(shell_reset),
-    .io_host_aw_ready(shell_io_host_aw_ready),
-    .io_host_aw_valid(shell_io_host_aw_valid),
-    .io_host_aw_bits_addr(shell_io_host_aw_bits_addr),
-    .io_host_w_ready(shell_io_host_w_ready),
-    .io_host_w_valid(shell_io_host_w_valid),
-    .io_host_w_bits_data(shell_io_host_w_bits_data),
-    .io_host_b_ready(shell_io_host_b_ready),
-    .io_host_b_valid(shell_io_host_b_valid),
-    .io_host_ar_ready(shell_io_host_ar_ready),
-    .io_host_ar_valid(shell_io_host_ar_valid),
-    .io_host_ar_bits_addr(shell_io_host_ar_bits_addr),
-    .io_host_r_ready(shell_io_host_r_ready),
-    .io_host_r_valid(shell_io_host_r_valid),
-    .io_host_r_bits_data(shell_io_host_r_bits_data)
+    .io_host_addr(shell_io_host_addr),
+    .io_host_wdata(shell_io_host_wdata),
+    .io_host_wr(shell_io_host_wr),
+    .io_host_rd(shell_io_host_rd),
+    .io_host_ack(shell_io_host_ack),
+    .io_host_rdata(shell_io_host_rdata),
+    .io_mem_aw_ready(shell_io_mem_aw_ready),
+    .io_mem_aw_valid(shell_io_mem_aw_valid),
+    .io_mem_aw_bits_addr(shell_io_mem_aw_bits_addr),
+    .io_mem_aw_bits_len(shell_io_mem_aw_bits_len),
+    .io_mem_w_ready(shell_io_mem_w_ready),
+    .io_mem_w_valid(shell_io_mem_w_valid),
+    .io_mem_w_bits_data(shell_io_mem_w_bits_data),
+    .io_mem_w_bits_last(shell_io_mem_w_bits_last),
+    .io_mem_b_valid(shell_io_mem_b_valid),
+    .io_mem_ar_ready(shell_io_mem_ar_ready),
+    .io_mem_ar_valid(shell_io_mem_ar_valid),
+    .io_mem_ar_bits_addr(shell_io_mem_ar_bits_addr),
+    .io_mem_ar_bits_len(shell_io_mem_ar_bits_len),
+    .io_mem_r_ready(shell_io_mem_r_ready),
+    .io_mem_r_valid(shell_io_mem_r_valid),
+    .io_mem_r_bits_data(shell_io_mem_r_bits_data),
+    .io_mem_r_bits_last(shell_io_mem_r_bits_last)
   );
-  assign s_axi_control_AWREADY = shell_io_host_aw_ready; // @[XilinxShell.scala 108:25]
-  assign s_axi_control_WREADY = shell_io_host_w_ready; // @[XilinxShell.scala 112:24]
-  assign s_axi_control_BVALID = shell_io_host_b_valid; // @[XilinxShell.scala 116:24]
-  assign s_axi_control_BRESP = 2'h0; // @[XilinxShell.scala 118:23]
-  assign s_axi_control_ARREADY = shell_io_host_ar_ready; // @[XilinxShell.scala 121:25]
-  assign s_axi_control_RVALID = shell_io_host_r_valid; // @[XilinxShell.scala 124:24]
-  assign s_axi_control_RDATA = shell_io_host_r_bits_data; // @[XilinxShell.scala 126:23]
-  assign s_axi_control_RRESP = 2'h0; // @[XilinxShell.scala 127:23]
+  assign cl_axi_mstr_bus_AWVALID = shell_io_mem_aw_valid; // @[XilinxShell.scala 55:27]
+  assign cl_axi_mstr_bus_AWADDR = shell_io_mem_aw_bits_addr; // @[XilinxShell.scala 57:26]
+  assign cl_axi_mstr_bus_AWID = 16'h0; // @[XilinxShell.scala 58:24]
+  assign cl_axi_mstr_bus_AWUSER = 10'h0; // @[XilinxShell.scala 59:26]
+  assign cl_axi_mstr_bus_AWLEN = shell_io_mem_aw_bits_len; // @[XilinxShell.scala 60:25]
+  assign cl_axi_mstr_bus_AWSIZE = 3'h6; // @[XilinxShell.scala 61:26]
+  assign cl_axi_mstr_bus_AWBURST = 2'h1; // @[XilinxShell.scala 62:27]
+  assign cl_axi_mstr_bus_AWLOCK = 2'h0; // @[XilinxShell.scala 63:26]
+  assign cl_axi_mstr_bus_AWCACHE = 4'h3; // @[XilinxShell.scala 64:27]
+  assign cl_axi_mstr_bus_AWPROT = 3'h0; // @[XilinxShell.scala 65:26]
+  assign cl_axi_mstr_bus_AWQOS = 4'h0; // @[XilinxShell.scala 66:25]
+  assign cl_axi_mstr_bus_AWREGION = 4'h0; // @[XilinxShell.scala 67:28]
+  assign cl_axi_mstr_bus_WVALID = shell_io_mem_w_valid; // @[XilinxShell.scala 69:26]
+  assign cl_axi_mstr_bus_WDATA = shell_io_mem_w_bits_data; // @[XilinxShell.scala 71:25]
+  assign cl_axi_mstr_bus_WSTRB = 64'hffffffffffffffff; // @[XilinxShell.scala 72:25]
+  assign cl_axi_mstr_bus_WLAST = shell_io_mem_w_bits_last; // @[XilinxShell.scala 73:25]
+  assign cl_axi_mstr_bus_WID = 16'h0; // @[XilinxShell.scala 74:23]
+  assign cl_axi_mstr_bus_WUSER = 10'h0; // @[XilinxShell.scala 75:25]
+  assign cl_axi_mstr_bus_BREADY = shell_io_mem_b_valid; // @[XilinxShell.scala 78:26]
+  assign cl_axi_mstr_bus_ARVALID = shell_io_mem_ar_valid; // @[XilinxShell.scala 83:27]
+  assign cl_axi_mstr_bus_ARADDR = shell_io_mem_ar_bits_addr; // @[XilinxShell.scala 85:26]
+  assign cl_axi_mstr_bus_ARID = 16'h0; // @[XilinxShell.scala 86:24]
+  assign cl_axi_mstr_bus_ARUSER = 10'h0; // @[XilinxShell.scala 87:26]
+  assign cl_axi_mstr_bus_ARLEN = shell_io_mem_ar_bits_len; // @[XilinxShell.scala 88:25]
+  assign cl_axi_mstr_bus_ARSIZE = 3'h6; // @[XilinxShell.scala 89:26]
+  assign cl_axi_mstr_bus_ARBURST = 2'h1; // @[XilinxShell.scala 90:27]
+  assign cl_axi_mstr_bus_ARLOCK = 2'h0; // @[XilinxShell.scala 91:26]
+  assign cl_axi_mstr_bus_ARCACHE = 4'h3; // @[XilinxShell.scala 92:27]
+  assign cl_axi_mstr_bus_ARPROT = 3'h0; // @[XilinxShell.scala 93:26]
+  assign cl_axi_mstr_bus_ARQOS = 4'h0; // @[XilinxShell.scala 94:25]
+  assign cl_axi_mstr_bus_ARREGION = 4'h0; // @[XilinxShell.scala 95:28]
+  assign cl_axi_mstr_bus_RREADY = shell_io_mem_r_ready; // @[XilinxShell.scala 98:26]
+  assign axi_mstr_cfg_bus_ack = shell_io_host_ack; // @[XilinxShell.scala 110:24]
+  assign axi_mstr_cfg_bus_rdata = shell_io_host_rdata; // @[XilinxShell.scala 111:26]
   assign shell_clock = ap_clk;
-  assign shell_reset = ~ ap_rst_n;
-  assign shell_io_host_aw_valid = s_axi_control_AWVALID; // @[XilinxShell.scala 107:26]
-  assign shell_io_host_aw_bits_addr = s_axi_control_AWADDR; // @[XilinxShell.scala 109:30]
-  assign shell_io_host_w_valid = s_axi_control_WVALID; // @[XilinxShell.scala 111:25]
-  assign shell_io_host_w_bits_data = s_axi_control_WDATA; // @[XilinxShell.scala 113:29]
-  assign shell_io_host_b_ready = s_axi_control_BREADY; // @[XilinxShell.scala 117:25]
-  assign shell_io_host_ar_valid = s_axi_control_ARVALID; // @[XilinxShell.scala 120:26]
-  assign shell_io_host_ar_bits_addr = s_axi_control_ARADDR; // @[XilinxShell.scala 122:30]
-  assign shell_io_host_r_ready = s_axi_control_RREADY; // @[XilinxShell.scala 125:25]
+  assign shell_reset = ~ap_rst_n;
+  assign shell_io_host_addr = axi_mstr_cfg_bus_addr; // @[XilinxShell.scala 106:22]
+  assign shell_io_host_wdata = axi_mstr_cfg_bus_wdata; // @[XilinxShell.scala 107:23]
+  assign shell_io_host_wr = axi_mstr_cfg_bus_wr; // @[XilinxShell.scala 108:20]
+  assign shell_io_host_rd = axi_mstr_cfg_bus_rd; // @[XilinxShell.scala 109:20]
+  assign shell_io_mem_aw_ready = cl_axi_mstr_bus_AWREADY; // @[XilinxShell.scala 56:25]
+  assign shell_io_mem_w_ready = cl_axi_mstr_bus_WREADY; // @[XilinxShell.scala 70:24]
+  assign shell_io_mem_b_valid = cl_axi_mstr_bus_BVALID; // @[XilinxShell.scala 77:24]
+  assign shell_io_mem_ar_ready = cl_axi_mstr_bus_ARREADY; // @[XilinxShell.scala 84:25]
+  assign shell_io_mem_r_valid = cl_axi_mstr_bus_RVALID; // @[XilinxShell.scala 97:24]
+  assign shell_io_mem_r_bits_data = cl_axi_mstr_bus_RDATA; // @[XilinxShell.scala 99:28]
+  assign shell_io_mem_r_bits_last = cl_axi_mstr_bus_RLAST; // @[XilinxShell.scala 101:28]
 endmodule

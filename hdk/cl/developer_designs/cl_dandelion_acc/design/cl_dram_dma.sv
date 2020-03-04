@@ -32,6 +32,8 @@ module cl_dram_dma #(parameter NUM_DDR=4)
 // developers to remve the specific interfaces
 // that the CL will use
 
+`include "unused_sh_bar1_template.inc"
+
 // Define the addition pipeline stag
 // needed to close timing for the various
 // place where ATG (Automatic Test Generator)
@@ -307,51 +309,68 @@ cl_dma_pcis_slv #(.SCRB_BURST_LEN_MINUS1(DDR_SCRB_BURST_LEN_MINUS1),
 ///////////////////////////////////////////////////////////////////////
 ///////////////// Secondary AXI Master module /////////////////////////
 ///////////////////////////////////////////////////////////////////////
- cl_dram_dma_axi_mstr  CL_DRAM_DMA_AXI_MSTR (
-     .aclk(clk),
-     .aresetn(dma_pcis_slv_sync_rst_n),
-     .cl_axi_mstr_bus(cl_axi_mstr_bus),
-     .axi_mstr_cfg_bus(axi_mstr_cfg_bus)
-   );
+//  cl_dram_dma_axi_mstr  CL_DRAM_DMA_AXI_MSTR (
+//      .aclk(clk),
+//      .aresetn(dma_pcis_slv_sync_rst_n),
+//      .cl_axi_mstr_bus(cl_axi_mstr_bus),
+//      .axi_mstr_cfg_bus(axi_mstr_cfg_bus)
+//    );
 
  DandelionF1Accel dandelion_accel(
      .ap_clk                   (clk_main_a0),
      .ap_rst_n                 (rst_main_n_sync),
-     //.s_axi_control_AWVALID    (awvalid),
-     //.s_axi_control_AWREADY    (awready),
-     //.s_axi_control_AWADDR     (awaddr),
-     //.s_axi_control_WVALID     (wvalid),
-     //.s_axi_control_WREADY     (wready),
-     //.s_axi_control_WDATA      (wdata),
-     //.s_axi_control_WSTRB      (wstrb),
-     //.s_axi_control_BVALID     (bvalid),
-     //.s_axi_control_BREADY     (bready),
-     //.s_axi_control_BRESP      (bresp),
-     //.s_axi_control_ARVALID    (arvalid),
-     //.s_axi_control_ARREADY    (arready),
-     //.s_axi_control_ARADDR     (araddr),
-     //.s_axi_control_RVALID     (rvalid),
-     //.s_axi_control_RREADY     (rready),
-     //.s_axi_control_RDATA      (rdata),
-     //.s_axi_control_RRESP      (rresp)
+     .cl_axi_mstr_bus_AWVALID  (cl_axi_mstr_bus.awvalid),
+     .cl_axi_mstr_bus_AWREADY  (cl_axi_mstr_bus.awready),
+     .cl_axi_mstr_bus_AWADDR   (cl_axi_mstr_bus.awaddr),
+     .cl_axi_mstr_bus_AWID     (cl_axi_mstr_bus.awid),
+     .cl_axi_mstr_bus_AWUSER   (11'h0),
+     .cl_axi_mstr_bus_AWLEN    (cl_axi_mstr_bus.awlen),
+     .cl_axi_mstr_bus_AWSIZE   (cl_axi_mstr_bus.awsize),
+     .cl_axi_mstr_bus_AWBURST  (),
+     .cl_axi_mstr_bus_AWLOCK   (),
+     .cl_axi_mstr_bus_AWCACHE  (),
+     .cl_axi_mstr_bus_AWPROT   (),
+     .cl_axi_mstr_bus_AWQOS    (),
+     .cl_axi_mstr_bus_AWREGION (),
+     .cl_axi_mstr_bus_WVALID   (cl_axi_mstr_bus.wvalid),
+     .cl_axi_mstr_bus_WREADY   (cl_axi_mstr_bus.wready),
+     .cl_axi_mstr_bus_WDATA    (cl_axi_mstr_bus.wdata),
+     .cl_axi_mstr_bus_WSTRB    (cl_axi_mstr_bus.wstrb),
+     .cl_axi_mstr_bus_WLAST    (cl_axi_mstr_bus.wlast),
+     .cl_axi_mstr_bus_WID      (cl_axi_mstr_bus.wid),
+     .cl_axi_mstr_bus_WUSER    (),
+     .cl_axi_mstr_bus_BVALID   (cl_axi_mstr_bus.bvalid),
+     .cl_axi_mstr_bus_BREADY   (cl_axi_mstr_bus.bready),
+     .cl_axi_mstr_bus_BRESP    (cl_axi_mstr_bus.bresp),
+     .cl_axi_mstr_bus_BID      (cl_axi_mstr_bus.bid),
+     .cl_axi_mstr_bus_BUSER    (),
+     .cl_axi_mstr_bus_ARVALID  (cl_axi_mstr_bus.arvalid),
+     .cl_axi_mstr_bus_ARREADY  (cl_axi_mstr_bus.arready),
+     .cl_axi_mstr_bus_ARADDR   (cl_axi_mstr_bus.araddr),
+     .cl_axi_mstr_bus_ARID     (cl_axi_mstr_bus.arid),
+     .cl_axi_mstr_bus_ARUSER   (),
+     .cl_axi_mstr_bus_ARLEN    (cl_axi_mstr_bus.arlen),
+     .cl_axi_mstr_bus_ARSIZE   (cl_axi_mstr_bus.arsize),
+     .cl_axi_mstr_bus_ARBURST  (),
+     .cl_axi_mstr_bus_ARLOCK   (),
+     .cl_axi_mstr_bus_ARCACHE  (),
+     .cl_axi_mstr_bus_ARPROT   (),
+     .cl_axi_mstr_bus_ARQOS    (),
+     .cl_axi_mstr_bus_ARREGION (),
+     .cl_axi_mstr_bus_RVALID   (cl_axi_mstr_bus.rvalid),
+     .cl_axi_mstr_bus_RREADY   (cl_axi_mstr_bus.rready),
+     .cl_axi_mstr_bus_RDATA    (cl_axi_mstr_bus.rdata),
+     .cl_axi_mstr_bus_RRESP    (cl_axi_mstr_bus.rresp),
+     .cl_axi_mstr_bus_RLAST    (cl_axi_mstr_bus.rlast),
+     .cl_axi_mstr_bus_RID      (cl_axi_mstr_bus.rid),
+     .cl_axi_mstr_bus_RUSER    (),
 
-     .s_axi_control_AWVALID    (sh_bar1_awvalid),
-     .s_axi_control_AWREADY    (bar1_sh_awready),
-     .s_axi_control_AWADDR     (sh_bar1_awaddr),
-     .s_axi_control_WVALID     (sh_bar1_wvalid),
-     .s_axi_control_WREADY     (bar1_sh_wready),
-     .s_axi_control_WDATA      (sh_bar1_wdata),
-     .s_axi_control_WSTRB      (sh_barr1_wstrb),
-     .s_axi_control_BVALID     (bar1_sh_bvalid),
-     .s_axi_control_BREADY     (sh_bar1_bready),
-     .s_axi_control_BRESP      (bar1_sh_bresp),
-     .s_axi_control_ARVALID    (sh_bar1_arvalid),
-     .s_axi_control_ARREADY    (bar1_sh_arready),
-     .s_axi_control_ARADDR     (sh_bar1_araddr),
-     .s_axi_control_RVALID     (bar1_sh_rvalid),
-     .s_axi_control_RREADY     (sh_bar1_rready),
-     .s_axi_control_RDATA      (bar1_sh_rdata),
-     .s_axi_control_RRESP      (bar1_sh_rresp)
+     .axi_mstr_cfg_bus_addr(axi_mstr_cfg_bus.addr),
+     .axi_mstr_cfg_bus_wdata(axi_mstr_cfg_bus.wdata),
+     .axi_mstr_cfg_bus_wr(axi_mstr_cfg_bus.wr),
+     .axi_mstr_cfg_bus_rd(axi_mstr_cfg_bus.rd),
+     .axi_mstr_cfg_bus_ack(axi_mstr_cfg_bus.ack),
+     .axi_mstr_cfg_bus_rdata(axi_mstr_cfg_bus.rdata)
    );
 
 
@@ -650,8 +669,8 @@ assign cl_sh_ddr_rready_2d = {lcl_cl_sh_ddrd.rready, lcl_cl_sh_ddrb.rready, lcl_
 lib_pipe #(.WIDTH(1), .STAGES(4)) SH_DDR_SLC_RST_N (.clk(clk), .rst_n(1'b1), .in_bus(sync_rst_n), .out_bus(sh_ddr_sync_rst_n));
 sh_ddr #(
          .DDR_A_PRESENT(`DDR_A_PRESENT),
-         .DDR_B_PRESENT(0),
-         .DDR_D_PRESENT(0)
+         .DDR_B_PRESENT(`DDR_B_PRESENT),
+         .DDR_D_PRESENT(`DDR_D_PRESENT)
    ) SH_DDR
    (
    .clk(clk),
