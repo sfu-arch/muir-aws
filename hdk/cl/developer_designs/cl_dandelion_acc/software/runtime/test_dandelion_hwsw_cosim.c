@@ -235,7 +235,8 @@ int dandelion_access(int slot_id) {
     uint32_t cycle_count = 0;
     uint32_t control_reg = 0;
     int write_fd, read_fd, dimm, rc;
-    int buffer_size = (1ULL << 10); // 1MB data
+    //int buffer_size = (1ULL << 20); // 1MB data
+    int buffer_size = 256; // 1MB data
 
     /**
      * Dandelion memory mapped address space BAR1
@@ -307,14 +308,14 @@ int dandelion_access(int slot_id) {
      * -------------------------------
      * Register description    | addr
      * ------------------------|-----
-     * Control status register | 0x00
-     * Cycle counter           | 0x04
-     * Constant value          | 0x08
-     * Vector length           | 0x0c
-     * Input pointer lsb       | 0x10
-     * Input pointer msb       | 0x14
-     * Output pointer lsb      | 0x18
-     * Output pointer msb      | 0x1c
+     * Control status register | 0x500
+     * Cycle counter           | 0x504
+     * Constant value          | 0x508
+     * Vector length           | 0x50c
+     * Input pointer lsb       | 0x510
+     * Input pointer msb       | 0x514
+     * Output pointer lsb      | 0x518
+     * Output pointer msb      | 0x51c
      * -------------------------------
      *
      * ------------------------------
@@ -331,18 +332,18 @@ int dandelion_access(int slot_id) {
     static uint64_t ccr_len      = 0x50C;
     static uint64_t ccr_in_lsb   = 0x510;
     static uint64_t ccr_in_msb   = 0x514;
-    static uint64_t ccr_out_lsb  = 0x517;
+    static uint64_t ccr_out_lsb  = 0x518;
     static uint64_t ccr_out_msb  = 0x51C;
 
 
     in_hi_addr = 0x00000000;
-    in_lo_addr = 0x00000400;
+    in_lo_addr = 0x00000000;
 
     out_hi_addr = 0x00000000;
     out_lo_addr = 0x00000800;
 
-    vector_len = 10;
     constant_val = 5;
+    vector_len = 10;
 
     //write a value into the mapped address space
     printf("Initializing dandelion accelerator:\n");
@@ -387,14 +388,15 @@ int dandelion_access(int slot_id) {
     rc_control = fpga_pci_peek(pci_bar_handle, ccr_cycle, &cycle_count);
     fail_on(rc_control, out, "Unable to read read from the fpga !");
 
-    rc_memory = do_dma_read(read_fd, read_buffer, buffer_size, 0, 0, slot_id);
+    rc_memory = do_dma_read(read_fd, read_buffer, buffer_size, 0x800, 0, slot_id);
     fail_on(rc_memory, out, "DMA read failed on reading form out buffer.");
 
     printf("Execution finished in [ %d ] cycle\n", cycle_count);
 
     printf("Checking memory output\n");
     for(uint32_t i = 0; i < buffer_size; i++){
-        printf("Write Buffer [%d]: %d -- Read Buffer [%d]: %d\n", i, write_buffer[i], i, read_buffer[i]);
+        if(read_buffer[i] != write_buffer[i])
+            printf("Write Buffer [%d]: %d -- Read Buffer [%d]: %d\n", i, write_buffer[i], i, read_buffer[i]);
     }
 
 out:

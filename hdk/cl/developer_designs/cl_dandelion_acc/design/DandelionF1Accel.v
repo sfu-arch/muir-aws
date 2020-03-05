@@ -14,7 +14,7 @@ module DCR(
   output [31:0] io_dcr_vals_0,
   output [31:0] io_dcr_vals_1,
   output [63:0] io_dcr_ptrs_0,
-  output [63:0] io_dcr_ptrs_2
+  output [63:0] io_dcr_ptrs_1
 );
   reg [31:0] waddr; // @[DCR.scala 92:22]
   reg [31:0] _RAND_0;
@@ -40,14 +40,7 @@ module DCR(
   reg [31:0] _RAND_10;
   reg [31:0] reg_7; // @[DCR.scala 106:37]
   reg [31:0] _RAND_11;
-  reg [31:0] reg_8; // @[DCR.scala 106:37]
-  reg [31:0] _RAND_12;
-  reg [31:0] reg_9; // @[DCR.scala 106:37]
-  reg [31:0] _RAND_13;
-  reg [31:0] reg_10; // @[DCR.scala 106:37]
-  reg [31:0] _RAND_14;
-  reg [31:0] reg_11; // @[DCR.scala 106:37]
-  reg [31:0] _RAND_15;
+  wire  isWriteData; // @[DCR.scala 116:28]
   wire  _T; // @[Conditional.scala 37:30]
   wire  _T_1; // @[Conditional.scala 37:30]
   wire  _T_2; // @[Conditional.scala 37:30]
@@ -58,42 +51,38 @@ module DCR(
   wire  _T_5; // @[Conditional.scala 37:30]
   wire  _GEN_11; // @[Conditional.scala 39:67]
   wire  _GEN_13; // @[Conditional.scala 39:67]
-  wire  _T_6; // @[DCR.scala 150:38]
-  wire  _T_7; // @[DCR.scala 150:25]
-  wire  _T_8; // @[DCR.scala 157:45]
-  wire  _T_9; // @[DCR.scala 157:27]
-  wire  _T_10; // @[DCR.scala 163:39]
-  wire  _T_11; // @[DCR.scala 163:21]
-  wire  _T_12; // @[DCR.scala 163:39]
-  wire  _T_13; // @[DCR.scala 163:21]
-  wire  _T_14; // @[DCR.scala 163:39]
-  wire  _T_15; // @[DCR.scala 163:21]
-  wire  _T_16; // @[DCR.scala 163:39]
-  wire  _T_17; // @[DCR.scala 163:21]
-  wire  _T_18; // @[DCR.scala 163:39]
-  wire  _T_19; // @[DCR.scala 163:21]
-  wire  _T_20; // @[DCR.scala 163:39]
-  wire  _T_21; // @[DCR.scala 163:21]
-  wire  _T_22; // @[DCR.scala 163:39]
-  wire  _T_23; // @[DCR.scala 163:21]
-  wire  _T_24; // @[DCR.scala 163:39]
-  wire  _T_25; // @[DCR.scala 163:21]
-  wire  _T_26; // @[DCR.scala 163:39]
-  wire  _T_27; // @[DCR.scala 163:21]
-  wire  _T_28; // @[DCR.scala 163:39]
-  wire  _T_29; // @[DCR.scala 163:21]
-  wire  _T_30; // @[Mux.scala 80:60]
-  wire  _T_32; // @[Mux.scala 80:60]
-  wire  _T_34; // @[Mux.scala 80:60]
-  wire  _T_36; // @[Mux.scala 80:60]
-  wire  _T_38; // @[Mux.scala 80:60]
-  wire  _T_40; // @[Mux.scala 80:60]
-  wire  _T_42; // @[Mux.scala 80:60]
-  wire  _T_44; // @[Mux.scala 80:60]
-  wire  _T_46; // @[Mux.scala 80:60]
-  wire  _T_48; // @[Mux.scala 80:60]
-  wire  _T_50; // @[Mux.scala 80:60]
-  wire  _T_52; // @[Mux.scala 80:60]
+  wire  _T_6; // @[DCR.scala 152:38]
+  wire  _T_7; // @[DCR.scala 152:25]
+  wire  _T_8; // @[DCR.scala 152:48]
+  wire  _T_9; // @[DCR.scala 159:45]
+  wire  _T_10; // @[DCR.scala 159:27]
+  wire  _T_11; // @[DCR.scala 165:39]
+  wire  _T_12; // @[DCR.scala 165:21]
+  wire  _T_13; // @[DCR.scala 165:49]
+  wire  _T_14; // @[DCR.scala 165:39]
+  wire  _T_15; // @[DCR.scala 165:21]
+  wire  _T_16; // @[DCR.scala 165:49]
+  wire  _T_17; // @[DCR.scala 165:39]
+  wire  _T_18; // @[DCR.scala 165:21]
+  wire  _T_19; // @[DCR.scala 165:49]
+  wire  _T_20; // @[DCR.scala 165:39]
+  wire  _T_21; // @[DCR.scala 165:21]
+  wire  _T_22; // @[DCR.scala 165:49]
+  wire  _T_23; // @[DCR.scala 165:39]
+  wire  _T_24; // @[DCR.scala 165:21]
+  wire  _T_25; // @[DCR.scala 165:49]
+  wire  _T_26; // @[DCR.scala 165:39]
+  wire  _T_27; // @[DCR.scala 165:21]
+  wire  _T_28; // @[DCR.scala 165:49]
+  wire  _T_29; // @[Mux.scala 80:60]
+  wire  _T_31; // @[Mux.scala 80:60]
+  wire  _T_33; // @[Mux.scala 80:60]
+  wire  _T_35; // @[Mux.scala 80:60]
+  wire  _T_37; // @[Mux.scala 80:60]
+  wire  _T_39; // @[Mux.scala 80:60]
+  wire  _T_41; // @[Mux.scala 80:60]
+  wire  _T_43; // @[Mux.scala 80:60]
+  assign isWriteData = wstate == 2'h1; // @[DCR.scala 116:28]
   assign _T = 2'h0 == wstate; // @[Conditional.scala 37:30]
   assign _T_1 = 2'h1 == wstate; // @[Conditional.scala 37:30]
   assign _T_2 = 2'h2 == wstate; // @[Conditional.scala 37:30]
@@ -104,49 +93,44 @@ module DCR(
   assign _T_5 = 2'h2 == rstate; // @[Conditional.scala 37:30]
   assign _GEN_11 = _T_5 | _GEN_8; // @[Conditional.scala 39:67]
   assign _GEN_13 = _T_4 ? _GEN_8 : _GEN_11; // @[Conditional.scala 39:67]
-  assign _T_6 = 32'h500 == waddr; // @[DCR.scala 150:38]
-  assign _T_7 = io_host_wr & _T_6; // @[DCR.scala 150:25]
-  assign _T_8 = 32'h504 == waddr; // @[DCR.scala 157:45]
-  assign _T_9 = io_host_wr & _T_8; // @[DCR.scala 157:27]
-  assign _T_10 = 32'h508 == waddr; // @[DCR.scala 163:39]
-  assign _T_11 = io_host_wr & _T_10; // @[DCR.scala 163:21]
-  assign _T_12 = 32'h50c == waddr; // @[DCR.scala 163:39]
-  assign _T_13 = io_host_wr & _T_12; // @[DCR.scala 163:21]
-  assign _T_14 = 32'h510 == waddr; // @[DCR.scala 163:39]
-  assign _T_15 = io_host_wr & _T_14; // @[DCR.scala 163:21]
-  assign _T_16 = 32'h514 == waddr; // @[DCR.scala 163:39]
-  assign _T_17 = io_host_wr & _T_16; // @[DCR.scala 163:21]
-  assign _T_18 = 32'h518 == waddr; // @[DCR.scala 163:39]
-  assign _T_19 = io_host_wr & _T_18; // @[DCR.scala 163:21]
-  assign _T_20 = 32'h51c == waddr; // @[DCR.scala 163:39]
-  assign _T_21 = io_host_wr & _T_20; // @[DCR.scala 163:21]
-  assign _T_22 = 32'h520 == waddr; // @[DCR.scala 163:39]
-  assign _T_23 = io_host_wr & _T_22; // @[DCR.scala 163:21]
-  assign _T_24 = 32'h524 == waddr; // @[DCR.scala 163:39]
-  assign _T_25 = io_host_wr & _T_24; // @[DCR.scala 163:21]
-  assign _T_26 = 32'h528 == waddr; // @[DCR.scala 163:39]
-  assign _T_27 = io_host_wr & _T_26; // @[DCR.scala 163:21]
-  assign _T_28 = 32'h52c == waddr; // @[DCR.scala 163:39]
-  assign _T_29 = io_host_wr & _T_28; // @[DCR.scala 163:21]
-  assign _T_30 = 32'h500 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_32 = 32'h504 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_34 = 32'h508 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_36 = 32'h50c == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_38 = 32'h510 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_40 = 32'h514 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_42 = 32'h518 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_44 = 32'h51c == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_46 = 32'h520 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_48 = 32'h524 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_50 = 32'h528 == io_host_addr; // @[Mux.scala 80:60]
-  assign _T_52 = 32'h52c == io_host_addr; // @[Mux.scala 80:60]
-  assign io_host_ack = _T_3 ? _GEN_8 : _GEN_13; // @[DCR.scala 113:15 DCR.scala 129:19 DCR.scala 144:19]
+  assign _T_6 = 32'h500 == waddr; // @[DCR.scala 152:38]
+  assign _T_7 = io_host_wr & _T_6; // @[DCR.scala 152:25]
+  assign _T_8 = _T_7 & isWriteData; // @[DCR.scala 152:48]
+  assign _T_9 = 32'h504 == waddr; // @[DCR.scala 159:45]
+  assign _T_10 = io_host_wr & _T_9; // @[DCR.scala 159:27]
+  assign _T_11 = 32'h508 == waddr; // @[DCR.scala 165:39]
+  assign _T_12 = io_host_wr & _T_11; // @[DCR.scala 165:21]
+  assign _T_13 = _T_12 & isWriteData; // @[DCR.scala 165:49]
+  assign _T_14 = 32'h50c == waddr; // @[DCR.scala 165:39]
+  assign _T_15 = io_host_wr & _T_14; // @[DCR.scala 165:21]
+  assign _T_16 = _T_15 & isWriteData; // @[DCR.scala 165:49]
+  assign _T_17 = 32'h510 == waddr; // @[DCR.scala 165:39]
+  assign _T_18 = io_host_wr & _T_17; // @[DCR.scala 165:21]
+  assign _T_19 = _T_18 & isWriteData; // @[DCR.scala 165:49]
+  assign _T_20 = 32'h514 == waddr; // @[DCR.scala 165:39]
+  assign _T_21 = io_host_wr & _T_20; // @[DCR.scala 165:21]
+  assign _T_22 = _T_21 & isWriteData; // @[DCR.scala 165:49]
+  assign _T_23 = 32'h518 == waddr; // @[DCR.scala 165:39]
+  assign _T_24 = io_host_wr & _T_23; // @[DCR.scala 165:21]
+  assign _T_25 = _T_24 & isWriteData; // @[DCR.scala 165:49]
+  assign _T_26 = 32'h51c == waddr; // @[DCR.scala 165:39]
+  assign _T_27 = io_host_wr & _T_26; // @[DCR.scala 165:21]
+  assign _T_28 = _T_27 & isWriteData; // @[DCR.scala 165:49]
+  assign _T_29 = 32'h500 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_31 = 32'h504 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_33 = 32'h508 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_35 = 32'h50c == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_37 = 32'h510 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_39 = 32'h514 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_41 = 32'h518 == io_host_addr; // @[Mux.scala 80:60]
+  assign _T_43 = 32'h51c == io_host_addr; // @[Mux.scala 80:60]
+  assign io_host_ack = _T_3 ? _GEN_8 : _GEN_13; // @[DCR.scala 113:15 DCR.scala 131:19 DCR.scala 146:19]
   assign io_host_rdata = rdata; // @[DCR.scala 114:17]
-  assign io_dcr_launch = reg_0[0]; // @[DCR.scala 172:17]
-  assign io_dcr_vals_0 = reg_2; // @[DCR.scala 175:20]
-  assign io_dcr_vals_1 = reg_3; // @[DCR.scala 175:20]
-  assign io_dcr_ptrs_0 = {reg_5,reg_4}; // @[DCR.scala 184:22]
-  assign io_dcr_ptrs_2 = {reg_9,reg_8}; // @[DCR.scala 184:22]
+  assign io_dcr_launch = reg_0[0]; // @[DCR.scala 174:17]
+  assign io_dcr_vals_0 = reg_2; // @[DCR.scala 177:20]
+  assign io_dcr_vals_1 = reg_3; // @[DCR.scala 177:20]
+  assign io_dcr_ptrs_0 = {reg_5,reg_4}; // @[DCR.scala 187:22]
+  assign io_dcr_ptrs_1 = {reg_7,reg_6}; // @[DCR.scala 187:22]
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
 `define RANDOMIZE
 `endif
@@ -226,22 +210,6 @@ initial begin
   _RAND_11 = {1{`RANDOM}};
   reg_7 = _RAND_11[31:0];
   `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_12 = {1{`RANDOM}};
-  reg_8 = _RAND_12[31:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_13 = {1{`RANDOM}};
-  reg_9 = _RAND_13[31:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_14 = {1{`RANDOM}};
-  reg_10 = _RAND_14[31:0];
-  `endif // RANDOMIZE_REG_INIT
-  `ifdef RANDOMIZE_REG_INIT
-  _RAND_15 = {1{`RANDOM}};
-  reg_11 = _RAND_15[31:0];
-  `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
 `endif // SYNTHESIS
@@ -278,29 +246,21 @@ end // initial
     if (reset) begin
       rdata <= 32'h0;
     end else if (io_host_rd) begin
-      if (_T_52) begin
-        rdata <= reg_11;
-      end else if (_T_50) begin
-        rdata <= reg_10;
-      end else if (_T_48) begin
-        rdata <= reg_9;
-      end else if (_T_46) begin
-        rdata <= reg_8;
-      end else if (_T_44) begin
+      if (_T_43) begin
         rdata <= reg_7;
-      end else if (_T_42) begin
+      end else if (_T_41) begin
         rdata <= reg_6;
-      end else if (_T_40) begin
+      end else if (_T_39) begin
         rdata <= reg_5;
-      end else if (_T_38) begin
+      end else if (_T_37) begin
         rdata <= reg_4;
-      end else if (_T_36) begin
+      end else if (_T_35) begin
         rdata <= reg_3;
-      end else if (_T_34) begin
+      end else if (_T_33) begin
         rdata <= reg_2;
-      end else if (_T_32) begin
+      end else if (_T_31) begin
         rdata <= reg_1;
-      end else if (_T_30) begin
+      end else if (_T_29) begin
         rdata <= reg_0;
       end else begin
         rdata <= 32'h0;
@@ -310,65 +270,45 @@ end // initial
       reg_0 <= 32'h0;
     end else if (io_dcr_finish) begin
       reg_0 <= 32'h2;
-    end else if (_T_7) begin
+    end else if (_T_8) begin
       reg_0 <= io_host_wdata;
     end
     if (reset) begin
       reg_1 <= 32'h0;
     end else if (io_dcr_ecnt_0_valid) begin
       reg_1 <= io_dcr_ecnt_0_bits;
-    end else if (_T_9) begin
+    end else if (_T_10) begin
       reg_1 <= io_host_wdata;
     end
     if (reset) begin
       reg_2 <= 32'h0;
-    end else if (_T_11) begin
+    end else if (_T_13) begin
       reg_2 <= io_host_wdata;
     end
     if (reset) begin
       reg_3 <= 32'h0;
-    end else if (_T_13) begin
+    end else if (_T_16) begin
       reg_3 <= io_host_wdata;
     end
     if (reset) begin
       reg_4 <= 32'h0;
-    end else if (_T_15) begin
+    end else if (_T_19) begin
       reg_4 <= io_host_wdata;
     end
     if (reset) begin
       reg_5 <= 32'h0;
-    end else if (_T_17) begin
+    end else if (_T_22) begin
       reg_5 <= io_host_wdata;
     end
     if (reset) begin
       reg_6 <= 32'h0;
-    end else if (_T_19) begin
+    end else if (_T_25) begin
       reg_6 <= io_host_wdata;
     end
     if (reset) begin
       reg_7 <= 32'h0;
-    end else if (_T_21) begin
+    end else if (_T_28) begin
       reg_7 <= io_host_wdata;
-    end
-    if (reset) begin
-      reg_8 <= 32'h0;
-    end else if (_T_23) begin
-      reg_8 <= io_host_wdata;
-    end
-    if (reset) begin
-      reg_9 <= 32'h0;
-    end else if (_T_25) begin
-      reg_9 <= io_host_wdata;
-    end
-    if (reset) begin
-      reg_10 <= 32'h0;
-    end else if (_T_27) begin
-      reg_10 <= io_host_wdata;
-    end
-    if (reset) begin
-      reg_11 <= 32'h0;
-    end else if (_T_29) begin
-      reg_11 <= io_host_wdata;
     end
   end
 endmodule
@@ -822,7 +762,7 @@ module DandelionF1DTAShell(
   wire [31:0] dcr_io_dcr_vals_0; // @[DandelionShell.scala 147:19]
   wire [31:0] dcr_io_dcr_vals_1; // @[DandelionShell.scala 147:19]
   wire [63:0] dcr_io_dcr_ptrs_0; // @[DandelionShell.scala 147:19]
-  wire [63:0] dcr_io_dcr_ptrs_2; // @[DandelionShell.scala 147:19]
+  wire [63:0] dcr_io_dcr_ptrs_1; // @[DandelionShell.scala 147:19]
   wire  vmem_clock; // @[DandelionShell.scala 148:20]
   wire  vmem_reset; // @[DandelionShell.scala 148:20]
   wire  vmem_io_mem_aw_ready; // @[DandelionShell.scala 148:20]
@@ -899,7 +839,7 @@ module DandelionF1DTAShell(
     .io_dcr_vals_0(dcr_io_dcr_vals_0),
     .io_dcr_vals_1(dcr_io_dcr_vals_1),
     .io_dcr_ptrs_0(dcr_io_dcr_ptrs_0),
-    .io_dcr_ptrs_2(dcr_io_dcr_ptrs_2)
+    .io_dcr_ptrs_1(dcr_io_dcr_ptrs_1)
   );
   VME vmem ( // @[DandelionShell.scala 148:20]
     .clock(vmem_clock),
@@ -994,7 +934,7 @@ module DandelionF1DTAShell(
   assign vmem_io_vme_rd_0_cmd_bits_len = dcr_io_dcr_vals_1[7:0]; // @[DandelionShell.scala 194:34]
   assign vmem_io_vme_rd_0_data_ready = buffer_io_enq_ready; // @[DandelionShell.scala 220:17]
   assign vmem_io_vme_wr_0_cmd_valid = Wstate == 2'h1; // @[DandelionShell.scala 199:31 DandelionShell.scala 206:33]
-  assign vmem_io_vme_wr_0_cmd_bits_addr = dcr_io_dcr_ptrs_2; // @[DandelionShell.scala 197:35]
+  assign vmem_io_vme_wr_0_cmd_bits_addr = dcr_io_dcr_ptrs_1; // @[DandelionShell.scala 197:35]
   assign vmem_io_vme_wr_0_cmd_bits_len = dcr_io_dcr_vals_1[7:0]; // @[DandelionShell.scala 198:34]
   assign vmem_io_vme_wr_0_data_valid = buffer_io_deq_valid; // @[DandelionShell.scala 222:26]
   assign vmem_io_vme_wr_0_data_bits = buffer_io_deq_bits; // @[DandelionShell.scala 222:26]
