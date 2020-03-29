@@ -2,20 +2,45 @@
 
 # Table of Contents
 
-1. [Overview of AWS EC2 FPGA Development Kit](#overviewdevkit)
+1. [Quick Start](#quickstart)
+2. [Overview of AWS EC2 FPGA Development Kit](#overviewdevkit)
     - [Development environments](#overviewdevenv)
     - [Runtime environments](#overviewrunenv)
     - [Example applications](#overviewexapps)
     - [Development tools](#overviewdevtools)
-2. [Getting Started](#gettingstarted)
-3. [FPGA Developer AMI available on AWS Marketplace](#devAmi)
-4. [FPGA Hardware Development Kit (HDK)](#fpgahdk)
-5. [FPGA Software Development Kit (SDK)](#fpgasdk)
-6. [OpenCL Development Environment with Amazon EC2 F1 FPGA Instances to accelerate your C/C++ applications](#sdaccel)
-7. [Developer Support](#devSupport)
-8. [Recommended Documentation](#doccontents)
-9. [Github tips and tricks](#githubtipstricks)
+3. [Getting Started](#gettingstarted)
+4. [FPGA Developer AMI available on AWS Marketplace](#devAmi)
+5. [FPGA Hardware Development Kit (HDK)](#fpgahdk)
+6. [FPGA Software Development Kit (SDK)](#fpgasdk)
+7. [OpenCL Development Environment with Amazon EC2 F1 FPGA Instances to accelerate your C/C++ applications](#sdaccel)
+8. [Developer Support](#devSupport)
+9. [Recommended Documentation](#doccontents)
+10. [Github tips and tricks](#githubtipstricks)
 
+
+
+<a name="quickstart"></a>
+# Quick start with AWC EC2 FPGA
+
+```shell
+git clone git@github.com:amsharifian/dandelion-aws.git
+cd dandelion-aws
+source sdk_setup.sh
+source hdk_setup.sh
+cd hdk/cl/developer_designs/cl_dandelion_acc/
+export CL_DIR=$(pwd)
+
+# For SW/HW co-simulation
+cd verify/scripts
+make C_TEST=test_dandelion_hwsw_cosim AXI_MEMORY_MODEL=1
+
+# For Building HW Image
+cd build/scripts
+export EMAIL=your.email@example.com
+$AWS_FPGA_REPO_DIR/shared/bin/scripts/notify_via_sns.py
+./aws_build_dcp_from_cl.sh -notify
+
+```
 
 <a name="overviewdevkit"></a>
 # Overview of AWS EC2 FPGA Development Kit

@@ -337,7 +337,7 @@ int dandelion_access(int slot_id) {
 
 
     in_hi_addr = 0x00000000;
-    in_lo_addr = 0x00000000;
+    in_lo_addr = 0x00000001;
 
     out_hi_addr = 0x00000000;
     out_lo_addr = 0x00000800;
