@@ -39,6 +39,10 @@ cd build/scripts
 export EMAIL=your.email@example.com
 $AWS_FPGA_REPO_DIR/shared/bin/scripts/notify_via_sns.py
 ./aws_build_dcp_from_cl.sh -notify
+cd ../checkpoints/to_aws/
+aws s3 cp 20_03_29-233820.Developer_CL.tar s3://dandelion-aws/dcp/
+aws ec2 create-fpga-image --name dandelion_accel --description "dandelion with dcr and dme" --input-storage-location Bucket=dandelion-aws,Key=dcp/20_03_29-233820.Developer_CL.tar --logs-storage-location Bucket=dandelion-aws,Key=log/LOGS_FILES_GO_HERE.txt
+aws ec2 describe-fpga-images  --fpga-image-ids "afi-0de9dd5ccb760a5d8"
 
 ```
 
