@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2019.1.op (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Tue Mar  3 21:53:32 2020
+# Process ID: 6224
+# Current directory: /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dram_dma_sv_fast
+# Command line: wbtcv -mode batch -source /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dram_dma_sv_fast/xsim.dir/tb/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dram_dma_sv_fast/webtalk.log
+# Journal file: /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dram_dma_sv_fast/webtalk.jou
+#-----------------------------------------------------------
+source /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dram_dma_sv_fast/xsim.dir/tb/webtalk/xsim_webtalk.tcl -notrace

@@ -1,0 +1,21 @@
+srcscan starts
+INFO: analyzing module cl_axi_interconnect (VERI-9002)
+INFO: analyzing module cl_axi_interconnect_axi_interconnect_0_0 (VERI-9002)
+INFO: analyzing module m00_couplers_imp_1QBJ6U2 (VERI-9002)
+INFO: analyzing module m01_couplers_imp_10IMR9A (VERI-9002)
+INFO: analyzing module m02_couplers_imp_APDUS2 (VERI-9002)
+INFO: analyzing module m03_couplers_imp_JAYOMU (VERI-9002)
+INFO: analyzing module s00_couplers_imp_QICM5G (VERI-9002)
+INFO: analyzing module s01_couplers_imp_GSTXQ8 (VERI-9002)
+Listing tops:
+VeriTop library:xil_defaultlib mod:cl_axi_interconnect
+END of tops
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(13): INFO: compiling module 'cl_axi_interconnect_default' (VERI-1018)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(3314): WARNING: Module <cl_axi_interconnect_m00_regslice_0> not found while processing module instance <m00_regslice> (VERI-1063)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(3724): WARNING: Module <cl_axi_interconnect_m01_regslice_0> not found while processing module instance <m01_regslice> (VERI-1063)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(4134): WARNING: Module <cl_axi_interconnect_m02_regslice_0> not found while processing module instance <m02_regslice> (VERI-1063)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(4544): WARNING: Module <cl_axi_interconnect_m03_regslice_0> not found while processing module instance <m03_regslice> (VERI-1063)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(4946): WARNING: Module <cl_axi_interconnect_s00_regslice_0> not found while processing module instance <s00_regslice> (VERI-1063)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(5346): WARNING: Module <cl_axi_interconnect_s01_regslice_0> not found while processing module instance <s01_regslice> (VERI-1063)
+/home/centos/git/dandelion-aws/hdk/common/shell_v04261818/design/ip/cl_axi_interconnect/synth/cl_axi_interconnect.v(2906): WARNING: Module <cl_axi_interconnect_xbar_0> not found while processing module instance <xbar> (VERI-1063)
+srcscan exits with return value 0

@@ -1,0 +1,1046 @@
+#-----------------------------------------------------------
+# xsim v2019.1.op (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Mon Mar 30 06:35:05 2020
+# Process ID: 10077
+# Current directory: /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dandelion_hwsw_cosim_c
+# Command line: xsim -log test_dandelion_hwsw_cosim.log -mode tcl -source {xsim.dir/tb/xsim_script.tcl}
+# Log file: /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dandelion_hwsw_cosim_c/test_dandelion_hwsw_cosim.log
+# Journal file: /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/sim/vivado/test_dandelion_hwsw_cosim_c/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/tb/xsim_script.tcl
+# xsim {tb} -autoloadwcfg -tclbatch {/home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/scripts/waves.tcl} -runall
+Vivado Simulator 2019.1
+Time resolution is 1 ps
+WARNING: [Simtcl 6-25] Warning: Both '-runall' and '-tclbatch' were specified. The '-runall' was ignored
+source /home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/scripts/waves.tcl
+## set curr_wave [current_wave_config]
+## if { [string length $curr_wave] == 0 } {
+##   if { [llength [get_objects]] > 0} {
+##     add_wave -recursive /
+##     set_property needs_save false [current_wave_config]
+##   } else {
+##      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+##   }
+## }
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 307712 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: [Wavedata 42-489] Can't add object "/tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/mem" to the wave window because it has 266240 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: Simulation object /tb/sv_host_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/ddr_name was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/h2c_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_data_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/read_data_buffer was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/host_mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/chan was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dst_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/cl_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/len was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dop was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/test_main/test_main was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/test_main/exit_code was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/int_handler/int_handler was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/int_handler/int_num was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_putc/addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_putc/data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_getc/host_memory_getc was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_getc/addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/sv_printf/msg was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/ddr_name was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/h2c_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_data_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/read_data_buffer was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/host_mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/chan was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dst_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/cl_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/len was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dop was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/h2c_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_data_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/read_data_buffer was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/host_mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/chan was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dst_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/cl_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/len was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dop was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/cl_sh_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/h2c_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/c2h_data_dma_list was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/read_data_buffer was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/host_mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/chan was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dst_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/cl_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/len was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dop was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/u_mem_model/mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/sda_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/ocl_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/bar1_axil_bfm/axil_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/chan was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dst_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/cl_addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/len was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/sh/dma_cl_to_buffer/dop was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[0].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[1].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_wr_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /cl_sh_rd_cmds was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_rd_data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /sh_cl_b_resps was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /model_memory was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/card/fpga/CL/SH_DDR/u_mem_model/\bfm_inst[2].u_bfm /mem_wr_que was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb/test_main/test_main was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/test_main/exit_code was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/int_handler/int_handler was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/int_handler/int_num was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_putc/addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_putc/data was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_getc/host_memory_getc was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/host_memory_getc/addr was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of automatic variables in Verilog/VHDL subprogram.
+WARNING: Simulation object /tb/sv_printf/msg was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+add_wave: Time (s): cpu = 00:01:29 ; elapsed = 00:01:46 . Memory (MB): peak = 2996.543 ; gain = 1474.969 ; free physical = 118471 ; free virtual = 140526
+## run 200 us 
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+WARNING: Behavioral models for independent clock FIFO configurations do not model synchronization delays. The behavioral models are functionally correct, and will represent the behavior of the configured FIFO. See the FIFO Generator User Guide for more information.
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_C.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_C/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_A.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_A/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_B.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_B/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_DMA_PCIS_SLV.CL_TST_DDR_D.CL_TST.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_DMA_PCIS_SLV/CL_TST_DDR_D/CL_TST/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.WRITE_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/WRITE_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.READ_INST_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/READ_INST_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4653  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_TRK_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4739  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_TRK_MD_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_TRK_MD_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4756  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_ADDR_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_ADDR_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4776  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_DAT_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_DAT_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_PCIM_MSTR.CL_TST_PCI.RD_EXP_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_PCIM_MSTR/CL_TST_PCI/RD_EXP_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_4793  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-1] MEMORY_PRIMITIVE (0) instructs Vivado Synthesis to choose the memory primitive type. Depending on their values, other XPM_MEMORY parameters may preclude the choice of certain memory primitive types. Review XPM_MEMORY documentation and parameter values to understand any limitations, or set MEMORY_PRIMITIVE to a different value. tb.card.fpga.CL.CL_SDA_SLV.AXIL_SLAVE.AXIL_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_SDA_SLV/AXIL_SLAVE/AXIL_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_10390  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Info: [XPM_MEMORY 20-2] MEMORY_INIT_FILE (none), MEMORY_INIT_PARAM together specify no memory initialization. Initial memory contents will be all 0's. tb.card.fpga.CL.CL_SDA_SLV.AXIL_SLAVE.AXIL_RAM.xpm_memory_tdpram_inst.xpm_memory_base_inst.config_drc  0
+Time: 1 ps  Iteration: 0  Process: /tb/card/fpga/CL/CL_SDA_SLV/AXIL_SLAVE/AXIL_RAM/xpm_memory_tdpram_inst/xpm_memory_base_inst/Initial290_10390  File: /wrk/2019.1/continuous/2019_05_24_2552052/packages/customer/vivado/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv
+Start dandelion access test
+Memory has been allocated, initializing DMA and filling the buffer...
+Starting DDR init...
+Done DDR init...
+filling buffer with  random data...
+Now performing the DMA transactions...
+Address is going to cross 4K boundary 
+
+Address is going to cross 4K boundary 
+
+Address is going to cross 4K boundary 
+
+Address is going to cross 4K boundary 
+
+Address is going to cross 4K boundary 
+
+Address is going to cross 4K boundary 
+
+Address is going to cross 4K boundary 
+
+Initilization passed!
+Starting AXI Master to DDR test
+Initializing dandelion accelerator:
+Writing 0x00000005 to Dandelion const register (0x0000000000000508)
+
+Writing 0x0000000a to Dandelion vector len register (0x000000000000050c)
+
+Writing 0x00000000 to Dandelion in lsb register (0x0000000000000510)
+
+Writing 0x00000000 to Dandelion in msb register (0x0000000000000514)
+
+Writing 0x00080000 to Dandelion out lsb register (0x0000000000000518)
+
+Writing 0x00000000 to Dandelion out msb register (0x000000000000051c)
+
+Lunching -- Writing 0x1 to dandelion ctrl register:
+Reading from 0x0000000000000504 to cycle count
+
+Execution finished in [ 36 ] cycle
+Checking memory output
+TEST PASSED 
+$finish called at time : 48702 ns : File "/home/centos/git/dandelion-aws/hdk/cl/developer_designs/cl_dandelion_acc/verif/tests/test_null.sv" Line 29
+run: Time (s): cpu = 00:00:09 ; elapsed = 00:00:22 . Memory (MB): peak = 3004.547 ; gain = 8.004 ; free physical = 118398 ; free virtual = 140508
+## quit
+INFO: [Common 17-206] Exiting xsim at Mon Mar 30 06:37:21 2020...
