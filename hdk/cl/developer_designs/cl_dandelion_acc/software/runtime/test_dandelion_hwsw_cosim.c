@@ -233,6 +233,7 @@ int dandelion_access(int slot_id) {
     uint32_t vector_len   = 0;
     uint32_t constant_val = 0;
     uint32_t cycle_count = 0;
+    uint32_t return_value = 0;
     uint32_t control_reg = 0;
     int write_fd, read_fd, dimm, rc;
     //int buffer_size = (1ULL << 20); // 1MB data
@@ -328,49 +329,32 @@ int dandelion_access(int slot_id) {
 
     static uint64_t ccr_control  = 0x500;
     static uint64_t ccr_cycle    = 0x504;
-    static uint64_t ccr_cnst     = 0x508;
-    static uint64_t ccr_len      = 0x50C;
-    static uint64_t ccr_in_lsb   = 0x510;
-    static uint64_t ccr_in_msb   = 0x514;
-    static uint64_t ccr_out_lsb  = 0x518;
-    static uint64_t ccr_out_msb  = 0x51C;
+    static uint64_t ccr_val      = 0x508;
+    static uint64_t ccr_a        = 0x50C;
+    static uint64_t ccr_b        = 0x510;
+    /*static uint64_t ccr_in_msb   = 0x514;*/
+    /*static uint64_t ccr_out_lsb  = 0x518;*/
+    /*static uint64_t ccr_out_msb  = 0x51C;*/
 
 
-    in_hi_addr = 0x00000000;
-    in_lo_addr = 0x00000001;
+    /*in_hi_addr = 0x00000000;*/
+    /*in_lo_addr = 0x00000001;*/
 
-    out_hi_addr = 0x00000000;
-    out_lo_addr = 0x00000800;
+    /*out_hi_addr = 0x00000000;*/
+    /*out_lo_addr = 0x00000800;*/
 
-    constant_val = 5;
-    vector_len = 10;
+    uint64_t a = 5;
+    uint64_t b = 10;
 
     //write a value into the mapped address space
     printf("Initializing dandelion accelerator:\n");
 
-    printf("Writing 0x%08x to Dandelion const register (0x%016lx)\n\n", constant_val, ccr_cnst);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_cnst, constant_val);
+    printf("Writing 0x%08x to Dandelion const register (0x%016lx)\n\n", a, ccr_a);
+    rc_control = fpga_pci_poke(pci_bar_handle, ccr_a, a);
     fail_on(rc_control, out, "Unable to write to the fpga !");
 
-    printf("Writing 0x%08x to Dandelion vector len register (0x%016lx)\n\n", vector_len, ccr_len);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_len, vector_len);
-    fail_on(rc_control, out, "Unable to write to the fpga !");
-
-    printf("Writing 0x%08x to Dandelion in lsb register (0x%016lx)\n\n", in_lo_addr, ccr_in_lsb);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_in_lsb, in_lo_addr);
-    fail_on(rc_control, out, "Unable to write to the fpga !");
-
-    printf("Writing 0x%08x to Dandelion in msb register (0x%016lx)\n\n", in_hi_addr, ccr_in_msb);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_in_msb, in_hi_addr);
-    fail_on(rc_control, out, "Unable to write to the fpga !");
-
-    printf("Writing 0x%08x to Dandelion out lsb register (0x%016lx)\n\n", out_lo_addr, ccr_out_lsb);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_out_lsb, out_lo_addr);
-    fail_on(rc_control, out, "Unable to write to the fpga !");
-
-
-    printf("Writing 0x%08x to Dandelion out msb register (0x%016lx)\n\n", out_hi_addr, ccr_out_msb);
-    rc_control = fpga_pci_poke(pci_bar_handle, ccr_out_msb, out_hi_addr);
+    printf("Writing 0x%08x to Dandelion const register (0x%016lx)\n\n", b, ccr_b);
+    rc_control = fpga_pci_poke(pci_bar_handle, ccr_b, b);
     fail_on(rc_control, out, "Unable to write to the fpga !");
 
     printf("Lunching -- Writing 0x1 to dandelion ctrl register:\n");
@@ -388,16 +372,20 @@ int dandelion_access(int slot_id) {
     rc_control = fpga_pci_peek(pci_bar_handle, ccr_cycle, &cycle_count);
     fail_on(rc_control, out, "Unable to read read from the fpga !");
 
-    rc_memory = do_dma_read(read_fd, read_buffer, buffer_size, 0x800, 0, slot_id);
-    fail_on(rc_memory, out, "DMA read failed on reading form out buffer.");
+    printf("Reading from 0x%016lx to return value\n\n", ccr_val);
+    rc_control = fpga_pci_peek(pci_bar_handle, ccr_val, &return_value);
+    fail_on(rc_control, out, "Unable to read read from the fpga !");
 
-    printf("Execution finished in [ %d ] cycle\n", cycle_count);
+    /*rc_memory = do_dma_read(read_fd, read_buffer, buffer_size, 0x800, 0, slot_id);*/
+    /*fail_on(rc_memory, out, "DMA read failed on reading form out buffer.");*/
 
-    printf("Checking memory output\n");
-    for(uint32_t i = 0; i < buffer_size; i++){
-        if(read_buffer[i] != write_buffer[i])
-            printf("Write Buffer [%d]: %d -- Read Buffer [%d]: %d\n", i, write_buffer[i], i, read_buffer[i]);
-    }
+    printf("Execution finished in [ %d ] cycle, Return: %d\n", cycle_count, return_value);
+
+    /*printf("Checking memory output\n");*/
+    /*for(uint32_t i = 0; i < buffer_size; i++){*/
+        /*if(read_buffer[i] != write_buffer[i])*/
+            /*printf("Write Buffer [%d]: %d -- Read Buffer [%d]: %d\n", i, write_buffer[i], i, read_buffer[i]);*/
+    /*}*/
 
 out:
     if (write_buffer != NULL) {

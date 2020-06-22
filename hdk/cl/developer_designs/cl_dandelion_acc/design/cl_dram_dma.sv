@@ -24,7 +24,7 @@ module cl_dram_dma #(parameter NUM_DDR=4)
 `include "cl_id_defines.vh"          // Defines for ID0 and ID1 (PCI ID's)
 `include "cl_dram_dma_defines.vh"
 
-`include "DandelionF1Accel.v" // CL Defines for dandelion accel
+`include "DandelionF1AccelDebug.v" // CL Defines for dandelion accel
 
 // TIE OFF ALL UNUSED INTERFACES
 // Including all the unused interface to tie off
@@ -316,7 +316,7 @@ cl_dma_pcis_slv #(.SCRB_BURST_LEN_MINUS1(DDR_SCRB_BURST_LEN_MINUS1),
       //.axi_mstr_cfg_bus(axi_mstr_cfg_bus)
     //);
 
- DandelionF1Accel dandelion_accel(
+ DandelionF1AccelDebug dandelion_accel(
      .ap_clk                   (clk),
      .ap_rst_n                 (dma_pcis_slv_sync_rst_n),
      .cl_axi_mstr_bus_AWVALID  (cl_axi_mstr_bus.awvalid),
